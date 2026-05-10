@@ -599,7 +599,7 @@ function aggiornaPayPal(haItems, totale) {
     },
     onError: function(err) {
       console.error('PayPal error:', err);
-      alert("Si è verificato un errore durante il pagamento. Riprova o contattaci su WhatsApp al +39 0982 428262.');
+      alert("Si è verificato un errore durante il pagamento. Riprova o contattaci su WhatsApp al +39 0982 428262.");
     }
   }).render('#paypal-render-target').catch(function(err) {
     console.error('PayPal render error:', err);
