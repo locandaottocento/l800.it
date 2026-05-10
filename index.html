@@ -1220,6 +1220,11 @@
   });
 
   DP.init();
+
+  // Fallback: dopo 2s forza visibilità su elementi ancora nascosti
+  setTimeout(function() {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
+  }, 2000);
 </script>
 </body>
 </html>

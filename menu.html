@@ -189,12 +189,12 @@
     <!-- MENU CIBO -->
     <div class="menu-card fade-in">
       <div class="card-preview">
-        <iframe src="menu.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
+        <iframe src="https://docs.google.com/viewer?url=https://l800-it.pages.dev/menu.pdf&embedded=true"
                 title="Anteprima menu L'800"
                 loading="lazy"
                 onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍽</span><span class=\'placeholder-label\'>Menu del cibo</span></div>'">
         </iframe>
-        <div class="card-preview-overlay"></div>
+        
       </div>
       <div class="card-body">
         <span class="card-tag">Cucina di pesce</span>
@@ -216,12 +216,12 @@
     <!-- CARTA DEI VINI -->
     <div class="menu-card fade-in delay-1">
       <div class="card-preview">
-        <iframe src="carta-dei-vini.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
+        <iframe src="https://docs.google.com/viewer?url=https://l800-it.pages.dev/carta-dei-vini.pdf&embedded=true"
                 title="Anteprima carta dei vini L'800"
                 loading="lazy"
                 onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍷</span><span class=\'placeholder-label\'>Carta dei vini</span></div>'">
         </iframe>
-        <div class="card-preview-overlay"></div>
+        
       </div>
       <div class="card-body">
         <span class="card-tag">Vini e bevande</span>
@@ -243,12 +243,12 @@
     <!-- MENU DOLCI -->
     <div class="menu-card fade-in delay-2">
       <div class="card-preview">
-        <iframe src="menu-dolci.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
+        <iframe src="https://docs.google.com/viewer?url=https://l800-it.pages.dev/menu-dolci.pdf&embedded=true"
                 title="Anteprima menu dolci L'800"
                 loading="lazy"
                 onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍰</span><span class=\'placeholder-label\'>Menu dolci</span></div>'">
         </iframe>
-        <div class="card-preview-overlay"></div>
+        
       </div>
       <div class="card-body">
         <span class="card-tag">Dolci e fine pasto</span>
@@ -347,6 +347,11 @@
       document.body.style.overflow = '';
     }
   });
+
+  // Fallback: dopo 2s forza visibilità su elementi ancora nascosti
+  setTimeout(function() {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
+  }, 2000);
 </script>
 </body>
 </html>

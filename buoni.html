@@ -898,12 +898,23 @@ function disegnaBoxRegalo(doc, x, y, s, color) {
   doc.line(x + s * 0.44, y + s * 0.22, x + s * 0.28, y + s * 0.37);
   doc.line(x + s * 0.56, y + s * 0.22, x + s * 0.72, y + s * 0.37);
 }
-// ── FADE IN OBSERVER ──
-const observer = new IntersectionObserver(
-  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-  { threshold: 0.1 }
-);
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+<script>
+  // Observer in blocco separato — indipendente da PayPal/jsPDF
+  try {
+    const fadeObs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.05 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+  } catch(e) {
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }
+  // Fallback: dopo 2s forza visibilità su qualunque elemento ancora nascosto
+  setTimeout(function() {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 2000);
 </script>
 </body>
 </html>
