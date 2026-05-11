@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<script>
+  // Eseguito PRIMA del rendering — nasconde subito il banner se consenso già dato
+  (function() {
+    var c = localStorage.getItem('l800_cookie_consent');
+    if (c !== null) {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('cookie-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prenota un tavolo – L'800 Locanda a Palazzo, Amantea</title>
+<meta name="description" content="Prenota il tuo tavolo all'L'800 Locanda a Palazzo di Amantea, Calabria. Ristorante di pesce con cucina calabrese autentica. Prenotazione rapida via WhatsApp o online. Aperto martedì–domenica, pranzo e cena.">
+<meta name="keywords" content="prenotare tavolo Amantea, prenotazione ristorante Amantea, prenota L800 Amantea, ristorante pesce prenotazione Calabria, tavolo ristorante Amantea, prenota cena Amantea, L800 locanda palazzo prenotazione, dove mangiare Amantea prenotazione">
+<meta name="author" content="L'800 Locanda a Palazzo">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://l800-it.pages.dev/prenota.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prenota un tavolo – L'800 Locanda a Palazzo, Amantea">
+<meta property="og:description" content="Prenota il tuo tavolo all'L'800 Locanda a Palazzo di Amantea. Cucina di pesce calabrese autentica in un palazzo storico dell'Ottocento. Risposta immediata via WhatsApp.">
+<meta property="og:url" content="https://l800-it.pages.dev/prenota.html">
+<meta property="og:image" content="https://l800-it.pages.dev/hero-giardino.jpg">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="L'800 Locanda a Palazzo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prenota un tavolo – L'800 Locanda a Palazzo, Amantea">
+<meta name="twitter:description" content="Prenotazione rapida via WhatsApp. Cucina di pesce calabrese in un palazzo storico dell'Ottocento ad Amantea.">
+<meta name="twitter:image" content="https://l800-it.pages.dev/hero-giardino.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FoodEstablishment",
+  "name": "L'800 Locanda a Palazzo",
+  "url": "https://l800-it.pages.dev",
+  "image": "https://l800-it.pages.dev/hero-giardino.jpg",
+  "description": "Ristorante di pesce nel cuore storico di Amantea, in un palazzo dell'Ottocento. Cucina calabrese autentica con pescato fresco del Tirreno. Prenotazione via WhatsApp o online.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Calavecchia 53",
+    "addressLocality": "Amantea",
+    "addressRegion": "Cosenza",
+    "postalCode": "87032",
+    "addressCountry": "IT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.132,
+    "longitude": 16.057
+  },
+  "telephone": "+390982428262",
+  "email": "info@l800.it",
+  "servesCuisine": ["Pesce", "Cucina Calabrese", "Seafood", "Cucina Italiana"],
+  "priceRange": "€€€",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "12:00",
+      "closes": "14:30"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "19:30",
+      "closes": "22:00"
+    }
+  ],
+  "hasMap": "https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A",
+  "reservations": "https://l800-it.pages.dev/prenota.html",
+  "acceptsReservations": true,
+  "aggregateRating": [
+    {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "540",
+      "bestRating": "5",
+      "name": "TripAdvisor"
+    },
+    {
+      "@type": "AggregateRating",
+      "ratingValue": "9.3",
+      "bestRating": "10",
+      "name": "TheFork"
+    }
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE4; --cream-light: #FAF6EF; --cream-dark: #EDE4D4;
+    --brown: #7A4E28; --brown-dark: #5C3515; --brown-light: #A67C52;
+    --brown-pale: #C4A882; --text: #3D2810; --text-light: #7A5C3C;
+    --border: rgba(122,78,40,0.18); --gold: #C4A050;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html, body { overflow-x:hidden; scroll-behavior:smooth; }
+  body { font-family:'EB Garamond',Georgia,serif; background:var(--cream-light); color:var(--text); }
+  img { max-width:100%; height:auto; }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 48px; background:rgba(250,246,239,0.96); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { text-decoration:none; display:flex; flex-direction:column; line-height:1; }
+  .nav-logo-main { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:26px; color:var(--brown); }
+  .nav-logo-sub { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.25em; color:var(--brown-light); text-transform:uppercase; }
+  .nav-back { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; color:var(--text-light); text-decoration:none; text-transform:uppercase; transition:color 0.3s; }
+  .nav-back:hover { color:var(--brown); }
+
+  /* HERO */
+  .hero { padding:130px 80px 72px; background:var(--brown-dark); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FAF6EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events:none; }
+  .hero-inner { position:relative; z-index:2; max-width:680px; }
+  .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:18px; display:block; }
+  .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(38px,5vw,64px); font-weight:300; color:var(--cream-light); line-height:1.06; margin-bottom:20px; }
+  .hero-title em { font-style:italic; color:var(--brown-pale); }
+  .hero-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:rgba(245,239,228,0.7); line-height:1.75; }
+
+  /* MAIN LAYOUT */
+  .prenota-main { display:grid; grid-template-columns:1fr 420px; gap:0; max-width:1200px; margin:0 auto; padding:80px 48px 100px; align-items:start; gap:60px; }
+
+  /* FORM WHATSAPP */
+  .form-section { }
+  .section-label { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.28em; color:var(--brown-light); text-transform:uppercase; display:block; margin-bottom:14px; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,3.5vw,42px); font-weight:300; color:var(--text); margin-bottom:8px; line-height:1.1; }
+  .section-title em { font-style:italic; color:var(--brown); }
+  .section-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:16px; color:var(--text-light); line-height:1.7; margin-bottom:36px; max-width:520px; }
+  .ornament { width:40px; height:1px; background:var(--brown-pale); margin:24px 0; }
+
+  .form-box { background:var(--cream); border:1px solid var(--border); padding:36px; }
+  .form-row { margin-bottom:20px; }
+  .form-label { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em; color:var(--brown-light); text-transform:uppercase; display:block; margin-bottom:8px; }
+  .form-select, .form-input { width:100%; padding:12px 14px; min-height:48px; font-family:'EB Garamond',serif; font-size:16px; color:var(--text); background:var(--cream-light); border:1px solid var(--border); outline:none; transition:border-color 0.2s; appearance:none; -webkit-appearance:none; border-radius:0; }
+  .form-select:focus, .form-input:focus { border-color:var(--brown); }
+  .form-input[type="date"] { cursor:pointer; }
+  textarea.form-input { min-height:90px; resize:vertical; font-style:italic; }
+
+  /* Date picker custom */
+  .datepicker-wrap { position:relative; }
+  .datepicker-input { width:100%; padding:12px 14px; min-height:48px; font-family:'EB Garamond',serif; font-size:16px; color:var(--text); background:var(--cream-light); border:1px solid var(--border); outline:none; cursor:pointer; -webkit-appearance:none; border-radius:0; text-align:left; display:flex; align-items:center; justify-content:space-between; transition:border-color 0.2s; }
+  .datepicker-input.open { border-color:var(--brown); }
+  .datepicker-calendar { display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; background:var(--cream-light); border:1px solid var(--border); z-index:50; box-shadow:0 8px 24px rgba(61,40,16,0.12); padding:16px; }
+  .datepicker-calendar.open { display:block; }
+  .dp-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .dp-nav button { background:none; border:none; cursor:pointer; padding:4px 10px; font-size:18px; color:var(--brown-pale); transition:color 0.2s; }
+  .dp-nav button:hover { color:var(--brown); }
+  .dp-month-label { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; color:var(--brown); text-transform:uppercase; }
+  .dp-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+  .dp-dow { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.12em; color:var(--brown-pale); text-transform:uppercase; text-align:center; padding:4px 0 8px; }
+  .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-family:'EB Garamond',serif; font-size:14px; color:var(--text); cursor:pointer; border:1px solid transparent; transition:all 0.15s; }
+  .dp-day:hover:not(.dp-disabled):not(.dp-empty) { background:var(--cream-dark); border-color:var(--brown-pale); }
+  .dp-day.dp-selected { background:var(--brown); color:var(--cream-light); border-color:var(--brown); }
+  .dp-day.dp-today { border-color:var(--brown-pale); }
+  .dp-day.dp-disabled { color:rgba(122,78,40,0.2); cursor:not-allowed; text-decoration:line-through; }
+  .dp-day.dp-empty { cursor:default; }
+
+  .btn-wa { font-family:'Cormorant SC',serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; background:#2e7d32; border:none; padding:16px 24px; cursor:pointer; text-decoration:none; transition:background 0.3s; display:flex; align-items:center; justify-content:center; gap:10px; width:100%; margin-top:8px; }
+  .btn-wa:hover { background:#1b5e20; }
+  .nota { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.14em; color:var(--brown-pale); text-transform:uppercase; margin-top:12px; text-align:center; }
+
+  /* SIDEBAR */
+  .sidebar { display:flex; flex-direction:column; gap:24px; }
+
+  .info-card { background:var(--cream); border:1px solid var(--border); padding:28px; }
+  .info-card-title { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.22em; color:var(--brown); text-transform:uppercase; margin-bottom:16px; display:block; }
+  .info-row { display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; }
+  .info-row:last-child { margin-bottom:0; }
+  .info-icon { font-size:16px; flex-shrink:0; margin-top:2px; }
+  .info-text { font-family:'EB Garamond',serif; font-size:15px; color:var(--text-light); line-height:1.6; }
+  .info-text strong { font-weight:500; color:var(--text); display:block; }
+
+  .orari-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); margin-top:8px; }
+  .orari-cell { background:var(--cream-light); padding:10px 12px; }
+  .orari-giorno { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:var(--brown-light); text-transform:uppercase; display:block; margin-bottom:3px; }
+  .orari-ore { font-family:'EB Garamond',serif; font-size:14px; color:var(--text); }
+  .orari-chiuso { font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:var(--brown-pale); }
+
+  .btn-octotable { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--cream-light); background:var(--brown-dark); border:1px solid var(--brown-dark); padding:14px 20px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:block; text-align:center; }
+  .btn-octotable:hover { background:var(--brown); border-color:var(--brown); }
+
+  /* SEZIONE CONTESTO SEO */
+  .context-section { background:var(--cream-dark); padding:72px 80px; border-top:1px solid var(--border); }
+  .context-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; max-width:1000px; margin:40px auto 0; }
+  .context-item { }
+  .context-num { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:40px; color:var(--brown-pale); line-height:1; margin-bottom:8px; display:block; }
+  .context-label { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em; color:var(--brown); text-transform:uppercase; margin-bottom:8px; display:block; }
+  .context-text { font-family:'EB Garamond',serif; font-style:italic; font-size:15px; color:var(--text-light); line-height:1.65; }
+
+  /* MAPPA */
+  .mappa-section { padding:0 80px 80px; background:var(--cream-dark); }
+  .mappa-wrap { height:320px; border:1px solid var(--border); overflow:hidden; position:relative; max-width:1000px; margin:0 auto; }
+  .mappa-wrap iframe { width:100%; height:100%; border:none; }
+  .mappa-link { position:absolute; bottom:12px; right:12px; z-index:2; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.18em; color:var(--cream-light); background:var(--brown); padding:8px 14px; text-decoration:none; text-transform:uppercase; }
+
+  /* FOOTER */
+  footer { background:var(--brown-dark); padding:28px 48px; display:flex; flex-direction:column; gap:10px; }
+  .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
+  .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(245,239,228,0.35); text-transform:uppercase; }
+
+  /* FADE IN */
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+  .delay-1 { transition-delay:0.12s; }
+  .delay-2 { transition-delay:0.24s; }
+
+  /* RESPONSIVE */
+  @media (max-width:1024px) {
+    .prenota-main { grid-template-columns:1fr; gap:48px; padding:64px 40px; }
+    .sidebar { grid-row:1; }
+    .context-section { padding:56px 40px; }
+    .mappa-section { padding:0 40px 56px; }
+    footer { padding:24px 40px; }
+  }
+  @media (max-width:768px) {
+    nav { padding:14px 20px; }
+    .hero { padding:88px 24px 52px; }
+    .prenota-main { padding:48px 20px 64px; gap:36px; }
+    .form-box { padding:24px 20px; }
+    .context-section { padding:48px 20px; }
+    .context-grid { grid-template-columns:1fr; gap:24px; }
+    .mappa-section { padding:0 20px 48px; }
+    .mappa-wrap { height:240px; }
+    footer { padding:20px; } .footer-top { flex-direction:column; text-align:center; }
+  }
+
+  /* ── COOKIE BANNER ── */
+  #cookie-banner {
+    position:fixed; bottom:0; left:0; right:0; z-index:9999;
+    background:rgba(30,18,6,0.96); backdrop-filter:blur(8px);
+    padding:20px 32px; display:flex; align-items:center;
+    justify-content:space-between; gap:20px; flex-wrap:wrap;
+    border-top:1px solid rgba(196,168,130,0.3);
+    transform:translateY(100%); transition:transform 0.4s ease;
+  }
+  #cookie-banner.visible { transform:translateY(0); }
+  #cookie-banner p { font-family:'EB Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
+  .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
+  .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
+  .cookie-btn-accept:hover { background:var(--brown-dark); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
+  @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
+
+  .info-sotto-form { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
+  @media(max-width:768px){ .info-sotto-form { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-main">L'800</span>
+    <span class="nav-logo-sub">Locanda a Palazzo</span>
+  </a>
+  <a href="index.html" class="nav-back">← Torna al sito</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Amantea · Via Calavecchia 53 · Calabria</span>
+    <h1 class="hero-title">Prenota il tuo<br><em>tavolo</em></h1>
+    <p class="hero-sub">
+      Componi la tua richiesta in pochi secondi e inviala via WhatsApp. Ti risponderemo entro brevissimo tempo per confermare la disponibilità.
+    </p>
+  </div>
+</section>
+
+<!-- MAIN: FORM + SIDEBAR -->
+<div class="prenota-main">
+
+  <!-- FORM -->
+  <div class="form-section fade-in">
+    <span class="section-label">Richiesta di prenotazione</span>
+    <h2 class="section-title">Componi la tua<br><em>richiesta</em></h2>
+    <p class="section-sub">
+      Prenota il tuo tavolo online, scrivendoci su WhatsApp o telefonandoci. Scegli il metodo che preferisci.
+    </p>
+    <div class="ornament"></div>
+
+    <div class="form-box">
+      <!-- Data -->
+      <div class="form-row">
+        <label class="form-label">Data</label>
+        <div class="datepicker-wrap">
+          <button type="button" class="datepicker-input" id="datepickerBtn2" onclick="dpToggle2()" aria-label="Seleziona data">
+            <span id="dpDisplay2">Seleziona una data</span>
+            <span style="font-size:12px;color:var(--brown-pale);">▾</span>
+          </button>
+          <div class="datepicker-calendar" id="dpCalendar2"></div>
+        </div>
+        <input type="hidden" id="prenotaData2">
+      </div>
+
+      <!-- Ospiti -->
+      <div class="form-row">
+        <label class="form-label" for="prenotaOspiti2">Numero di ospiti</label>
+        <select id="prenotaOspiti2" class="form-select" onchange="aggiornaLink2()">
+          <option value="1 persona">1 persona</option>
+          <option value="2 persone" selected>2 persone</option>
+          <option value="3 persone">3 persone</option>
+          <option value="4 persone">4 persone</option>
+          <option value="5 persone">5 persone</option>
+          <option value="6 persone">6 persone</option>
+          <option value="7 persone">7 persone</option>
+          <option value="8 persone">8 persone</option>
+          <option value="più di 8 persone">Più di 8 persone</option>
+        </select>
+      </div>
+
+      <!-- Orario -->
+      <div class="form-row">
+        <label class="form-label" for="prenotaOrario2">Orario</label>
+        <select id="prenotaOrario2" class="form-select" onchange="aggiornaLink2()">
+          <option value="">Seleziona un orario</option>
+          <optgroup label="Pranzo">
+            <option value="12:00">12:00</option>
+            <option value="12:30">12:30</option>
+            <option value="13:30">13:30</option>
+            <option value="14:00">14:00</option>
+          </optgroup>
+          <optgroup label="Cena">
+            <option value="19:30">19:30</option>
+            <option value="20:00">20:00</option>
+            <option value="20:30">20:30</option>
+            <option value="21:00">21:00</option>
+            <option value="21:30">21:30</option>
+            <option value="22:00">22:00</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Note opzionali -->
+      <div class="form-row">
+        <label class="form-label" for="prenotaNote2">Note o richieste speciali (facoltativo)</label>
+        <textarea id="prenotaNote2" class="form-input" placeholder="Es: occasione speciale, allergie, preferenze tavolo…" oninput="aggiornaLink2()"></textarea>
+      </div>
+
+      <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa">
+        📱 Invia richiesta via WhatsApp
+      </a>
+      <p class="nota">Risposta solitamente entro pochi minuti · Aperto mar–dom</p>
+    </div>
+
+    <!-- ORARI + CONTATTI sotto il form -->
+    <div class="info-sotto-form">
+      <!-- Orari -->
+      <div class="info-card fade-in delay-1">
+        <span class="info-card-title">Orari di apertura</span>
+        <div class="orari-grid">
+          <div class="orari-cell">
+            <span class="orari-giorno">Lun · Mar · Gio</span>
+            <span class="orari-ore">12:00–14:30<br>19:30–22:00</span>
+          </div>
+          <div class="orari-cell">
+            <span class="orari-giorno">Ven · Sab · Dom</span>
+            <span class="orari-ore">12:00–14:30<br>19:30–22:00</span>
+          </div>
+          <div class="orari-cell" style="grid-column:span 2;background:var(--cream-dark);">
+            <span class="orari-giorno">Mercoledì</span>
+            <span class="orari-chiuso">Chiuso</span>
+          </div>
+        </div>
+      </div>
+      <!-- Contatti -->
+      <div class="info-card fade-in delay-1">
+        <span class="info-card-title">Contatti</span>
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <span class="info-text"><strong>Indirizzo</strong>Via Calavecchia 53<br>87032 Amantea (CS)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">📞</span>
+          <span class="info-text"><strong>Telefono</strong><a href="tel:+390982428262" style="color:var(--brown);text-decoration:none;">0982 428262</a></span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">✉️</span>
+          <span class="info-text"><strong>Email</strong><a href="mailto:info@l800.it" style="color:var(--brown);text-decoration:none;">info@l800.it</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <!-- Octotable -->
+    <div class="info-card fade-in delay-2">
+      <span class="info-card-title">Prenota online</span>
+      <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--text-light);line-height:1.6;margin-bottom:16px;">Preferisci prenotare direttamente online senza passare per WhatsApp? Usa il nostro sistema di prenotazione.</p>
+      <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener" class="btn-octotable">
+        Prenota con Octotable →
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONTESTO SEO -->
+<section class="context-section">
+  <div style="text-align:center;" class="fade-in">
+    <span class="section-label">Perché sceglierci</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--text);">Il ristorante di pesce <em style="font-style:italic;color:var(--brown);">di riferimento ad Amantea</em></h2>
+  </div>
+  <div class="context-grid">
+    <div class="context-item fade-in">
+      <span class="context-num">4.8</span>
+      <span class="context-label">Su TripAdvisor</span>
+      <p class="context-text">Oltre 540 recensioni, Travellers' Choice 2022. La qualità confermata da chi ha scelto di raccontarla.</p>
+    </div>
+    <div class="context-item fade-in delay-1">
+      <span class="context-num">9,3</span>
+      <span class="context-label">Su TheFork</span>
+      <p class="context-text">Una delle valutazioni più alte della zona per un ristorante di pesce in Calabria.</p>
+    </div>
+    <div class="context-item fade-in delay-2">
+      <span class="context-num">1800</span>
+      <span class="context-label">Il palazzo storico</span>
+      <p class="context-text">Un palazzo dell'Ottocento nel cuore di Amantea. Un'esperienza che va oltre il pasto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAPPA -->
+<div class="mappa-section">
+  <div class="mappa-wrap fade-in">
+    <iframe
+      data-src-consent="https://maps.google.com/maps" src="about:blank"?q=Via+Calavecchia,+53,+87032+Amantea+CS,+Italy&z=17&output=embed"
+      allowfullscreen loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="L'800 Locanda a Palazzo — Via Calavecchia 53, Amantea">
+    </iframe>
+    <a class="mappa-link" href="https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A" target="_blank" rel="noopener">Apri in Maps →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <span class="footer-brand">L'800</span>
+    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea (CS)</span>
+  </div>
+  <div class="footer-legal">
+    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
+    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Termini e Condizioni</a>
+  </div>
+</footer>
+
+<script>
+  // ── AGGIORNA LINK WHATSAPP ──
+  function aggiornaLink2() {
+    const data   = document.getElementById('prenotaData2').value;
+    const ospiti = document.getElementById('prenotaOspiti2').value;
+    const orario = document.getElementById('prenotaOrario2').value;
+    const note   = document.getElementById('prenotaNote2').value.trim();
+    const btn    = document.getElementById('btnWA2');
+
+    const dataFmt = data
+      ? new Date(data + 'T12:00:00').toLocaleDateString('it-IT', {day:'2-digit',month:'long',year:'numeric'})
+      : '';
+
+    let msg = 'Ciao, vorrei prenotare un tavolo';
+    if (ospiti) msg += ' per ' + ospiti;
+    if (dataFmt) msg += ' il ' + dataFmt;
+    if (orario)  msg += ' alle ' + orario;
+    if (note)    msg += '. Note: ' + note;
+    msg += '. È disponibile?';
+
+    btn.href = 'https://wa.me/390982428262?text=' + encodeURIComponent(msg);
+  }
+
+  // ── DATE PICKER ──
+  const DP2 = {
+    year:0, month:0, selected:null,
+    init() {
+      const t = new Date();
+      this.year = t.getFullYear();
+      this.month = t.getMonth();
+      this.render();
+    },
+    render() {
+      const cal = document.getElementById('dpCalendar2');
+      const mesi = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+      const oggi = new Date(); oggi.setHours(0,0,0,0);
+      const primo = new Date(this.year, this.month, 1);
+      const ultimo = new Date(this.year, this.month + 1, 0);
+      let startDow = primo.getDay();
+      startDow = startDow === 0 ? 6 : startDow - 1;
+
+      let h = '<div class="dp-nav">';
+      h += '<button onclick="event.stopPropagation();DP2.prevMese(event)">&#8249;</button>';
+      h += '<span class="dp-month-label">' + mesi[this.month] + ' ' + this.year + '</span>';
+      h += '<button onclick="event.stopPropagation();DP2.nextMese(event)">&#8250;</button></div>';
+      h += '<div class="dp-grid">';
+      ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'].forEach((d,i) => {
+        h += '<div class="dp-dow">' + d + '</div>';
+      });
+      for (let i = 0; i < startDow; i++) h += '<div class="dp-day dp-empty"></div>';
+      for (let g = 1; g <= ultimo.getDate(); g++) {
+        const d = new Date(this.year, this.month, g); d.setHours(0,0,0,0);
+        const isMer = d.getDay() === 3;
+        const isPast = d < oggi;
+        const isSel = this.selected && d.toDateString() === this.selected.toDateString();
+        const isToday = d.toDateString() === oggi.toDateString();
+        let cls = 'dp-day';
+        if (isMer || isPast) cls += ' dp-disabled';
+        if (isSel) cls += ' dp-selected';
+        if (isToday && !isPast) cls += ' dp-today';
+        const click = (!isMer && !isPast) ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
+        h += '<div class="' + cls + '"' + click + '>' + g + '</div>';
+      }
+      h += '</div>';
+      cal.innerHTML = h;
+    },
+    selGiorno(y,m,g) {
+      this.selected = new Date(y,m,g);
+      const pad = n => String(n).padStart(2,'0');
+      document.getElementById('prenotaData2').value = y + '-' + pad(m+1) + '-' + pad(g);
+      document.getElementById('dpDisplay2').textContent = this.selected.toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+      document.getElementById('dpCalendar2').classList.remove('open');
+      document.getElementById('datepickerBtn2').classList.remove('open');
+      aggiornaLink2();
+    },
+    prevMese(e) { if(e) e.stopPropagation(); if(this.month===0){this.month=11;this.year--;}else this.month--; this.render(); },
+    nextMese(e) { if(e) e.stopPropagation(); if(this.month===11){this.month=0;this.year++;}else this.month++; this.render(); }
+  };
+
+  function dpToggle2() {
+    const cal = document.getElementById('dpCalendar2');
+    const btn = document.getElementById('datepickerBtn2');
+    cal.classList.toggle('open');
+    btn.classList.toggle('open');
+    if (cal.classList.contains('open')) DP2.render();
+  }
+
+  document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.datepicker-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('dpCalendar2').classList.remove('open');
+      document.getElementById('datepickerBtn2').classList.remove('open');
+    }
+  });
+
+  DP2.init();
+
+  // ── FADE IN ──
+  try {
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.06 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  } catch(e) {
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }
+  setTimeout(function() {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 2000);
+</script>
+<script>
+  // ── COOKIE CONSENT ──
+  (function() {
+    var consent = localStorage.getItem('l800_cookie_consent');
+    var banner  = document.getElementById('cookie-banner');
+    if (consent === null) {
+      // Prima visita: mostra banner dopo 800ms
+      setTimeout(function() {
+        if (banner) banner.classList.add('visible');
+      }, 800);
+    } else {
+      // Consenso già espresso: nascondi definitivamente
+      if (banner) banner.style.display = 'none';
+      if (consent === 'true') enableThirdParty();
+    }
+  })();
+
+  function setCookieConsent(accepted) {
+    localStorage.setItem('l800_cookie_consent', accepted ? 'true' : 'false');
+    var banner = document.getElementById('cookie-banner');
+    if (banner) { banner.style.display = 'none'; }
+    if (accepted) enableThirdParty();
+  }
+
+  function enableThirdParty() {
+    // Attiva Google Maps iframe
+    document.querySelectorAll('[data-src-consent]').forEach(function(el) {
+      el.src = el.getAttribute('data-src-consent');
+    });
+  }
+
+  // Funzione per riaprire banner dalla cookie policy
+  window.riapriBannerCookie = function() {
+    localStorage.removeItem('l800_cookie_consent');
+    var banner = document.getElementById('cookie-banner');
+    if (banner) banner.classList.add('visible');
+  };
+</script>
+</body>
+</html>
