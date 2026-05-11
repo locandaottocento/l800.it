@@ -84,18 +84,18 @@
   .nav-mobile-toggle { display: none; }
 
   /* ── HERO ── */
-  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; background: var(--cream-light); overflow: hidden; }
-  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 56px 80px 80px; }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding-top: 72px; background: var(--cream-light); overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: clamp(32px, 5vw, 80px) clamp(24px, 4vw, 56px) clamp(32px, 5vw, 80px) clamp(32px, 6vw, 80px); }
   .hero-location { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: 0.28em; color: var(--brown-light); text-transform: uppercase; margin-bottom: 24px; }
   .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 4.5vw, 62px); font-weight: 300; line-height: 1.08; color: var(--text); margin-bottom: 28px; }
   .hero-title em { font-style: italic; color: var(--brown); }
   .hero-subtitle { font-family: 'EB Garamond', serif; font-size: 17px; font-style: italic; line-height: 1.75; color: var(--text-light); max-width: 420px; margin-bottom: 40px; }
-  .hero-actions { display: flex; gap: 14px; align-items: center; margin-bottom: 48px; }
+  .hero-actions { display: flex; gap: clamp(8px, 1vw, 14px); align-items: center; flex-wrap: wrap; margin-bottom: clamp(24px, 3.5vw, 48px); }
   .hero-info { display: flex; gap: 36px; padding-top: 36px; border-top: 1px solid var(--border); }
   .hero-info-item { display: flex; flex-direction: column; gap: 4px; }
   .hero-info-label { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.22em; color: var(--brown-pale); text-transform: uppercase; }
   .hero-info-value { font-family: 'EB Garamond', serif; font-size: 14px; color: var(--text-light); }
-  .hero-right { position: relative; overflow: hidden; }
+  .hero-right { position: relative; overflow: hidden; min-height: 400px; }
   .hero-img-wrap { position: absolute; inset: 0; }
   .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 75%; opacity: 0.92; filter: sepia(8%) contrast(1.05) brightness(0.97); }
   img { max-width: 100%; }
@@ -327,7 +327,7 @@
     .nav-links a { font-size: 9px; }
 
     .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-left { padding: 100px 40px 56px; }
+    .hero-left { padding: clamp(80px, 8vw, 100px) 32px 48px; }
     .hero-right { height: 420px; }
 
     .storia { grid-template-columns: 1fr; }
@@ -531,6 +531,14 @@
     .hero-info-item { flex-direction: column; align-items: flex-start; gap: 2px; }
   }
 
+
+  .home-slideshow { display:flex; flex-direction:column; }
+  .home-slide { position:absolute; inset:0; opacity:0; transition:opacity 0.8s ease; }
+  .home-slide.active { opacity:1; }
+  .home-slide-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(250,246,239,0.2); border:1px solid rgba(250,246,239,0.25); color:var(--cream-light); font-size:22px; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10; border-radius:0; transition:background 0.3s; }
+  .home-slide-prev { left:10px; }
+  .home-slide-next { right:10px; }
+  .home-slide-btn:hover { background:rgba(250,246,239,0.4); }
 </style>
 </head>
 <body>
@@ -707,15 +715,15 @@
   </div>
   <div class="gallery-grid">
     <div class="gallery-item fade-in delay-1">
-      <img src="crudite-pesce-fresco.jpg" alt="Crudité di pesce fresco – barca con gamberi, scampi, ostriche e agrumi – L'800 Locanda a Palazzo" loading="lazy">
+      <img src="crudite-pesce-fresco.jpg" alt="Crudité di pesce fresco – barca con gamberi, scampi, ostriche e agrumi – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 60%;">
       <div class="gallery-item-overlay"><span class="gallery-item-label">Crudité di pesce fresco</span></div>
     </div>
     <div class="gallery-item fade-in delay-2">
-      <img src="tagliolini-arancia-gamberi-rossi.jpg" alt="Tagliolini all'arancia con crudité di gamberi rossi – L'800 Locanda a Palazzo" loading="lazy">
+      <img src="tagliolini-arancia-gamberi-rossi.jpg" alt="Tagliolini all'arancia con crudité di gamberi rossi – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 72%;">
       <div class="gallery-item-overlay"><span class="gallery-item-label">Tagliolini all'arancia con gamberi rossi</span></div>
     </div>
     <div class="gallery-item fade-in delay-3">
-      <img src="filetto-spigola-pistacchio.jpg" alt="Filetto di spigola in crosta di pistacchio con crema di patate al limone – L'800 Locanda a Palazzo" loading="lazy">
+      <img src="filetto-spigola-pistacchio.jpg" alt="Filetto di spigola in crosta di pistacchio con crema di patate al limone – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 68%;">
       <div class="gallery-item-overlay"><span class="gallery-item-label">Filetto di spigola in crosta di pistacchio</span></div>
     </div>
   </div>
@@ -942,9 +950,14 @@
       <a href="eventi.html" class="btn-secondary" style="margin-right:14px;">Scopri cosa possiamo fare per te</a><a href="https://wa.me/390982428262?text=Ciao%2C%20vorrei%20informazioni%20per%20organizzare%20un%20evento%20privato%20da%20L%27800." target="_blank" class="btn-primary">Richiedi informazioni</a>
     </div>
     <div class="fade-in delay-1" style="display:flex;flex-direction:column;gap:20px;">
-      <div style="position:relative;border:1px solid var(--border);overflow:hidden;min-height:220px;display:flex;align-items:flex-end;">
-        <img src="giardino-eventi-drone.jpg" alt="Giardino de L'800 Locanda a Palazzo allestito per un evento serale, vista drone" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
-        <div style="position:relative;z-index:2;width:100%;padding:24px 28px;background:linear-gradient(to top, rgba(30,18,6,0.78) 0%, transparent 100%);">
+      <div class="home-slideshow" id="homeSlideshow" style="position:relative;border:1px solid var(--border);overflow:hidden;min-height:220px;">
+        <div class="home-slide active"><img src="evento-sala-6.jpg" alt="Giardino del palazzo allestito per un evento" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="home-slide"><img src="evento-sala-5.jpg" alt="Giardino esterno allestito per matrimonio" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="home-slide"><img src="giardino-eventi-drone.jpg" alt="Vista drone del giardino" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;object-position:center 60%;"></div>
+        <div class="home-slide"><img src="evento-sala-2.jpg" alt="Sala interna allestita per evento" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <button class="home-slide-btn home-slide-prev" onclick="homeSlide(-1)">&#8249;</button>
+        <button class="home-slide-btn home-slide-next" onclick="homeSlide(1)">&#8250;</button>
+        <div style="position:relative;z-index:2;width:100%;padding:24px 28px;background:linear-gradient(to top, rgba(30,18,6,0.78) 0%, transparent 100%);margin-top:auto;position:absolute;bottom:0;">
           <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.2em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:6px;">Il nostro giardino</div>
           <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(245,239,228,0.88);line-height:1.6;">Un angolo di verde nel cuore di Amantea, perfetto per eventi privati all'aperto nelle serate estive.</p>
         </div>

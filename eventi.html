@@ -156,6 +156,27 @@
     .section-title { font-size:26px; }
     .capitolo-anno-val { font-size:26px; }
   }
+
+  /* ── SLIDESHOW ── */
+  .slideshow { position:relative; height:460px; overflow:hidden; background:var(--brown-dark); }
+  .slide { position:absolute; inset:0; opacity:0; transition:opacity 0.8s ease; }
+  .slide.active { opacity:1; }
+  .slide img { width:100%; height:100%; object-fit:cover; object-position:center; }
+  .slide-prev, .slide-next {
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(250,246,239,0.15); backdrop-filter:blur(4px);
+    border:1px solid rgba(250,246,239,0.25); color:var(--cream-light);
+    font-size:28px; width:44px; height:44px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.3s; z-index:10; border-radius:0;
+  }
+  .slide-prev { left:16px; }
+  .slide-next { right:16px; }
+  .slide-prev:hover, .slide-next:hover { background:rgba(250,246,239,0.3); }
+  .slide-dots { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10; }
+  .slide-dot { width:7px; height:7px; border-radius:50%; background:rgba(250,246,239,0.4); cursor:pointer; transition:background 0.3s; border:none; padding:0; }
+  .slide-dot.active { background:rgba(250,246,239,0.95); }
+  @media(max-width:768px) { .slideshow { height:300px; } }
 </style>
 </head>
 <body>
@@ -207,9 +228,17 @@
       <li>Supporto nella pianificazione dell'evento</li>
     </ul>
   </div>
-  <div class="fade-in delay-1" style="background:var(--cream-dark);border:1px solid var(--border);height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
-    <span style="font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:0.2em;color:var(--brown-pale);text-transform:uppercase;">📷 Foto da inserire</span>
-    <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--brown-pale);">Sala o giardino durante un evento</span>
+  <!-- SLIDESHOW EVENTI -->
+  <div class="slideshow fade-in delay-1" id="eventiSlideshow">
+    <div class="slide active"><img src="evento-sala-6.jpg" alt="Giardino del palazzo allestito per un evento serale" loading="lazy"></div>
+    <div class="slide"><img src="evento-sala-3.jpg" alt="Sala del palazzo allestita per evento con tavolo imperiale" loading="lazy"></div>
+    <div class="slide"><img src="evento-sala-5.jpg" alt="Giardino esterno allestito per matrimonio" loading="lazy"></div>
+    <div class="slide"><img src="evento-sala-2.jpg" alt="Sala interna allestita per cerimonia" loading="lazy"></div>
+    <div class="slide"><img src="evento-sala-4.jpg" alt="Tavolo con vista su Amantea" loading="lazy"></div>
+    <div class="slide"><img src="evento-sala-1.jpg" alt="Sala principale del palazzo L'800" loading="lazy"></div>
+    <button class="slide-prev" onclick="changeSlide(-1)" aria-label="Precedente">&#8249;</button>
+    <button class="slide-next" onclick="changeSlide(1)" aria-label="Successiva">&#8250;</button>
+    <div class="slide-dots" id="slideDots"></div>
   </div>
 </section>
 
@@ -322,6 +351,35 @@
   setTimeout(function() {
     document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
   }, 2000);
+</script>
+
+<script>
+  // ── SLIDESHOW ──
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('#eventiSlideshow .slide');
+  const dotsContainer = document.getElementById('slideDots');
+
+  // Crea dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Slide ' + (i+1));
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+  });
+
+  function goToSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    document.querySelectorAll('.slide-dot')[currentSlide].classList.remove('active');
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    document.querySelectorAll('.slide-dot')[currentSlide].classList.add('active');
+  }
+
+  function changeSlide(dir) { goToSlide(currentSlide + dir); }
+
+  // Auto-avanzamento ogni 5s
+  setInterval(() => changeSlide(1), 5000);
 </script>
 </body>
 </html>
