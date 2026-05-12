@@ -151,8 +151,13 @@
   .fade-in.visible{opacity:1;transform:translateY(0);}
 
   /* FOOTER */
-  footer{background:var(--brown-dark);padding:28px 48px;display:flex;flex-direction:column;gap:10px;}
-  .footer-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    footer { background:var(--brown-dark); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .footer-top { display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(245,239,228,0.55); text-transform:uppercase; }
+  .footer-legal { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer-legal a { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(245,239,228,0.55); text-transform:uppercase; text-decoration:none; transition:color 0.2s; }
+  .footer-legal a:hover { color:rgba(245,239,228,0.85); }
   .footer-brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream-light);}
   .footer-copy{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;}
   .footer-legal{display:flex;gap:20px;flex-wrap:wrap;}
@@ -197,6 +202,7 @@
     <span class="nav-logo-sub">Locanda a Palazzo</span>
   </a>
   <div class="nav-links">
+    <a href="index.html" class="nav-link" style="color:var(--brown-pale);border-right:1px solid var(--border);padding-right:24px;margin-right:4px;">← Home</a>
     <a href="menu-cibo.html" class="nav-link active">Menu</a>
     <a href="menu-vini.html" class="nav-link">Vini</a>
     <a href="menu-dolci.html" class="nav-link">Dolci</a>
@@ -554,7 +560,7 @@
 <footer>
   <div class="footer-top">
     <span class="footer-brand">L'800</span>
-    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea (CS)</span>
+    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea</span>
   </div>
   <div class="footer-legal">
     <a href="privacy-policy.html">Privacy Policy</a>

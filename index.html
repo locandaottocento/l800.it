@@ -114,7 +114,7 @@
   .hero-frame { position: absolute; top: 36px; right: 36px; bottom: 36px; left: 36px; border: 1px solid rgba(196,168,130,0.4); pointer-events: none; }
 
   /* ── BUTTONS ── */
-  .btn-primary { font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-light); background: var(--brown); border: none; padding: 13px 30px; cursor: pointer; text-decoration: none; transition: all 0.3s; display: inline-block; }
+  .btn-primary { font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-light); background: var(--brown); border: none; padding: 13px 30px; cursor: pointer; text-decoration: none; transition: all 0.3s; display: inline-block; min-width: 180px; text-align: center; box-sizing: border-box; }
   .btn-primary:hover { background: var(--brown-dark); transform: translateY(-1px); }
   .btn-secondary { font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown); background: transparent; border: 1px solid var(--brown); padding: 13px 30px; cursor: pointer; text-decoration: none; transition: all 0.3s; display: inline-block; }
   .btn-secondary:hover { background: var(--brown); color: var(--cream-light); }
@@ -207,6 +207,9 @@
   .buoni::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FAF6EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
   .buoni-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
   .buoni-card { background: var(--brown); padding: 40px; border: 1px solid rgba(196,168,130,0.3); position: relative; }
+
+  .buoni-card-portate { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--cream-light); line-height: 1; margin: 10px 0 6px; }
+  .buoni-card-brand { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 10px; }
   .buoni-card-label { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.25em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 12px; display: block; }
   .buoni-card-brand { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 32px; color: var(--cream-light); margin-bottom: 4px; }
   .buoni-card-sub { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 24px; display: block; }
@@ -575,10 +578,10 @@
   </div>
   <ul class="nav-links">
     <li><a href="#storia">La nostra storia</a></li>
-    <li><a href="menu-cibo.html">Menu</a></li>
+    <li><a href="#cucina">Menu</a></li>
     <li><a href="#vini">Vini</a></li>
-    <li><a href="eventi.html">Occasioni speciali</a></li>
-    <li><a href="buoni.html">Buoni regalo</a></li>
+    <li><a href="#occasioni">Occasioni speciali</a></li>
+    <li><a href="#buoni">Buoni regalo</a></li>
     <li><a href="#dove">Contatti</a></li>
   </ul>
   <a href="prenota.html" class="nav-cta">Prenota il tuo tavolo</a>
@@ -598,7 +601,7 @@
       <em>della Calabria.</em>
     </h1>
     <p class="hero-subtitle">
-      Nel cuore del centro storico di Amantea, L'800 è un luogo dove il tempo rallenta, il mare arriva in tavola e ogni cena diventa un ricordo.
+      Nel cuore del centro storico di Amantea, L'800 è un luogo dove il tempo rallenta, il mare arriva in tavola e ogni pasto diventa un ricordo.
     </p>
     <div class="hero-actions">
       <a href="prenota.html" class="btn-primary" style="white-space:nowrap;">Prenota il tuo tavolo</a>
@@ -753,7 +756,7 @@
   </div>
   <div class="gallery-cta fade-in">
     <a href="menu-cibo.html" class="btn-secondary">Consulta il menu completo</a>
-    <a href="prenota.html" class="btn-primary">Prenota e scegli dal vivo</a>
+    <a href="prenota.html" class="btn-primary">Prenota il tuo tavolo</a>
   </div>
 </section>
 
@@ -767,32 +770,33 @@
       </div>
       <span class="section-label">La nostra cantina</span>
       <h2 class="section-title section-title-light">
-        Vini calabresi da<br>
-        cantine che <em>non trovi<br>altrove.</em>
+        Una scelta di campo.<br>
+        <em>Il vino come<br>il territorio.</em>
       </h2>
-      <p class="section-text">La nostra carta dei vini è una scelta di campo: quasi esclusivamente etichette calabresi, spesso di piccole cantine a distribuzione limitata che meritano di essere conosciute. Perché crediamo che il vino, come il cibo, debba raccontare il territorio.</p>
+      <p class="section-text">La nostra carta dei vini è una scelta editoriale precisa: quasi esclusivamente etichette calabresi, molte delle quali prodotte da piccole cantine artigianali con distribuzione limitatissima. Cantine che non troveresti in una normale enoteca, ma che hanno qualcosa di autentico e straordinario da raccontare.</p>
+      <p class="section-text" style="margin-top:16px;">Crediamo che il vino debba raccontare lo stesso territorio che hai nel piatto. Per questo ogni denominazione calabrese — dal Cirò al Savuto, dal Lamezia al Bivongi — trova spazio nella nostra lista, accompagnata da una piccola selezione di etichette fuori regione scelte con la stessa cura.</p>
       <div class="vini-sommelier">
-        🍷 Il nostro sommelier è a tua disposizione per suggerirti l'abbinamento perfetto con il tuo pasto.
+        🍷 Il nostro sommelier è a disposizione per suggerirti l'abbinamento perfetto.
       </div>
       <div class="vini-cta">
-        <a href="menu-cibo.html" class="btn-primary-light">Sfoglia e scarica i menù</a>
+        <a href="menu-vini.html" class="btn-primary-light">Scopri la carta dei vini</a>
       </div>
     </div>
     <div class="vini-right fade-in delay-1">
       <div class="vini-colonne">
         <div class="vini-categoria">
-          <div class="vini-cat-titolo">Bianchi selezionati</div>
-          <div class="vino-row"><span class="vino-nome">Imyr · Cantina Ceraudo</span><span class="vino-uve">Chardonnay</span></div>
-          <div class="vino-row"><span class="vino-nome">Grisara IGT Val di Neto</span><span class="vino-uve">Pecorello · Ceraudo</span></div>
-          <div class="vino-row"><span class="vino-nome">Donna Giovanna</span><span class="vino-uve">Greco Bianco · Tenuta Iuzzolini</span></div>
-          <div class="vino-row"><span class="vino-nome">Zibibbo di Pizzo Calabro</span><span class="vino-uve">Zibibbo · Cantina Benvenuto</span></div>
+          <div class="vini-cat-titolo">I DOC calabresi</div>
+          <div class="vino-row"><span class="vino-nome">Terre di Cosenza</span><span class="vino-uve">Mantonico · Pecorello · Magliocco</span></div>
+          <div class="vino-row"><span class="vino-nome">Cirò</span><span class="vino-uve">Gaglioppo · Greco Bianco</span></div>
+          <div class="vino-row"><span class="vino-nome">Savuto</span><span class="vino-uve">Mantonico · Arvino · Magliocco</span></div>
+          <div class="vino-row"><span class="vino-nome">Lamezia · Melissa · Bivongi</span><span class="vino-uve">vitigni autoctoni</span></div>
         </div>
         <div class="vini-categoria">
-          <div class="vini-cat-titolo">Rossi e rosati</div>
-          <div class="vino-row"><span class="vino-nome">VI Secolo</span><span class="vino-uve">Magliocco · Magna Graecia</span></div>
-          <div class="vino-row"><span class="vino-nome">GrayaSusi Etichetta Argento</span><span class="vino-uve">Gaglioppo · Ceraudo</span></div>
-          <div class="vino-row"><span class="vino-nome">Cirò DOC</span><span class="vino-uve">Gaglioppo · Tenuta Iuzzolini</span></div>
-          <div class="vino-row"><span class="vino-nome">Rosso Baroné</span><span class="vino-uve">Guarnaccia Nera · Magna Graecia</span></div>
+          <div class="vini-cat-titolo">Le cantine che amiamo</div>
+          <div class="vino-row"><span class="vino-nome">Cantina Ceraudo</span><span class="vino-uve">Cirò Marina · biologica</span></div>
+          <div class="vino-row"><span class="vino-nome">Cantina Magna Graecia</span><span class="vino-uve">Magliocco · Guarnaccia</span></div>
+          <div class="vino-row"><span class="vino-nome">Tenuta Iuzzolini</span><span class="vino-uve">Greco Bianco · Gaglioppo</span></div>
+          <div class="vino-row"><span class="vino-nome">Cantina Spadafora</span><span class="vino-uve">Pecorello · Magliocco</span></div>
         </div>
         <div class="vini-passito">
           <span class="vini-passito-badge">Rarità calabrese · Passito</span>
@@ -814,15 +818,15 @@
       </div>
       <span class="section-label" style="color:var(--brown-pale);">Buoni regalo</span>
       <h2 class="section-title" style="color:var(--cream-light);">
-        Regala una cena.<br>
+        Regala un'esperienza.<br>
         <em>Regala un ricordo.</em>
       </h2>
-      <p class="section-text" style="color:rgba(245,239,228,0.7);">Il buono regalo L'800 è il dono perfetto per chi vuole vivere un'esperienza autentica in Calabria. Lo inviamo via email subito dopo il pagamento, pronto da usare per una cena o un pranzo speciale nel nostro giardino storico.</p>
+      <p class="section-text" style="color:rgba(245,239,228,0.7);">Il buono regalo L'800 è il dono perfetto per chi vuole vivere un'esperienza autentica in Calabria. Lo inviamo via email subito dopo il pagamento, pronto per un pranzo o una cena speciale nel nostro palazzo storico.</p>
       <ul class="buoni-features">
         <li>Acquisto online immediato con PayPal</li>
         <li>Consegnato via email in pochi minuti</li>
         <li>Valido 12 mesi dall'acquisto</li>
-        <li>Utilizzabile per pranzo, cena o occasioni speciali</li>
+        <li>Utilizzabile sia a pranzo che a cena</li>
       </ul>
       <div class="buoni-actions" style="margin-top:8px;">
         <a href="buoni.html" class="btn-primary-light" style="text-align:center;">🎁 Acquista il buono regalo</a>
@@ -831,31 +835,17 @@
     <div class="fade-in delay-1" style="display:flex;flex-direction:column;gap:16px;">
       <!-- Card 3 portate -->
       <div class="buoni-card" style="cursor:pointer;" onclick="location.href='buoni.html'">
-        <span class="buoni-card-label">3 Portate · Più popolare</span>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div>
-            <div class="buoni-card-brand">L'800</div>
-            <span class="buoni-card-sub">3 portate · dolce · vino · caffè</span>
-          </div>
-          <div style="text-align:right;">
-            <div class="buoni-card-amount" style="font-size:42px;">€50</div>
-            <div class="buoni-card-desc">a persona</div>
-          </div>
-        </div>
+        <span class="buoni-card-label">· Più scelto ·</span>
+        <div class="buoni-card-portate">3 Portate</div>
+        <div class="buoni-card-brand">L'800 · Locanda a Palazzo</div>
+        <span class="buoni-card-sub">Antipasto · Primo o Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
       </div>
       <!-- Card 4 portate -->
       <div class="buoni-card" style="cursor:pointer;background:rgba(61,40,16,0.5);" onclick="location.href='buoni.html'">
-        <span class="buoni-card-label">4 Portate · Esperienza completa</span>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div>
-            <div class="buoni-card-brand">L'800</div>
-            <span class="buoni-card-sub">4 portate · dolce · vino · caffè</span>
-          </div>
-          <div style="text-align:right;">
-            <div class="buoni-card-amount" style="font-size:42px;">€65</div>
-            <div class="buoni-card-desc">a persona</div>
-          </div>
-        </div>
+        <span class="buoni-card-label">· Esperienza completa ·</span>
+        <div class="buoni-card-portate">4 Portate</div>
+        <div class="buoni-card-brand">L'800 · Locanda a Palazzo</div>
+        <span class="buoni-card-sub">Antipasto · Primo · Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
       </div>
     </div>
   </div>
@@ -921,17 +911,12 @@
           📱 Prenota via WhatsApp
         </a>
       </div>
-      <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" class="btn-secondary" style="width:100%;text-align:center;display:block;margin-top:12px;box-sizing:border-box;">
-        Prenota online con Octotable →
+      <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" style="width:100%;text-align:center;display:block;margin-top:12px;box-sizing:border-box;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-light);background:var(--brown-dark);border:1px solid var(--brown-dark);padding:12px 20px;text-decoration:none;transition:all 0.3s;">
+        Prenota online →
       </a>
     </div>
     <div class="prenota-info fade-in delay-1">
-      <div class="orari-box">
-        <h4>Orari di apertura</h4>
-        <div class="orario-row"><span>Pranzo (Mar–Dom)</span><span>12:30 – 14:30</span></div>
-        <div class="orario-row"><span>Cena (Mar–Dom)</span><span>19:30 – 22:00</span></div>
-        <div class="orario-row chiuso"><span>Mercoledì</span><span>Chiuso</span></div>
-      </div>
+
       <div class="contatti-box">
         <h4>Preferisci contattarci direttamente?</h4>
         <div class="contatto-row"><span>📱</span><a href="https://wa.me/390982428262">Scrivici su WhatsApp</a></div>
@@ -1052,12 +1037,12 @@
 <footer>
   <div class="footer-top">
     <span class="footer-brand">L'800</span>
-    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780</span>
+    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea</span>
   </div>
   <div class="footer-legal">
-    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
-    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
-    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Termini e Condizioni</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="cookie-policy.html">Cookie Policy</a>
+    <a href="termini-condizioni.html">Termini e Condizioni</a>
   </div>
 </footer>
 
