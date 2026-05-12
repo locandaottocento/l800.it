@@ -132,7 +132,8 @@
   .section-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: 0.28em; color: var(--brown-light); text-transform: uppercase; display: block; margin-bottom: 14px; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 3.8vw, 50px); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 22px; }
   .section-title em { font-style: italic; color: var(--brown); }
-  .section-title-light { color: var(--cream-light); }
+  .section-title-light { color: #FFFFFF; }
+  .section-title-light em { color: #FFFFFF; }
   .section-text { font-family: 'EB Garamond', serif; font-size: 16px; line-height: 1.85; color: var(--text-light); margin-bottom: 16px; }
   .section-ornament { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .section-ornament-line { width: 36px; height: 1px; background: var(--brown-pale); }
@@ -187,8 +188,7 @@
   .vini-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .vini-left .section-label { color: var(--brown-pale); }
   .vini-left .section-title { color: var(--cream-light); }
-  .vini-left .section-text { color: rgba(245,239,228,0.7); }
-  .vini-sommelier { background: rgba(61,40,16,0.35); border: 1px solid rgba(196,168,130,0.2); padding: 20px 24px; margin-top: 28px; font-family: 'EB Garamond', serif; font-style: italic; font-size: 15px; color: rgba(245,239,228,0.65); line-height: 1.6; }
+  .vini-left .section-text { color: #FFFFFF; line-height: 1.8; }
   .vini-colonne { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
   .vini-categoria { margin-bottom: 28px; }
   .vini-cat-titolo { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: 0.22em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(196,168,130,0.25); }
@@ -203,15 +203,12 @@
   .vini-cta { margin-top: 32px; }
 
   /* ── BUONI REGALO ── */
-  .buoni { background: var(--brown-dark); padding: 88px 80px; position: relative; overflow: hidden; }
+  .buoni { background: #2C1F0E; padding: 88px 80px; position: relative; overflow: hidden; border-top: 3px solid var(--gold); border-bottom: 3px solid var(--gold); }
   .buoni::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FAF6EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
   .buoni-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
   .buoni-card { background: var(--brown); padding: 40px; border: 1px solid rgba(196,168,130,0.3); position: relative; }
 
   .buoni-card-portate { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--cream-light); line-height: 1; margin: 10px 0 6px; }
-  .buoni-card-brand { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 10px; }
-  .buoni-card-label { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.25em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 12px; display: block; }
-  .buoni-card-brand { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 32px; color: var(--cream-light); margin-bottom: 4px; }
   .buoni-card-sub { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 24px; display: block; }
   .buoni-card-amount { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--gold); line-height: 1; }
   .buoni-card-desc { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.15em; color: var(--brown-pale); text-transform: uppercase; margin-top: 8px; }
@@ -490,7 +487,6 @@
     .vini-inner { grid-template-columns: 1fr; gap: 40px; }
     .vini-colonne { grid-template-columns: 1fr; gap: 0; }
     .vini-passito { grid-column: 1; }
-    .vini-sommelier { font-size: 14px; padding: 14px 18px; }
     .vino-nome { font-size: 15px; }
     .vini-passito { grid-column: 1; }
 
@@ -762,96 +758,27 @@
 
 <!-- VINI -->
 <section class="vini" id="vini">
-  <div class="vini-inner">
-    <div class="vini-left fade-in">
+  <div class="vini-inner" style="max-width:700px;margin:0 auto;">
+    <div class="fade-in">
       <div class="section-ornament">
         <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
         <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
       </div>
-      <span class="section-label">La nostra cantina</span>
+      <span class="section-label" style="color:#E8C88A;letter-spacing:0.28em;">La nostra cantina</span>
       <h2 class="section-title section-title-light">
         Una scelta di campo.<br>
         <em>Il vino come<br>il territorio.</em>
       </h2>
-      <p class="section-text">La nostra carta dei vini è una scelta editoriale precisa: quasi esclusivamente etichette calabresi, molte delle quali prodotte da piccole cantine artigianali con distribuzione limitatissima. Cantine che non troveresti in una normale enoteca, ma che hanno qualcosa di autentico e straordinario da raccontare.</p>
-      <p class="section-text" style="margin-top:16px;">Crediamo che il vino debba raccontare lo stesso territorio che hai nel piatto. Per questo ogni denominazione calabrese — dal Cirò al Savuto, dal Lamezia al Bivongi — trova spazio nella nostra lista, accompagnata da una piccola selezione di etichette fuori regione scelte con la stessa cura.</p>
-      <div class="vini-sommelier">
-        🍷 Il nostro sommelier è a disposizione per suggerirti l'abbinamento perfetto.
-      </div>
+      <p class="section-text" style="color:#FFFFFF;">La nostra carta dei vini è una scelta editoriale precisa: quasi esclusivamente etichette calabresi, molte delle quali prodotte da piccole cantine artigianali con distribuzione limitatissima. Cantine che non troveresti in una normale enoteca, ma che hanno qualcosa di autentico e straordinario da raccontare.</p>
+      <p class="section-text" style="color:#FFFFFF;margin-top:16px;">Crediamo che il vino debba raccontare lo stesso territorio che hai nel piatto. Per questo ogni denominazione calabrese — dal Cirò al Savuto, dal Lamezia al Bivongi — trova spazio nella nostra lista, accompagnata da una piccola selezione di etichette fuori regione scelte con la stessa cura.</p>
       <div class="vini-cta">
         <a href="menu-vini.html" class="btn-primary-light">Scopri la carta dei vini</a>
-      </div>
-    </div>
-    <div class="vini-right fade-in delay-1">
-      <div class="vini-colonne">
-        <div class="vini-categoria">
-          <div class="vini-cat-titolo">I DOC calabresi</div>
-          <div class="vino-row"><span class="vino-nome">Terre di Cosenza</span><span class="vino-uve">Mantonico · Pecorello · Magliocco</span></div>
-          <div class="vino-row"><span class="vino-nome">Cirò</span><span class="vino-uve">Gaglioppo · Greco Bianco</span></div>
-          <div class="vino-row"><span class="vino-nome">Savuto</span><span class="vino-uve">Mantonico · Arvino · Magliocco</span></div>
-          <div class="vino-row"><span class="vino-nome">Lamezia · Melissa · Bivongi</span><span class="vino-uve">vitigni autoctoni</span></div>
-        </div>
-        <div class="vini-categoria">
-          <div class="vini-cat-titolo">Le cantine che amiamo</div>
-          <div class="vino-row"><span class="vino-nome">Cantina Ceraudo</span><span class="vino-uve">Cirò Marina · biologica</span></div>
-          <div class="vino-row"><span class="vino-nome">Cantina Magna Graecia</span><span class="vino-uve">Magliocco · Guarnaccia</span></div>
-          <div class="vino-row"><span class="vino-nome">Tenuta Iuzzolini</span><span class="vino-uve">Greco Bianco · Gaglioppo</span></div>
-          <div class="vino-row"><span class="vino-nome">Cantina Spadafora</span><span class="vino-uve">Pecorello · Magliocco</span></div>
-        </div>
-        <div class="vini-passito">
-          <span class="vini-passito-badge">Rarità calabrese · Passito</span>
-          <div class="vini-passito-nome">Moscato al governo di Saracena</div>
-          <div class="vini-passito-note">Cantina Viola · 15% · Note di fico secco, frutta esotica, miele</div>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- BUONI REGALO -->
-<section class="buoni" id="buoni">
-  <div class="buoni-inner">
-    <div class="fade-in">
-      <div class="section-ornament">
-        <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
-        <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
-      </div>
-      <span class="section-label" style="color:var(--brown-pale);">Buoni regalo</span>
-      <h2 class="section-title" style="color:var(--cream-light);">
-        Regala un'esperienza.<br>
-        <em>Regala un ricordo.</em>
-      </h2>
-      <p class="section-text" style="color:rgba(245,239,228,0.7);">Il buono regalo L'800 è il dono perfetto per chi vuole vivere un'esperienza autentica in Calabria. Lo inviamo via email subito dopo il pagamento, pronto per un pranzo o una cena speciale nel nostro palazzo storico.</p>
-      <ul class="buoni-features">
-        <li>Acquisto online immediato con PayPal</li>
-        <li>Consegnato via email in pochi minuti</li>
-        <li>Valido 12 mesi dall'acquisto</li>
-        <li>Utilizzabile sia a pranzo che a cena</li>
-      </ul>
-      <div class="buoni-actions" style="margin-top:8px;">
-        <a href="buoni.html" class="btn-primary-light" style="text-align:center;">🎁 Acquista il buono regalo</a>
-      </div>
-    </div>
-    <div class="fade-in delay-1" style="display:flex;flex-direction:column;gap:16px;">
-      <!-- Card 3 portate -->
-      <div class="buoni-card" style="cursor:pointer;" onclick="location.href='buoni.html'">
-        <span class="buoni-card-label">· Più scelto ·</span>
-        <div class="buoni-card-portate">3 Portate</div>
-        <div class="buoni-card-brand">L'800 · Locanda a Palazzo</div>
-        <span class="buoni-card-sub">Antipasto · Primo o Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
-      </div>
-      <!-- Card 4 portate -->
-      <div class="buoni-card" style="cursor:pointer;background:rgba(61,40,16,0.5);" onclick="location.href='buoni.html'">
-        <span class="buoni-card-label">· Esperienza completa ·</span>
-        <div class="buoni-card-portate">4 Portate</div>
-        <div class="buoni-card-brand">L'800 · Locanda a Palazzo</div>
-        <span class="buoni-card-sub">Antipasto · Primo · Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRENOTA -->
 <section class="prenota" id="prenota">
   <div style="text-align:center;margin-bottom:56px;" class="fade-in">
     <span class="section-label">Prenota il tuo tavolo</span>
@@ -925,6 +852,45 @@
         <div class="contatto-row"><span>✉</span><a href="mailto:info@l800.it">info@l800.it</a></div>
       </div>
       <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--text-light);line-height:1.6;">Per gruppi superiori a 8 persone <a href="https://wa.me/390982428262" style="color:var(--brown);">scrivici su WhatsApp</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- PRENOTA -->
+<section class="buoni" id="buoni">
+  <div class="buoni-inner">
+    <div class="fade-in">
+      <div class="section-ornament">
+        <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
+        <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
+      </div>
+      <span class="section-label" style="color:var(--brown-pale);">Buoni regalo</span>
+      <h2 class="section-title" style="color:var(--cream-light);">
+        Regala un'esperienza.<br>
+        <em>Regala un ricordo.</em>
+      </h2>
+      <p class="section-text" style="color:rgba(245,239,228,0.7);">Il buono regalo L'800 è il dono perfetto per chi vuole vivere un'esperienza autentica in Calabria. Lo inviamo via email subito dopo il pagamento, pronto per un pranzo o una cena speciale nel nostro palazzo storico.</p>
+      <ul class="buoni-features">
+        <li>Acquisto online immediato con PayPal</li>
+        <li>Consegnato via email in pochi minuti</li>
+        <li>Valido 12 mesi dall'acquisto</li>
+        <li>Utilizzabile sia a pranzo che a cena</li>
+      </ul>
+      <div class="buoni-actions" style="margin-top:8px;">
+        <a href="buoni.html" class="btn-primary-light" style="text-align:center;">🎁 Acquista il buono regalo</a>
+      </div>
+    </div>
+    <div class="fade-in delay-1" style="display:flex;flex-direction:column;gap:16px;">
+      <!-- Card 3 portate -->
+      <div class="buoni-card" style="cursor:pointer;" onclick="location.href='buoni.html'">
+        <div class="buoni-card-portate">3 Portate</div>
+        <span class="buoni-card-sub">Antipasto · Primo o Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
+      </div>
+      <!-- Card 4 portate -->
+      <div class="buoni-card" style="cursor:pointer;background:rgba(61,40,16,0.5);" onclick="location.href='buoni.html'">
+        <div class="buoni-card-portate">4 Portate</div>
+        <span class="buoni-card-sub">Antipasto · Primo · Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
+      </div>
     </div>
   </div>
 </section>
