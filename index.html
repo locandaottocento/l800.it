@@ -564,9 +564,9 @@
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 
   /* ── VINI NUOVA STRUTTURA ── */
-  .vini-inner-new { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; max-width:1200px; margin:0 auto; }
+  .vini-inner-new { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:stretch; max-width:1200px; margin:0 auto; }
   .vini-testo { }
-  .vini-mappa { display:flex; flex-direction:column; align-items:center; }
+  .vini-mappa { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; height:100%; }
   .vini-mappa-title { font-family:'Cormorant SC',serif; font-size:22px; letter-spacing:0.14em; color:#E8C88A; text-transform:uppercase; margin-bottom:24px; text-align:center; }
 
   /* SVG Calabria */
@@ -810,7 +810,7 @@
     <!-- MAPPA DOC CALABRIA SVG -->
     <div class="vini-mappa">
       <div class="vini-mappa-title">I D.O.C. della Calabria</div>
-      <img src="mappa-doc-calabria.png" alt="Mappa DOC della Calabria con la posizione di Amantea e L'800 Locanda a Palazzo" loading="lazy" style="width:100%;height:auto;display:block;margin:0 auto;"/></div>
+      <img src="mappa-doc-calabria.png" alt="Mappa DOC della Calabria con la posizione di Amantea e L'800 Locanda a Palazzo" loading="lazy" style="width:auto;max-width:100%;flex:1;min-height:0;object-fit:contain;display:block;margin:0 auto;"/></div>
     </div>
 
   </div>
