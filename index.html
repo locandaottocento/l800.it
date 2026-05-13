@@ -562,6 +562,35 @@
   .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
   .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
+
+  /* ── VINI NUOVA STRUTTURA ── */
+  .vini-inner-new { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; max-width:1200px; margin:0 auto; }
+  .vini-testo { }
+  .vini-mappa { display:flex; flex-direction:column; align-items:center; }
+  .vini-mappa-title { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.22em; color:#E8C88A; text-transform:uppercase; margin-bottom:20px; text-align:center; }
+
+  /* SVG Calabria */
+  .calabria-svg { width:100%; max-width:260px; height:auto; }
+  .calabria-regione { fill:rgba(255,255,255,0.08); stroke:rgba(196,168,130,0.5); stroke-width:1.5; }
+  .doc-zona { fill:rgba(196,168,130,0.35); stroke:rgba(196,168,130,0.7); stroke-width:1; transition:fill 0.2s; cursor:default; }
+  .doc-zona:hover { fill:rgba(196,168,130,0.6); }
+  .doc-zona-accent { fill:rgba(212,160,60,0.45); stroke:rgba(212,160,60,0.8); }
+  .doc-zona-accent:hover { fill:rgba(212,160,60,0.7); }
+  .doc-zona-gold { fill:rgba(212,160,60,0.5); stroke:rgba(212,160,60,0.9); }
+  .doc-zona-grey { fill:rgba(255,255,255,0.08); stroke:rgba(255,255,255,0.25); stroke-dasharray:3,2; }
+  .doc-label { font-family:'Cormorant SC',serif; font-size:7px; fill:#FFFFFF; letter-spacing:0.05em; pointer-events:none; }
+  .doc-label-sm { font-size:6px; fill:rgba(255,255,255,0.8); }
+  .amantea-punto { fill:#E8C88A; stroke:#E8C88A; stroke-width:1; }
+  .amantea-label { font-family:'Cormorant SC',serif; font-size:7.5px; fill:#E8C88A; letter-spacing:0.08em; font-weight:500; }
+  .amantea-line { stroke:#E8C88A; stroke-width:0.8; stroke-dasharray:2,2; opacity:0.7; }
+
+  /* Legenda mappa */
+  .mappa-legenda { display:flex; flex-direction:column; gap:6px; margin-top:16px; width:100%; max-width:240px; }
+  .mappa-legenda-item { display:flex; align-items:center; gap:8px; font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,0.7); }
+  .mappa-legenda-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; display:inline-block; }
+
+  @media(max-width:1024px) { .vini-inner-new { grid-template-columns:1fr; gap:48px; } .vini-mappa { align-items:flex-start; } }
+  @media(max-width:768px) { .calabria-svg { max-width:200px; } }
 </style>
 </head>
 <body>
@@ -758,8 +787,10 @@
 
 <!-- VINI -->
 <section class="vini" id="vini">
-  <div class="vini-inner" style="max-width:700px;margin:0 auto;">
-    <div class="fade-in">
+  <div class="vini-inner-new fade-in">
+
+    <!-- COLONNA TESTO -->
+    <div class="vini-testo">
       <div class="section-ornament">
         <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
         <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
@@ -771,10 +802,17 @@
       </h2>
       <p class="section-text" style="color:#FFFFFF;">La nostra carta dei vini è una scelta editoriale precisa: quasi esclusivamente etichette calabresi, molte delle quali prodotte da piccole cantine artigianali con distribuzione limitatissima. Cantine che non troveresti in una normale enoteca, ma che hanno qualcosa di autentico e straordinario da raccontare.</p>
       <p class="section-text" style="color:#FFFFFF;margin-top:16px;">Crediamo che il vino debba raccontare lo stesso territorio che hai nel piatto. Per questo ogni denominazione calabrese — dal Cirò al Savuto, dal Lamezia al Bivongi — trova spazio nella nostra lista, accompagnata da una piccola selezione di etichette fuori regione scelte con la stessa cura.</p>
-      <div class="vini-cta">
+      <div class="vini-cta" style="margin-top:32px;">
         <a href="menu-vini.html" class="btn-primary-light">Scopri la carta dei vini</a>
       </div>
     </div>
+
+    <!-- MAPPA DOC CALABRIA SVG -->
+    <div class="vini-mappa">
+      <div class="vini-mappa-title">I D.O.C. della Calabria</div>
+      <img src="mappa-doc-calabria.png" alt="Mappa DOC della Calabria con la posizione di Amantea e L'800 Locanda a Palazzo" loading="lazy" style="width:100%;max-width:380px;height:auto;display:block;margin:0 auto;filter:brightness(1.1) contrast(1.05);"/></div>
+    </div>
+
   </div>
 </section>
 
