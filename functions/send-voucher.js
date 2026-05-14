@@ -184,7 +184,12 @@ function htmlAcquirente(d) {
       </p>
     </div>
 
-    <p style="font-size:14px;color:#7a5c3c;line-height:1.8;margin:0 0 12px;">Inoltra questo codice al destinatario o condividi i contatti per prenotare:</p>
+    <p style="font-size:14px;color:#7a5c3c;line-height:1.8;margin:0 0 12px;">${
+      d.emailDestinatario && d.emailDestinatario.includes('@') && d.emailDestinatario.trim().toLowerCase() !== d.emailAcquirente.trim().toLowerCase()
+        ? 'Abbiamo gi&agrave; inviato una copia del buono a <strong style="color:#3d2810;">' + esc(d.emailDestinatario) + '</strong>. Puoi comunque condividere anche il PDF allegato a questa email.'
+        : 'Condividi il PDF allegato a questa email con il destinatario per consegnargli il buono.'
+    }</p>
+    <p style="font-size:14px;color:#7a5c3c;line-height:1.8;margin:0 0 12px;">Per prenotare, il destinatario pu&ograve; contattarci tramite:</p>
     <table style="border-collapse:collapse;margin-bottom:16px;">
       <tr>
         <td style="padding-right:12px;"><a href="https://wa.me/390982428262" style="display:inline-block;background:#2e7d32;color:#fff;font-family:Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;text-decoration:none;">WhatsApp</a></td>

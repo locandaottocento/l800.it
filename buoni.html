@@ -520,7 +520,15 @@ let paypalRendered = false;
 function selezionaProdotto(id) {
   const card = document.getElementById('card-' + id);
   const qtyInput = document.getElementById('qty-' + id);
+
   if (qty[id] === 0) {
+    // Deseleziona l'altra tipologia se già selezionata (vincolo: una sola tipologia per acquisto)
+    for (const altroId of Object.keys(qty)) {
+      if (altroId !== id && qty[altroId] > 0) {
+        qty[altroId] = 0;
+        document.getElementById('card-' + altroId).classList.remove('selezionato');
+      }
+    }
     qty[id] = parseInt(qtyInput.value) || 1;
     card.classList.add('selezionato');
   } else {
