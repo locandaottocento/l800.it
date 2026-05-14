@@ -185,6 +185,26 @@
   @media(max-width:768px){ #cookie-banner{ padding:16px 20px; } .cookie-btns{ width:100%; } .cookie-btn-accept,.cookie-btn-reject{ flex:1; text-align:center; } }
 </style>
 
+  <!-- Google Consent Mode v2 — default negato per utenti SEE -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage':             'denied',
+      'ad_user_data':           'denied',
+      'ad_personalization':     'denied',
+      'analytics_storage':      'denied',
+      'functionality_storage':  'denied',
+      'personalization_storage':'denied',
+      'security_storage':       'granted',
+      'wait_for_update':        500,
+      'region': ['IT','AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR',
+                 'GR','HR','HU','IE','LT','LU','LV','MT','NL','PL','PT','RO',
+                 'SE','SI','SK']
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+  </script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

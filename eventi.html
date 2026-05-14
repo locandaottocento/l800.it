@@ -212,6 +212,26 @@
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 </style>
 
+  <!-- Google Consent Mode v2 — default negato per utenti SEE -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage':             'denied',
+      'ad_user_data':           'denied',
+      'ad_personalization':     'denied',
+      'analytics_storage':      'denied',
+      'functionality_storage':  'denied',
+      'personalization_storage':'denied',
+      'security_storage':       'granted',
+      'wait_for_update':        500,
+      'region': ['IT','AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR',
+                 'GR','HR','HU','IE','LT','LU','LV','MT','NL','PL','PT','RO',
+                 'SE','SI','SK']
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+  </script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -463,9 +483,21 @@
         if (banner) banner.classList.add('visible');
       }, 800);
     } else {
-      // Consenso già espresso: nascondi definitivamente
+      // Consenso già espresso: nascondi e aggiorna GTM
       if (banner) banner.style.display = 'none';
-      if (consent === 'true') enableThirdParty();
+      if (consent === 'true') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'update', {
+          'ad_storage':             'granted',
+          'ad_user_data':           'granted',
+          'ad_personalization':     'granted',
+          'analytics_storage':      'granted',
+          'functionality_storage':  'granted',
+          'personalization_storage':'granted'
+        });
+        enableThirdParty();
+      }
     }
   })();
 
@@ -473,7 +505,29 @@
     localStorage.setItem('l800_cookie_consent', accepted ? 'true' : 'false');
     var banner = document.getElementById('cookie-banner');
     if (banner) { banner.style.display = 'none'; }
-    if (accepted) enableThirdParty();
+    // Aggiorna Google Consent Mode v2
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    if (accepted) {
+      gtag('consent', 'update', {
+        'ad_storage':             'granted',
+        'ad_user_data':           'granted',
+        'ad_personalization':     'granted',
+        'analytics_storage':      'granted',
+        'functionality_storage':  'granted',
+        'personalization_storage':'granted'
+      });
+      enableThirdParty();
+    } else {
+      gtag('consent', 'update', {
+        'ad_storage':             'denied',
+        'ad_user_data':           'denied',
+        'ad_personalization':     'denied',
+        'analytics_storage':      'denied',
+        'functionality_storage':  'denied',
+        'personalization_storage':'denied'
+      });
+    }
   }
 
   function enableThirdParty() {
