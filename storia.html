@@ -151,25 +151,26 @@
   .capitolo-testo p { margin-bottom:18px; }
   .capitolo-testo p:last-child { margin-bottom:0; }
 
-  /* ── FOTO PLACEHOLDER ── */
-  .foto-slot {
-    margin:36px 0;
-    background:var(--cream-dark);
-    border:1px solid var(--border);
-    height:320px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    position:relative; overflow:hidden;
+  /* ── ELEMENTO DECORATIVO STORICO ── */
+  .decor-storico {
+    margin:40px 0;
+    padding:36px 40px;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+    text-align:center; max-width:680px;
   }
-  .foto-slot img { width:100%; height:100%; object-fit:cover; }
-  .foto-slot-label {
-    font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.22em;
-    color:var(--brown-pale); text-transform:uppercase;
+  .decor-storico-anno {
+    font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,52px);
+    font-weight:300; color:var(--brown); letter-spacing:0.08em; line-height:1;
   }
-  .foto-slot-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:var(--brown-pale); }
-
-  /* Foto doppia affiancata */
-  .foto-doppia { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:36px 0; }
-  .foto-doppia .foto-slot { margin:0; }
+  .decor-storico-ornament {
+    font-size:10px; letter-spacing:0.5em; color:var(--brown-pale);
+  }
+  .decor-storico-cit {
+    font-family:'EB Garamond',serif; font-style:italic;
+    font-size:18px; color:var(--text-light); line-height:1.6; max-width:460px;
+  }
 
   /* ── HIGHLIGHT BOX ── */
   .highlight {
@@ -221,7 +222,6 @@
     .timeline::before { left:calc(48px + 36px); }
     .capitolo { padding:64px 0 0; }
     .capitolo-titolo { font-size:28px; }
-    .foto-doppia { grid-template-columns:1fr; }
     .chiusura { padding:64px 48px; }
     footer { padding:24px 40px; }
   }
@@ -234,8 +234,6 @@
     .capitolo { grid-template-columns:56px 1fr; gap:0 24px; padding:60px 0 0; }
     .capitolo-titolo { font-size:26px; }
     .capitolo-testo { font-size:16px; }
-    .foto-slot { height:220px; }
-    .foto-doppia { grid-template-columns:1fr; }
     .highlight { padding:28px 24px; }
     .highlight::before, .highlight::after { display:none; }
     .chiusura { padding:60px 24px; }
@@ -310,10 +308,11 @@
         </p>
       </div>
 
-      <!-- PLACEHOLDER FOTO BAR NATALE -->
-      <div class="foto-slot fade-in delay-1">
-        <span class="foto-slot-label">📷 Foto da inserire</span>
-        <span class="foto-slot-sub">Il Bar Natale, Amantea — anni '70</span>
+      <!-- ELEMENTO DECORATIVO BAR NATALE -->
+      <div class="decor-storico fade-in delay-1">
+        <span class="decor-storico-anno">1971</span>
+        <span class="decor-storico-ornament">✦ ✦ ✦</span>
+        <span class="decor-storico-cit">Il mare come ingrediente. La pesca come filosofia.</span>
       </div>
     </div>
   </div>
@@ -346,16 +345,11 @@
         <span class="highlight-sub">TripAdvisor — non sono numeri: sono il racconto di migliaia di tavoli condivisi</span>
       </div>
 
-      <!-- PLACEHOLDER FOTO LOCANDA DI MARE -->
-      <div class="foto-doppia fade-in delay-2">
-        <div class="foto-slot">
-          <span class="foto-slot-label">📷 Foto da inserire</span>
-          <span class="foto-slot-sub">La Locanda di Mare, Via Stromboli</span>
-        </div>
-        <div class="foto-slot">
-          <span class="foto-slot-label">📷 Foto da inserire</span>
-          <span class="foto-slot-sub">La cucina, i piatti, l'atmosfera</span>
-        </div>
+      <!-- ELEMENTO DECORATIVO LOCANDA DI MARE -->
+      <div class="decor-storico fade-in delay-2">
+        <span class="decor-storico-anno">1998 — 2022</span>
+        <span class="decor-storico-ornament">✦ ✦ ✦</span>
+        <span class="decor-storico-cit">Ventiquattro anni di cucina di mare, nel cuore di Amantea.</span>
       </div>
     </div>
   </div>
