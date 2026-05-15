@@ -15,6 +15,23 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Performance: preconnect resorse esterne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.facebook.com">
+<!-- Favicon & Mobile icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#7A4E28">
+<meta name="msapplication-TileColor" content="#7A4E28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="L'800">
 <title>Menu – L'800 Locanda a Palazzo, Amantea</title>
 <meta name="description" content="Il menu di L'800 Locanda a Palazzo ad Amantea: antipasti, crudité di pesce fresco, primi e secondi di pesce con cucina calabrese autentica. Aggiornato 2025.">
 <meta name="keywords" content="menu ristorante Amantea, menu pesce Amantea, tagliolini gamberi rossi Amantea, spigola pistacchio Amantea, crudité pesce Calabria, L800 Locanda Palazzo menu">
@@ -23,6 +40,11 @@
 <meta property="og:title" content="Menu – L'800 Locanda a Palazzo, Amantea">
 <meta property="og:description" content="Menu completo di L'800 Locanda a Palazzo: pesce fresco del Tirreno, cucina calabrese autentica in un palazzo dell'Ottocento ad Amantea.">
 <meta property="og:image" content="https://www.l800.it/crudite-pesce-fresco.jpg">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Menu – L'800 Locanda a Palazzo, Amantea">
+<meta name="twitter:description" content="Il menu di L'800 Locanda a Palazzo ad Amantea: antipasti, crudité di pesce fresco, primi e secondi di pesce con cucina calabrese autentica. Aggiornato 2025.">
+<meta name="twitter:image" content="https://www.l800.it/crudite-pesce-fresco.jpg">
 <meta property="og:url" content="https://www.l800.it/menu-cibo.html">
 
 <script type="application/ld+json">
@@ -116,7 +138,7 @@
   .piatto-nome.vegetariano{color:#3a7d44;}
   .piatto-desc{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--text-light);line-height:1.55;}
   .piatto-allergeni{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;}
-  .allergene{font-family:'Cormorant SC',serif;font-size:7.5px;letter-spacing:0.1em;color:var(--brown-pale);text-transform:uppercase;border:1px solid var(--border);padding:2px 6px;}
+  .allergene{font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.12em;color:var(--brown);text-transform:uppercase;border:1px solid var(--brown-pale);padding:4px 9px;background:var(--cream-dark);}
   .piatto-right{text-align:right;flex-shrink:0;}
   .piatto-prezzo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--brown);white-space:nowrap;}
   .piatto-prezzo::before{content:'€';}
@@ -183,6 +205,38 @@
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; white-space:nowrap; }
   .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; white-space:nowrap; }
   @media(max-width:768px){ #cookie-banner{ padding:16px 20px; } .cookie-btns{ width:100%; } .cookie-btn-accept,.cookie-btn-reject{ flex:1; text-align:center; } }
+
+  /* ── SKIP LINK ACCESSIBILITÀ ── */
+  .skip-link {
+    position:absolute; top:-100px; left:0;
+    background:var(--brown,#7A4E28); color:#fff;
+    padding:12px 20px; z-index:9999;
+    font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
+    text-decoration:none; text-transform:uppercase;
+  }
+  .skip-link:focus { top:0; outline:2px solid #fff; }
+
+  /* ── FOOTER SITEMAP NAV ── */
+  .footer-sitemap {
+    background:#3D2810;
+    padding:32px 80px 20px;
+    border-bottom:1px solid rgba(245,239,228,0.08);
+  }
+  .footer-sitemap-inner {
+    display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
+    max-width:980px; margin:0 auto;
+  }
+  .footer-sitemap a {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-decoration:none; transition:color 0.2s;
+    padding:6px 0;
+  }
+  .footer-sitemap a:hover { color:#c4a882; }
+  @media (max-width:768px) {
+    .footer-sitemap { padding:24px 24px 14px; }
+    .footer-sitemap-inner { gap:16px 22px; }
+  }
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
@@ -230,12 +284,40 @@
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.l800.it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Menu",
+      "item": "https://www.l800.it/menu.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Menu Cibo",
+      "item": "https://www.l800.it/menu-cibo.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+<a href="#main-content" class="skip-link">Salta al contenuto</a>
+
 
 
 <!-- COOKIE BANNER -->
@@ -261,7 +343,7 @@
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="hero-inner">
     <span class="hero-eyebrow">L'800 · Locanda a Palazzo · Amantea</span>
     <h1 class="hero-title">Il <em>menu</em></h1>
@@ -607,6 +689,19 @@
     <a href="menu-dolci.html" class="btn-secondary">Dolci e fine pasto →</a>
   </div>
 </div>
+
+<!-- NAVIGAZIONE INTERNA -->
+<nav class="footer-sitemap" aria-label="Mappa del sito">
+  <div class="footer-sitemap-inner">
+    <a href="index.html">Home</a>
+    <a href="storia.html">La nostra storia</a>
+    <a href="menu.html">Menu</a>
+    <a href="menu-vini.html">Vini</a>
+    <a href="eventi.html">Occasioni speciali</a>
+    <a href="buoni.html">Buoni regalo</a>
+    <a href="prenota.html">Prenota</a>
+  </div>
+</nav>
 
 <footer>
   <div class="footer-top">

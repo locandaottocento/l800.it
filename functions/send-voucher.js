@@ -2,35 +2,173 @@
 // File: functions/send-voucher.js  →  Endpoint: POST /send-voucher
 // Runtime: Cloudflare Workers (V8) — fetch nativo, niente Node.js
 // Env var: RESEND_API_KEY (Pages > Settings > Environment variables)
+//          PAYPAL_CLIENT_ID, PAYPAL_SECRET (per verifica server-side ordini)
+//          ALLOWED_ORIGIN (default https://www.l800.it)
 
 const RESEND_URL = 'https://api.resend.com/emails';
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
+const PAYPAL_API = 'https://api-m.paypal.com';   // produzione PayPal
+const MAX_PDF_BYTES = 2 * 1024 * 1024;           // 2 MB hard cap base64-decoded
+const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-function jsonResponse(data, status = 200) {
+// Rate limiting in-memory per istanza (Cloudflare Workers riavvia spesso,
+// ma protegge contro burst da stesso IP entro la stessa istanza)
+const ipHits = new Map();
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_HITS = 5;
+
+function buildCors(origin) {
+  // Sempre restrittivo: l'origin di l800.it (o www) viene riflesso, gli altri vengono bloccati
+  const allowed = ['https://www.l800.it', 'https://l800.it'];
+  const allowOrigin = allowed.includes(origin) ? origin : 'https://www.l800.it';
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Vary': 'Origin',
+  };
+}
+
+function jsonResponse(data, status = 200, cors = {}) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors, 'Content-Type': 'application/json' },
   });
 }
 
 // ── Preflight CORS ──────────────────────────────────────────────────
-export async function onRequestOptions() {
-  return new Response(null, { status: 200, headers: CORS });
+export async function onRequestOptions({ request }) {
+  return new Response(null, { status: 200, headers: buildCors(request.headers.get('Origin')) });
+}
+
+// ── Verifica server-side dell'ordine PayPal ──────────────────────────
+// Recupera l'access token e poi i dettagli dell'ordine. Restituisce true
+// se l'ordine esiste ed è in stato COMPLETED, altrimenti false.
+async function verifyPaypalOrder(orderId, env) {
+  if (!env.PAYPAL_CLIENT_ID || !env.PAYPAL_SECRET) {
+    // Se le credenziali non sono configurate, NON blocchiamo il flusso (retrocompatibilità)
+    // ma logghiamo un warning per dare visibilità.
+    console.warn('PayPal credentials non configurate: verifica ordine saltata');
+    return true;
+  }
+  try {
+    const basic = btoa(`${env.PAYPAL_CLIENT_ID}:${env.PAYPAL_SECRET}`);
+    const tokenR = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${basic}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'grant_type=client_credentials',
+    });
+    if (!tokenR.ok) {
+      console.error('PayPal token fail:', tokenR.status);
+      return false;
+    }
+    const { access_token } = await tokenR.json();
+    const orderR = await fetch(`${PAYPAL_API}/v2/checkout/orders/${encodeURIComponent(orderId)}`, {
+      headers: { 'Authorization': `Bearer ${access_token}` },
+    });
+    if (!orderR.ok) {
+      console.error('PayPal order fail:', orderR.status, orderId);
+      return false;
+    }
+    const order = await orderR.json();
+    return order && order.status === 'COMPLETED';
+  } catch (err) {
+    console.error('verifyPaypalOrder error:', err.message);
+    return false;
+  }
+}
+
+// ── Sanifica stringhe usate negli header (subject Reply-To)
+//    Rimuove CR/LF per prevenire header injection
+function sanHeader(s, maxLen = 200) {
+  return String(s || '').replace(/[\r\n]+/g, ' ').slice(0, maxLen);
+}
+
+// ── Versione text/plain delle email (anti-spam, accessibilità)
+function textAcquirente(d) {
+  const persone = d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`;
+  return [
+    `Ciao ${d.nomeAcquirente},`,
+    '',
+    `Hai regalato un'esperienza all'L'800 Locanda a Palazzo.`,
+    `In allegato trovi il Buono Regalo in formato PDF.`,
+    '',
+    `Riepilogo:`,
+    `  Prodotto: ${d.prodotto}`,
+    `  Valido per: ${persone}`,
+    `  Codice: ${d.codiceVoucher}`,
+    `  Scadenza: ${d.scadenza}`,
+    `  Destinatario: ${d.nomeDestinatario}`,
+    `  ID PayPal: ${d.paypalOrderId}`,
+    '',
+    d.messaggioPersonale ? `Messaggio: "${d.messaggioPersonale}"\n` : '',
+    `Per prenotare:`,
+    `  WhatsApp: https://wa.me/390982428262`,
+    `  Octotable: https://octotable.com/book/restaurant/561331/booking/home`,
+    `  Telefono: +39 0982 428262`,
+    '',
+    `--`,
+    `L'800 Locanda a Palazzo`,
+    `Via Calavecchia 53, 87032 Amantea (CS)`,
+    `info@l800.it · https://www.l800.it`,
+  ].filter(Boolean).join('\n');
+}
+
+function textDestinatario(d) {
+  const persone = d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`;
+  return [
+    `Ciao ${d.nomeDestinatario},`,
+    '',
+    `${d.nomeAcquirente} ti ha fatto un regalo speciale: una cena all'L'800 Locanda a Palazzo,`,
+    `nel cuore di Amantea, sulla costa tirrenica calabrese.`,
+    '',
+    d.messaggioPersonale ? `Il messaggio: "${d.messaggioPersonale}"\n` : '',
+    `Il tuo Buono Regalo:`,
+    `  ${d.prodotto}`,
+    `  Valido per: ${persone}`,
+    `  Codice: ${d.codiceVoucher}`,
+    `  Scadenza: ${d.scadenza}`,
+    '',
+    `Per prenotare il tuo tavolo:`,
+    `  WhatsApp: https://wa.me/390982428262`,
+    `  Octotable: https://octotable.com/book/restaurant/561331/booking/home`,
+    `  Telefono: +39 0982 428262`,
+    '',
+    `--`,
+    `L'800 Locanda a Palazzo`,
+    `Via Calavecchia 53, 87032 Amantea (CS)`,
+  ].filter(Boolean).join('\n');
 }
 
 // ── POST /send-voucher ──────────────────────────────────────────────
-// context contiene: { request, env, waitUntil, params, data, next }
 export async function onRequestPost({ request, env, waitUntil }) {
+
+  const origin = request.headers.get('Origin');
+  const cors = buildCors(origin);
+
+  // 0. Controllo origin (CORS strict). Se l'origin non è autorizzato, rifiuto.
+  if (origin && !['https://www.l800.it', 'https://l800.it'].includes(origin)) {
+    console.warn('Origin non autorizzato:', origin);
+    return jsonResponse({ error: 'Origin non autorizzato' }, 403, cors);
+  }
+
+  // 0b. Rate limiting basico per IP
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const now = Date.now();
+  const hist = (ipHits.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS);
+  if (hist.length >= RATE_MAX_HITS) {
+    return jsonResponse({ error: 'Troppe richieste, riprova tra qualche minuto.' }, 429, cors);
+  }
+  hist.push(now);
+  ipHits.set(ip, hist);
 
   // 1. API key Resend
   const apiKey = env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('RESEND_API_KEY mancante nelle variabili d\'ambiente');
-    return jsonResponse({ error: 'Configurazione server mancante' }, 500);
+    return jsonResponse({ error: 'Configurazione server mancante' }, 500, cors);
   }
 
   // 2. Parsa il body JSON
@@ -38,7 +176,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   try {
     d = await request.json();
   } catch {
-    return jsonResponse({ error: 'Body JSON non valido' }, 400);
+    return jsonResponse({ error: 'Body JSON non valido' }, 400, cors);
   }
 
   // 3. Valida i campi obbligatori
@@ -49,24 +187,53 @@ export async function onRequestPost({ request, env, waitUntil }) {
   ];
   for (const field of required) {
     if (!d[field] && d[field] !== 0) {
-      return jsonResponse({ error: `Campo obbligatorio mancante: ${field}` }, 400);
+      return jsonResponse({ error: `Campo obbligatorio mancante: ${field}` }, 400, cors);
     }
+  }
+
+  // 3b. Validazione formato email (server-side, oltre al client-side)
+  if (!EMAIL_RX.test(String(d.emailAcquirente).trim())) {
+    return jsonResponse({ error: 'Email acquirente non valida' }, 400, cors);
+  }
+  if (d.emailDestinatario && String(d.emailDestinatario).trim() && !EMAIL_RX.test(String(d.emailDestinatario).trim())) {
+    return jsonResponse({ error: 'Email destinatario non valida' }, 400, cors);
+  }
+
+  // 3c. Limite dimensione PDF (decoded). Stima rapida: base64 ≈ originale × 1.33
+  const pdfBase64Raw = String(d.pdfBase64 || '');
+  const approxBytes = Math.floor(pdfBase64Raw.length * 0.75);
+  if (approxBytes > MAX_PDF_BYTES) {
+    return jsonResponse({ error: 'PDF troppo grande' }, 413, cors);
   }
 
   // 4. Sanificazioni
   d.numPersone = parseInt(d.numPersone, 10) || 1;
-  // Rimuovi eventuale prefisso data URI (safety net — il browser lo fa già)
-  const pdfContent = d.pdfBase64.includes(',')
-    ? d.pdfBase64.split(',')[1]
-    : d.pdfBase64;
+  if (d.numPersone < 1 || d.numPersone > 200) d.numPersone = 1;
 
-  // 5. Struttura allegato Resend — content deve essere base64 puro
+  // Rimuovi eventuale prefisso data URI (safety net — il browser lo fa già)
+  const pdfContent = pdfBase64Raw.includes(',')
+    ? pdfBase64Raw.split(',')[1]
+    : pdfBase64Raw;
+
+  // 4b. Verifica server-side dell'ordine PayPal (anti-frode)
+  const paypalOk = await verifyPaypalOrder(d.paypalOrderId, env);
+  if (!paypalOk) {
+    return jsonResponse({ error: 'Ordine PayPal non valido o non completato' }, 402, cors);
+  }
+
+  // 5. Allegato Resend — nome file personalizzato con codice voucher
+  const codiceSafe = String(d.codiceVoucher).replace(/[^A-Z0-9-]/gi, '');
   const attachment = [{
-    filename: 'buono-regalo-l800.pdf',
+    filename: `buono-regalo-l800-${codiceSafe}.pdf`,
     content: pdfContent,
   }];
 
-  // 6. Email all'acquirente (await — bloccante, serve conferma)
+  // 6. Subject sanitizzato per prevenire header injection
+  const subjAcq = sanHeader(`Il tuo Buono Regalo L'800 \u2714`);
+  const subjDest = sanHeader(`${d.nomeAcquirente} ti ha fatto un regalo speciale \uD83C\uDF81`);
+  const replyTo = 'info@l800.it';
+
+  // 7. Email all'acquirente (await — bloccante)
   let r1;
   try {
     r1 = await fetch(RESEND_URL, {
@@ -78,28 +245,32 @@ export async function onRequestPost({ request, env, waitUntil }) {
       body: JSON.stringify({
         from: "L'800 Locanda a Palazzo <info@l800.it>",
         to: [d.emailAcquirente],
-        subject: `Il tuo Buono Regalo L'800 \u2714`,
+        reply_to: replyTo,
+        subject: subjAcq,
         html: htmlAcquirente(d),
+        text: textAcquirente(d),
         attachments: attachment,
       }),
     });
   } catch (err) {
     console.error('Fetch Resend (acquirente) error:', err.message);
-    return jsonResponse({ error: 'Errore di rete: ' + err.message }, 502);
+    return jsonResponse({ error: 'Errore di rete: ' + err.message }, 502, cors);
   }
 
   if (!r1.ok) {
     const errText = await r1.text();
     console.error('Resend API error (acquirente):', r1.status, errText);
-    return jsonResponse({ error: 'Invio email fallito', detail: errText }, 500);
+    // Gestione esplicita 429 da Resend (rate limit)
+    if (r1.status === 429) {
+      return jsonResponse({ error: 'Servizio email temporaneamente sovraccarico, riprova tra qualche minuto.' }, 503, cors);
+    }
+    return jsonResponse({ error: 'Invio email fallito', detail: errText }, 500, cors);
   }
 
-  // 7. Email al destinatario — in background con waitUntil
-  //    (pendingPromises vengono cancellate se la Response è già restituita
-  //     senza waitUntil — confermato dalla documentazione Cloudflare)
+  // 8. Email al destinatario in background
   const emailDestValida =
     d.emailDestinatario &&
-    d.emailDestinatario.includes('@') &&
+    EMAIL_RX.test(String(d.emailDestinatario).trim()) &&
     d.emailDestinatario.trim().toLowerCase() !== d.emailAcquirente.trim().toLowerCase();
 
   if (emailDestValida) {
@@ -113,16 +284,31 @@ export async function onRequestPost({ request, env, waitUntil }) {
         body: JSON.stringify({
           from: "L'800 Locanda a Palazzo <info@l800.it>",
           to: [d.emailDestinatario],
-          subject: `${d.nomeAcquirente} ti ha fatto un regalo speciale \uD83C\uDF81`,
+          reply_to: replyTo,
+          subject: subjDest,
           html: htmlDestinatario(d),
+          text: textDestinatario(d),
           attachments: attachment,
         }),
       }).catch(err => console.error('Email destinatario error:', err.message))
     );
   }
 
-  // 8. Risposta di successo
-  return jsonResponse({ success: true });
+  // 8b. Log strutturato vendita (consultabile da Cloudflare > Logs / Logpush)
+  console.log('VOUCHER_SOLD', JSON.stringify({
+    ts: new Date().toISOString(),
+    codice: d.codiceVoucher,
+    prodotto: d.prodotto,
+    numPersone: d.numPersone,
+    scadenza: d.scadenza,
+    paypalOrderId: d.paypalOrderId,
+    acquirente: { nome: d.nomeAcquirente, email: d.emailAcquirente },
+    destinatario: { nome: d.nomeDestinatario, email: d.emailDestinatario || null },
+    inviato_destinatario: emailDestValida,
+  }));
+
+  // 9. Risposta di successo
+  return jsonResponse({ success: true }, 200, cors);
 }
 
 function htmlAcquirente(d) {
@@ -270,13 +456,21 @@ function htmlDestinatario(d) {
       </div>
     </div>
 
-    <p style="font-size:14px;color:#7a5c3c;line-height:1.8;margin:0 0 12px;">
-      Presenta il codice al momento del pagamento. Per prenotare il tuo tavolo:
+    <p style="font-size:14px;color:#7a5c3c;line-height:1.8;margin:0 0 18px;">
+      Presenta il codice al momento del pagamento.
     </p>
-    <table style="border-collapse:collapse;margin-bottom:16px;">
+
+    <!-- CTA PRINCIPALE -->
+    <div style="text-align:center;margin:0 0 24px;">
+      <a href="https://wa.me/390982428262?text=Ciao%2C%20vorrei%20prenotare%20usando%20il%20buono%20regalo%20${encodeURIComponent(d.codiceVoucher)}" style="display:inline-block;background:#2e7d32;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:1.8px;text-transform:uppercase;padding:16px 36px;text-decoration:none;font-weight:bold;">Prenota il tuo tavolo →</a>
+    </div>
+
+    <p style="text-align:center;font-size:12px;color:#a67c52;margin:0 0 16px;">oppure</p>
+
+    <table style="border-collapse:collapse;margin-bottom:16px;width:100%;">
       <tr>
-        <td style="padding-right:12px;"><a href="https://wa.me/390982428262" style="display:inline-block;background:#2e7d32;color:#fff;font-family:Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;text-decoration:none;">WhatsApp</a></td>
-        <td><a href="https://octotable.com/book/restaurant/561331/booking/home" style="display:inline-block;border:1px solid #7a4e28;color:#7a4e28;font-family:Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;text-decoration:none;">Octotable</a></td>
+        <td style="padding-right:8px;width:50%;"><a href="https://octotable.com/book/restaurant/561331/booking/home" style="display:block;text-align:center;border:1px solid #7a4e28;color:#7a4e28;font-family:Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 18px;text-decoration:none;">Prenota su Octotable</a></td>
+        <td style="padding-left:8px;width:50%;"><a href="tel:+390982428262" style="display:block;text-align:center;border:1px solid #7a4e28;color:#7a4e28;font-family:Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 18px;text-decoration:none;">Chiama</a></td>
       </tr>
     </table>
     <p style="font-size:13px;color:#a67c52;margin:0 0 36px;">oppure chiama il <a href="tel:+390982428262" style="color:#7a4e28;">0982 428262</a></p>

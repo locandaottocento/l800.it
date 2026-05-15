@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.l800.it/</loc><lastmod>2025-05-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.l800.it/prenota.html</loc><lastmod>2025-05-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.l800.it/menu-cibo.html</loc><lastmod>2025-05-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.l800.it/menu-vini.html</loc><lastmod>2025-05-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.l800.it/menu-dolci.html</loc><lastmod>2025-05-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.l800.it/eventi.html</loc><lastmod>2025-05-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.l800.it/storia.html</loc><lastmod>2025-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.l800.it/buoni.html</loc><lastmod>2025-05-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.l800.it/</loc><lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.l800.it/prenota.html</loc><lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://www.l800.it/menu.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.l800.it/menu-cibo.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.l800.it/menu-vini.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.l800.it/menu-dolci.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.l800.it/eventi.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.l800.it/storia.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.l800.it/buoni.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

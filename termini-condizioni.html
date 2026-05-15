@@ -15,10 +15,40 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Performance: preconnect resorse esterne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.facebook.com">
+<!-- Favicon & Mobile icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#7A4E28">
+<meta name="msapplication-TileColor" content="#7A4E28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="L'800">
 <title>Termini e Condizioni – L'800 Locanda a Palazzo</title>
-<meta name="description" content="Termini e condizioni di utilizzo del sito e di acquisto dei buoni regalo di L'800 Locanda a Palazzo, Amantea.">
+<meta name="description" content="Termini e condizioni d'uso del sito www.l800.it e di acquisto dei buoni regalo di L'800 Locanda a Palazzo, Amantea (CS).">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://www.l800.it/termini-condizioni.html">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.l800.it/termini-condizioni.html">
+<meta property="og:title" content="Termini e Condizioni – L'800 Locanda a Palazzo">
+<meta property="og:description" content="Termini e condizioni d'uso del sito www.l800.it e di acquisto dei buoni regalo di L'800 Locanda a Palazzo, Amantea (CS).">
+<meta property="og:image" content="https://www.l800.it/hero-giardino.jpg">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="L'800 Locanda a Palazzo">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Termini e Condizioni – L'800 Locanda a Palazzo">
+<meta name="twitter:description" content="Termini e condizioni d'uso del sito www.l800.it e di acquisto dei buoni regalo di L'800 Locanda a Palazzo, Amantea (CS).">
+<meta name="twitter:image" content="https://www.l800.it/hero-giardino.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Cormorant+SC:wght@400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
   :root{--cream-light:#FAF6EF;--cream-dark:#EDE4D4;--brown:#7A4E28;--brown-dark:#5C3515;--brown-light:#A67C52;--brown-pale:#C4A882;--text:#3D2810;--text-light:#7A5C3C;--border:rgba(122,78,40,0.18);}
@@ -64,6 +94,38 @@
   .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
   .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
+
+  /* ── SKIP LINK ACCESSIBILITÀ ── */
+  .skip-link {
+    position:absolute; top:-100px; left:0;
+    background:var(--brown,#7A4E28); color:#fff;
+    padding:12px 20px; z-index:9999;
+    font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
+    text-decoration:none; text-transform:uppercase;
+  }
+  .skip-link:focus { top:0; outline:2px solid #fff; }
+
+  /* ── FOOTER SITEMAP NAV ── */
+  .footer-sitemap {
+    background:#3D2810;
+    padding:32px 80px 20px;
+    border-bottom:1px solid rgba(245,239,228,0.08);
+  }
+  .footer-sitemap-inner {
+    display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
+    max-width:980px; margin:0 auto;
+  }
+  .footer-sitemap a {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-decoration:none; transition:color 0.2s;
+    padding:6px 0;
+  }
+  .footer-sitemap a:hover { color:#c4a882; }
+  @media (max-width:768px) {
+    .footer-sitemap { padding:24px 24px 14px; }
+    .footer-sitemap-inner { gap:16px 22px; }
+  }
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
@@ -111,12 +173,48 @@
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.l800.it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Termini e Condizioni",
+      "item": "https://www.l800.it/termini-condizioni.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Termini e Condizioni — L'800 Locanda a Palazzo",
+  "description": "Termini e condizioni di utilizzo del sito e di acquisto dei buoni regalo di L'800 Locanda a Palazzo.",
+  "inLanguage": "it-IT",
+  "publisher": {
+    "@type": "Restaurant",
+    "name": "L'800 Locanda a Palazzo",
+    "url": "https://www.l800.it"
+  }
+}
+</script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+<a href="#main-content" class="skip-link">Salta al contenuto</a>
+
 
 
 <!-- COOKIE BANNER -->
@@ -132,7 +230,7 @@
   <a href="index.html" class="nav-back">← Torna al sito</a>
 </nav>
 
-<div class="contenuto">
+<div class="contenuto" id="main-content">
   <span class="doc-subtitle">Documento legale</span>
   <h1 class="doc-title">Termini e Condizioni</h1>
   <span class="doc-data">Ultimo aggiornamento: maggio 2025 · Versione 1.0</span>
@@ -217,6 +315,19 @@
   Telefono: <a href="tel:+390982428262">+39 0982 428262</a><br>
   Indirizzo: Via Calavecchia 53, 87032 Amantea (CS)</p>
 </div>
+
+<!-- NAVIGAZIONE INTERNA -->
+<nav class="footer-sitemap" aria-label="Mappa del sito">
+  <div class="footer-sitemap-inner">
+    <a href="index.html">Home</a>
+    <a href="storia.html">La nostra storia</a>
+    <a href="menu.html">Menu</a>
+    <a href="menu-vini.html">Vini</a>
+    <a href="eventi.html">Occasioni speciali</a>
+    <a href="buoni.html">Buoni regalo</a>
+    <a href="prenota.html">Prenota</a>
+  </div>
+</nav>
 
 <footer>
   <div class="footer-top">

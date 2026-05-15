@@ -15,6 +15,23 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Performance: preconnect resorse esterne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.facebook.com">
+<!-- Favicon & Mobile icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#7A4E28">
+<meta name="msapplication-TileColor" content="#7A4E28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="L'800">
 <title>Buoni Regalo – L'800 Locanda a Palazzo</title>
   <meta name="description" content="Acquista online un buono regalo L'800 Locanda a Palazzo di Amantea. Regala una cena di pesce in Calabria. Consegna via email immediata, pagamento PayPal sicuro.">
   <meta name="keywords" content="buono regalo ristorante Amantea, gift card ristorante Calabria, regalo cena Amantea, buono pasto L800, idee regalo Calabria">
@@ -223,7 +240,14 @@
   .voucher-prezzo { font-family:'Cormorant Garamond',serif; font-size:44px; font-weight:300; color:var(--gold); line-height:1; margin-bottom:20px; }
   .voucher-dashed { border-top:1px dashed rgba(196,168,130,0.4); margin:20px 0; }
   .voucher-codice-label { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.2em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:8px; display:block; }
-  .voucher-codice { font-family:'Cormorant SC',serif; font-size:22px; letter-spacing:0.15em; color:var(--cream-light); }
+  .voucher-codice-wrap { display:flex; align-items:center; justify-content:center; gap:12px; margin:8px 0; flex-wrap:wrap; }
+  .voucher-codice { font-family:'Cormorant SC',serif; font-size:22px; letter-spacing:0.15em; color:var(--cream-light); background:none; padding:0; }
+  .voucher-copia-btn { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; background:rgba(245,239,228,0.08); color:var(--cream-light); border:1px solid rgba(245,239,228,0.25); padding:8px 14px; cursor:pointer; transition:all 0.2s; min-width:96px; }
+  .voucher-copia-btn:hover { background:rgba(245,239,228,0.18); }
+  .voucher-copia-btn:focus { outline:2px solid var(--cream-light); outline-offset:2px; }
+  .voucher-copia-ok { display:none; }
+  .voucher-copia-btn.copied .voucher-copia-default { display:none; }
+  .voucher-copia-btn.copied .voucher-copia-ok { display:inline; color:#a3d99b; }
   .voucher-valido { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.15em; color:rgba(245,239,228,0.45); text-transform:uppercase; margin-top:12px; display:block; }
   .conferma-dettagli { background:var(--cream-dark); border:1px solid var(--border); padding:28px 32px; text-align:left; margin-bottom:32px; }
   .conferma-dettagli p { font-family:'EB Garamond',serif; font-size:15px; color:var(--text-light); line-height:1.8; }
@@ -320,6 +344,51 @@
   .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
   .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
+
+  /* ── SKIP LINK ACCESSIBILITÀ ── */
+  .skip-link {
+    position:absolute; top:-100px; left:0;
+    background:var(--brown,#7A4E28); color:#fff;
+    padding:12px 20px; z-index:9999;
+    font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
+    text-decoration:none; text-transform:uppercase;
+  }
+  .skip-link:focus { top:0; outline:2px solid #fff; }
+
+  /* ── TOAST / BANNER ERRORE PAGAMENTO ── */
+  .l800-toast {
+    position:fixed; top:24px; left:50%; transform:translateX(-50%) translateY(-200%);
+    background:#7A4E28; color:#FAF6EF; padding:18px 28px; max-width:520px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.2); z-index:99999;
+    font-family:'EB Garamond',serif; font-size:15px; line-height:1.6;
+    border-left:4px solid #c4a882; transition:transform 0.4s ease;
+  }
+  .l800-toast.show { transform:translateX(-50%) translateY(0); }
+  .l800-toast strong { display:block; font-family:'Cormorant SC',serif; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:6px; color:#c4a882; }
+  .l800-toast a { color:#c4a882; text-decoration:underline; }
+  .l800-toast .toast-close { position:absolute; top:8px; right:12px; background:none; border:none; color:#c4a882; font-size:20px; cursor:pointer; padding:0; line-height:1; }
+
+  /* ── FOOTER SITEMAP NAV ── */
+  .footer-sitemap {
+    background:#3D2810;
+    padding:32px 80px 20px;
+    border-bottom:1px solid rgba(245,239,228,0.08);
+  }
+  .footer-sitemap-inner {
+    display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
+    max-width:980px; margin:0 auto;
+  }
+  .footer-sitemap a {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-decoration:none; transition:color 0.2s;
+    padding:6px 0;
+  }
+  .footer-sitemap a:hover { color:#c4a882; }
+  @media (max-width:768px) {
+    .footer-sitemap { padding:24px 24px 14px; }
+    .footer-sitemap-inner { gap:16px 22px; }
+  }
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
@@ -367,12 +436,34 @@
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.l800.it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Buoni Regalo",
+      "item": "https://www.l800.it/buoni.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+<a href="#main-content" class="skip-link">Salta al contenuto</a>
+
 
 
 <!-- NAV -->
@@ -393,7 +484,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section id="main-content" class="hero">
   <div class="hero-inner">
     <span class="hero-eyebrow">Buoni Regalo</span>
     <h1 class="hero-title">Regala una cena.<br><em>Regala un ricordo.</em></h1>
@@ -406,7 +497,7 @@
   <div class="prodotti-grid">
 
     <!-- PRODOTTO 1 -->
-    <div class="prodotto-card fade-in" id="card-2portate" onclick="selezionaProdotto('2portate')">
+    <div class="prodotto-card fade-in" id="card-tre" onclick="selezionaProdotto('tre')">
       <span class="prodotto-badge">Buono regalo</span>
       <div class="prodotto-nome">3 Portate</div>
       <div class="prodotto-prezzo">€50 <span>/ persona</span></div>
@@ -419,15 +510,15 @@
       </ul>
       <div class="prodotto-qty">
         <span class="qty-label">Quantità</span>
-        <button class="qty-btn" onclick="cambiaQty(event,'2portate',-1)">−</button>
-        <input class="qty-val" id="qty-2portate" type="text" value="1" readonly>
-        <button class="qty-btn" onclick="cambiaQty(event,'2portate',+1)">+</button>
+        <button class="qty-btn" onclick="cambiaQty(event,'tre',-1)">−</button>
+        <input class="qty-val" id="qty-tre" type="text" value="1" readonly>
+        <button class="qty-btn" onclick="cambiaQty(event,'tre',+1)">+</button>
       </div>
       <div class="disponibile">Disponibile</div>
     </div>
 
     <!-- PRODOTTO 2 -->
-    <div class="prodotto-card fade-in delay-1" id="card-3portate" onclick="selezionaProdotto('3portate')">
+    <div class="prodotto-card fade-in delay-1" id="card-quattro" onclick="selezionaProdotto('quattro')">
       <span class="prodotto-badge">Buono regalo</span>
       <div class="prodotto-nome">4 Portate</div>
       <div class="prodotto-prezzo">€65 <span>/ persona</span></div>
@@ -440,9 +531,9 @@
       </ul>
       <div class="prodotto-qty">
         <span class="qty-label">Quantità</span>
-        <button class="qty-btn" onclick="cambiaQty(event,'3portate',-1)">−</button>
-        <input class="qty-val" id="qty-3portate" type="text" value="1" readonly>
-        <button class="qty-btn" onclick="cambiaQty(event,'3portate',+1)">+</button>
+        <button class="qty-btn" onclick="cambiaQty(event,'quattro',-1)">−</button>
+        <input class="qty-val" id="qty-quattro" type="text" value="1" readonly>
+        <button class="qty-btn" onclick="cambiaQty(event,'quattro',+1)">+</button>
       </div>
       <div class="disponibile">Disponibile</div>
     </div>
@@ -461,7 +552,7 @@
 <div class="carrello-wrapper">
   <div class="carrello fade-in">
     <div class="carrello-header">
-      <h3>🛒 Riepilogo ordine</h3>
+      <h2>🛒 Riepilogo ordine</h2>
     </div>
     <div id="carrello-items" class="carrello-items">
       <div class="carrello-vuoto" id="carrello-vuoto">Nessun prodotto selezionato.<br>Scegli un buono regalo qui sopra.</div>
@@ -499,6 +590,7 @@
       <div class="form-group">
         <label class="form-label" for="emailDestinatario">Email del destinatario</label>
         <input class="form-input" id="emailDestinatario" type="email" placeholder="anna@email.it">
+        <span class="msg-errore" id="err-emailDes">Email non valida</span>
       </div>
       <div class="form-group full">
         <label class="form-label" for="messaggioPersonale">Messaggio personale (opzionale)</label>
@@ -538,7 +630,13 @@
       <div class="voucher-prezzo" id="voucher-importo">€—</div>
       <div class="voucher-dashed"></div>
       <span class="voucher-codice-label">Codice voucher</span>
-      <div class="voucher-codice" id="voucher-codice">—</div>
+      <div class="voucher-codice-wrap">
+        <code class="voucher-codice" id="voucher-codice">—</code>
+        <button type="button" class="voucher-copia-btn" id="voucher-copia-btn" aria-label="Copia codice" onclick="copiaCodiceVoucher()">
+          <span class="voucher-copia-default">Copia</span>
+          <span class="voucher-copia-ok">✓ Copiato</span>
+        </button>
+      </div>
       <span class="voucher-valido" id="voucher-scadenza">Valido 12 mesi dall'acquisto</span>
     </div>
 
@@ -552,6 +650,19 @@
 </div>
 
 <!-- FOOTER -->
+<!-- NAVIGAZIONE INTERNA -->
+<nav class="footer-sitemap" aria-label="Mappa del sito">
+  <div class="footer-sitemap-inner">
+    <a href="index.html">Home</a>
+    <a href="storia.html">La nostra storia</a>
+    <a href="menu.html">Menu</a>
+    <a href="menu-vini.html">Vini</a>
+    <a href="eventi.html">Occasioni speciali</a>
+    <a href="buoni.html">Buoni regalo</a>
+    <a href="prenota.html">Prenota</a>
+  </div>
+</nav>
+
 <footer>
   <span class="footer-brand">L'800</span>
   <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780</span>
@@ -567,12 +678,24 @@
 <script src="https://www.paypal.com/sdk/js?client-id=Afw_NTlvBV8q6y1HigSn4lXPzqbXdBFFW9EziyM0nR0dKPd6ost9BJN3QLSKhaSnevwKylPqFXyvAwlw&currency=EUR&locale=it_IT&intent=capture&components=buttons"></script>
 
 <script>
+
+// ── Avvisa l'utente se chiude/ricarica durante checkout/pagamento ──
+let checkoutInCorso = false;
+window.addEventListener('beforeunload', function(e) {
+  if (checkoutInCorso) {
+    e.preventDefault();
+    e.returnValue = '';
+    return '';
+  }
+});
+function setCheckoutInCorso(stato) { checkoutInCorso = !!stato; }
+
 // ── STATO ──
 const PRODOTTI = {
-  '2portate': { nome: 'Buono regalo – 3 Portate', prezzo: 50 },
-  '3portate': { nome: 'Buono regalo – 4 Portate', prezzo: 65 }
+  'tre': { nome: 'Buono regalo – 3 Portate', prezzo: 50 },
+  'quattro': { nome: 'Buono regalo – 4 Portate', prezzo: 65 }
 };
-let qty = { '2portate': 0, '3portate': 0 };
+let qty = { 'tre': 0, 'quattro': 0 };
 let paypalRendered = false;
 
 // ── SELEZIONE PRODOTTO ──
@@ -603,7 +726,7 @@ function cambiaQty(e, id, delta) {
   const input = document.getElementById('qty-' + id);
   let v = parseInt(input.value) + delta;
   if (v < 1) v = 1;
-  if (v > 20) v = 20;
+  if (v > 8) v = 8;
   input.value = v;
   if (qty[id] > 0) {
     qty[id] = v;
@@ -703,8 +826,9 @@ function aggiornaPayPal(haItems, totale) {
       // Pagamento annullato dall'utente — non fare nulla
     },
     onError: function(err) {
+      setCheckoutInCorso(false);
       console.error('PayPal error:', err);
-      alert("Si è verificato un errore durante il pagamento. Riprova o contattaci su WhatsApp al +39 0982 428262.");
+      mostraToastErrore('Errore pagamento', 'Si è verificato un errore durante il pagamento. Riprova o <a href="https://wa.me/390982428262">contattaci su WhatsApp</a>.');
     }
   }).render('#paypal-render-target').catch(function(err) {
     console.error('PayPal render error:', err);
@@ -727,14 +851,14 @@ function descrizioneOrdine() {
 // ── VALIDAZIONE FORM ──
 function validaForm() {
   let ok = true;
+  const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-  const nome = document.getElementById('nomeAcquirente');
-  const email = document.getElementById('emailAcquirente');
-  const dest = document.getElementById('nomeDestinatario');
+  const nome     = document.getElementById('nomeAcquirente');
+  const email    = document.getElementById('emailAcquirente');
+  const dest     = document.getElementById('nomeDestinatario');
+  const emailDes = document.getElementById('emailDestinatario');
 
-  [nome, email, dest].forEach(f => {
-    f.classList.remove('campo-errore');
-  });
+  [nome, email, dest, emailDes].forEach(f => f && f.classList.remove('campo-errore'));
   document.querySelectorAll('.msg-errore').forEach(e => e.style.display = 'none');
 
   if (!nome.value.trim()) {
@@ -742,7 +866,7 @@ function validaForm() {
     document.getElementById('err-nome').style.display = 'block';
     ok = false;
   }
-  if (!email.value.trim() || !email.value.includes('@')) {
+  if (!email.value.trim() || !EMAIL_RX.test(email.value.trim())) {
     email.classList.add('campo-errore');
     document.getElementById('err-email').style.display = 'block';
     ok = false;
@@ -750,6 +874,13 @@ function validaForm() {
   if (!dest.value.trim()) {
     dest.classList.add('campo-errore');
     document.getElementById('err-dest').style.display = 'block';
+    ok = false;
+  }
+  // Email destinatario è opzionale, ma se compilata deve essere valida
+  if (emailDes && emailDes.value.trim() && !EMAIL_RX.test(emailDes.value.trim())) {
+    emailDes.classList.add('campo-errore');
+    const errDes = document.getElementById('err-emailDes');
+    if (errDes) errDes.style.display = 'block';
     ok = false;
   }
 
@@ -762,20 +893,21 @@ function validaForm() {
 // ── GENERATORE CODICE VOUCHER ──
 function generaCodice() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = 'L800-';
-  for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  code += '-';
-  for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  return code;
+  // Suffisso timestamp in Base36 (ultime 4 cifre) → garantisce unicità anche con stesso seed random
+  const ts = Date.now().toString(36).toUpperCase().slice(-4);
+  let randPart = '';
+  for (let i = 0; i < 4; i++) randPart += chars[Math.floor(Math.random() * chars.length)];
+  // Format: L800-XXXX-YYYY dove XXXX = random e YYYY = timestamp
+  return 'L800-' + randPart + '-' + ts;
 }
 
 // ── HELPERS ──
 function getNumPortateTesto() {
-  const h2 = qty['2portate'] > 0; // prodotto "3 Portate"
-  const h3 = qty['3portate'] > 0; // prodotto "4 Portate"
-  if (h2 && h3) return 'Tre o Quattro';
-  if (h2) return 'Tre';
-  if (h3) return 'Quattro';
+  const haTre = qty['tre'] > 0;
+  const haQuattro = qty['quattro'] > 0;
+  if (haTre && haQuattro) return 'Tre o Quattro';
+  if (haTre) return 'Tre';
+  if (haQuattro) return 'Quattro';
   return '';
 }
 function getTotalPersone() {
@@ -820,23 +952,34 @@ async function mostraConferma(details) {
 
   // Popola voucher visivo nella conferma
   document.getElementById('voucher-prodotto-nome').textContent = prodDesc;
-  document.getElementById('voucher-importo').textContent = 'E' + totale;
+  document.getElementById('voucher-importo').textContent = '€' + totale;
   document.getElementById('voucher-codice').textContent = codice;
   document.getElementById('voucher-scadenza').textContent = 'Valido fino al ' + scadStr;
 
   document.getElementById('conferma-sub-text').textContent =
     'Grazie ' + nome + '! Pagamento completato. Sto preparando il buono...';
 
-  document.getElementById('conferma-dettagli-text').innerHTML =
-    '<strong>Acquistato da:</strong> ' + nome + ' (' + email + ')<br>' +
-    '<strong>Destinatario:</strong> ' + dest + (emailDest ? ' (' + emailDest + ')' : '') + '<br>' +
-    (msg ? '<strong>Messaggio:</strong> ' + msg + '<br>' : '') +
-    '<strong>Ordine:</strong> ' + prodDesc + '<br>' +
-    '<strong>Persone:</strong> ' + numPersone + '<br>' +
-    '<strong>Importo pagato:</strong> E' + totale + '<br>' +
-    '<strong>Codice voucher:</strong> ' + codice + '<br>' +
-    '<strong>Scadenza:</strong> ' + scadStr + '<br>' +
-    '<strong>ID transazione PayPal:</strong> ' + details.id;
+  // Costruzione sicura del DOM (evita XSS con dati utente)
+  const conf = document.getElementById('conferma-dettagli-text');
+  conf.innerHTML = '';
+  const aggiungiRiga = (label, valore) => {
+    const p = document.createElement('p');
+    p.style.margin = '4px 0';
+    const s = document.createElement('strong');
+    s.textContent = label + ' ';
+    p.appendChild(s);
+    p.appendChild(document.createTextNode(valore));
+    conf.appendChild(p);
+  };
+  aggiungiRiga('Acquistato da:', nome + ' (' + email + ')');
+  aggiungiRiga('Destinatario:', dest + (emailDest ? ' (' + emailDest + ')' : ''));
+  if (msg) aggiungiRiga('Messaggio:', msg);
+  aggiungiRiga('Ordine:', prodDesc);
+  aggiungiRiga('Persone:', String(numPersone));
+  aggiungiRiga('Importo pagato:', '€' + totale);
+  aggiungiRiga('Codice voucher:', codice);
+  aggiungiRiga('Scadenza:', scadStr);
+  aggiungiRiga('ID transazione PayPal:', details.id);
 
   // Mostra subito la schermata
   document.getElementById('schermata-conferma').style.display = 'block';
@@ -986,6 +1129,12 @@ async function generateVoucherPDF(data) {
   // Box regalo decorativo
   disegnaBoxRegalo(doc, 15, H - 58, 40, brownPale);
 
+  // Versione template PDF (utile in caso di redesign futuri)
+  doc.setFontSize(6);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(170, 170, 170);
+  doc.text('v1.0', W - 10, H - 6, { align: 'right' });
+
   return doc.output('datauristring');
 }
 
@@ -1003,6 +1152,54 @@ function disegnaBoxRegalo(doc, x, y, s, color) {
   doc.line(x + s * 0.44, y + s * 0.22, x + s * 0.28, y + s * 0.37);
   doc.line(x + s * 0.56, y + s * 0.22, x + s * 0.72, y + s * 0.37);
 }
+
+
+// ── COPIA CODICE VOUCHER NEGLI APPUNTI ──
+function copiaCodiceVoucher() {
+  const codiceEl = document.getElementById('voucher-codice');
+  const btn = document.getElementById('voucher-copia-btn');
+  if (!codiceEl || !btn) return;
+  const codice = codiceEl.textContent.trim();
+  if (!codice || codice === '—') return;
+
+  const onSuccess = () => {
+    btn.classList.add('copied');
+    setTimeout(() => btn.classList.remove('copied'), 2200);
+  };
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(codice).then(onSuccess).catch(() => fallbackCopy(codice, onSuccess));
+  } else {
+    fallbackCopy(codice, onSuccess);
+  }
+}
+function fallbackCopy(testo, onSuccess) {
+  const ta = document.createElement('textarea');
+  ta.value = testo;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); onSuccess(); } catch (e) { /* niente */ }
+  document.body.removeChild(ta);
+}
+
+
+// ── TOAST ERRORE BRAND ──
+function mostraToastErrore(titolo, html) {
+  let t = document.getElementById('l800-toast-active');
+  if (t) t.remove();
+  t = document.createElement('div');
+  t.id = 'l800-toast-active';
+  t.className = 'l800-toast';
+  t.setAttribute('role', 'alert');
+  t.innerHTML = '<button class="toast-close" aria-label="Chiudi">×</button><strong>' + titolo + '</strong>' + html;
+  t.querySelector('.toast-close').onclick = () => t.classList.remove('show');
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => t.classList.remove('show'), 8000);
+}
+
 </script>
 
 <script>

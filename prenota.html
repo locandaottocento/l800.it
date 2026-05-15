@@ -15,8 +15,25 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Performance: preconnect resorse esterne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.facebook.com">
+<!-- Favicon & Mobile icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#7A4E28">
+<meta name="msapplication-TileColor" content="#7A4E28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="L'800">
 <title>Prenota un tavolo – L'800 Locanda a Palazzo, Amantea</title>
-<meta name="description" content="Prenota il tuo tavolo all'L'800 Locanda a Palazzo di Amantea, Calabria. Ristorante di pesce con cucina calabrese autentica. Prenotazione rapida via WhatsApp o online. Aperto martedì–domenica, pranzo e cena.">
+<meta name="description" content="Prenota un tavolo all'L'800 Locanda a Palazzo di Amantea, Calabria. Ristorante di pesce con cucina calabrese. Aperti tutti i giorni tranne mercoledì.">
 <meta name="keywords" content="prenotare tavolo Amantea, prenotazione ristorante Amantea, prenota L800 Amantea, ristorante pesce prenotazione Calabria, tavolo ristorante Amantea, prenota cena Amantea, L800 locanda palazzo prenotazione, dove mangiare Amantea prenotazione">
 <meta name="author" content="L'800 Locanda a Palazzo">
 <meta name="robots" content="index, follow">
@@ -24,14 +41,14 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Prenota un tavolo – L'800 Locanda a Palazzo, Amantea">
-<meta property="og:description" content="Prenota il tuo tavolo all'L'800 Locanda a Palazzo di Amantea. Cucina di pesce calabrese autentica in un palazzo storico dell'Ottocento. Risposta immediata via WhatsApp.">
+<meta property="og:description" content="Prenota un tavolo all'L'800 Locanda a Palazzo di Amantea, Calabria. Ristorante di pesce con cucina calabrese. Aperti tutti i giorni tranne mercoledì.">
 <meta property="og:url" content="https://www.l800.it/prenota.html">
 <meta property="og:image" content="https://www.l800.it/hero-giardino.jpg">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="L'800 Locanda a Palazzo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prenota un tavolo – L'800 Locanda a Palazzo, Amantea">
-<meta name="twitter:description" content="Prenotazione rapida via WhatsApp. Cucina di pesce calabrese in un palazzo storico dell'Ottocento ad Amantea.">
+<meta name="twitter:description" content="Prenota un tavolo all'L'800 Locanda a Palazzo di Amantea, Calabria. Ristorante di pesce con cucina calabrese. Aperti tutti i giorni tranne mercoledì.">
 <meta name="twitter:image" content="https://www.l800.it/hero-giardino.jpg">
 
 <script type="application/ld+json">
@@ -57,18 +74,37 @@
   },
   "telephone": "+390982428262",
   "email": "info@l800.it",
-  "servesCuisine": ["Pesce", "Cucina Calabrese", "Seafood", "Cucina Italiana"],
+  "servesCuisine": [
+    "Pesce",
+    "Cucina Calabrese",
+    "Seafood",
+    "Cucina Italiana"
+  ],
   "priceRange": "€€€",
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
       "opens": "12:00",
       "closes": "14:30"
     },
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
       "opens": "19:30",
       "closes": "22:00"
     }
@@ -76,23 +112,15 @@
   "hasMap": "https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A",
   "reservations": "https://www.l800.it/prenota.html",
   "acceptsReservations": true,
-  "aggregateRating": [
-    {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "540",
-      "bestRating": "5",
-      "name": "TripAdvisor"
-    },
-    {
-      "@type": "AggregateRating",
-      "ratingValue": "9.3",
-      "bestRating": "10",
-      "name": "TheFork"
-    }
-  ]
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "540",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
 }
-</script>
+  </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
@@ -254,6 +282,38 @@
 
   .info-sotto-form { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
   @media(max-width:768px){ .info-sotto-form { grid-template-columns:1fr; } }
+
+  /* ── SKIP LINK ACCESSIBILITÀ ── */
+  .skip-link {
+    position:absolute; top:-100px; left:0;
+    background:var(--brown,#7A4E28); color:#fff;
+    padding:12px 20px; z-index:9999;
+    font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
+    text-decoration:none; text-transform:uppercase;
+  }
+  .skip-link:focus { top:0; outline:2px solid #fff; }
+
+  /* ── FOOTER SITEMAP NAV ── */
+  .footer-sitemap {
+    background:#3D2810;
+    padding:32px 80px 20px;
+    border-bottom:1px solid rgba(245,239,228,0.08);
+  }
+  .footer-sitemap-inner {
+    display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
+    max-width:980px; margin:0 auto;
+  }
+  .footer-sitemap a {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-decoration:none; transition:color 0.2s;
+    padding:6px 0;
+  }
+  .footer-sitemap a:hover { color:#c4a882; }
+  @media (max-width:768px) {
+    .footer-sitemap { padding:24px 24px 14px; }
+    .footer-sitemap-inner { gap:16px 22px; }
+  }
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
@@ -301,12 +361,34 @@
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.l800.it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Prenota",
+      "item": "https://www.l800.it/prenota.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+<a href="#main-content" class="skip-link">Salta al contenuto</a>
+
 
 
 <div id="cookie-banner" role="dialog" aria-label="Preferenze cookie">
@@ -326,7 +408,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section id="main-content" class="hero">
   <div class="hero-inner">
     <span class="hero-eyebrow">Amantea · Via Calavecchia 53 · Calabria</span>
     <h1 class="hero-title">Prenota il tuo<br><em>tavolo</em></h1>
@@ -504,6 +586,19 @@
 </div>
 
 <!-- FOOTER -->
+<!-- NAVIGAZIONE INTERNA -->
+<nav class="footer-sitemap" aria-label="Mappa del sito">
+  <div class="footer-sitemap-inner">
+    <a href="index.html">Home</a>
+    <a href="storia.html">La nostra storia</a>
+    <a href="menu.html">Menu</a>
+    <a href="menu-vini.html">Vini</a>
+    <a href="eventi.html">Occasioni speciali</a>
+    <a href="buoni.html">Buoni regalo</a>
+    <a href="prenota.html">Prenota</a>
+  </div>
+</nav>
+
 <footer>
   <div class="footer-top">
     <span class="footer-brand">L'800</span>
