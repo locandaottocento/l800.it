@@ -1,12 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.l800.it/</loc><lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.l800.it/prenota.html</loc><lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.l800.it/menu.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.l800.it/menu-cibo.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.l800.it/menu-vini.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.l800.it/menu-dolci.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.l800.it/eventi.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.l800.it/storia.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.l800.it/buoni.html</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- ITALIAN -->
+  <url>
+    <loc>https://www.l800.it/</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/prenota.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/prenota.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/menu.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/menu-cibo.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu-cibo.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-cibo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-cibo.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/menu-vini.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu-vini.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-vini.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-vini.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/menu-dolci.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu-dolci.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-dolci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-dolci.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/eventi.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/eventi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/eventi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/eventi.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/storia.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/storia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/storia.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/storia.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/buoni.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/buoni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/buoni.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/buoni.html"/>
+  </url>
+
+  <!-- ENGLISH -->
+  <url>
+    <loc>https://www.l800.it/en/</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/prenota.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>weekly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/prenota.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/prenota.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/menu.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/menu-cibo.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu-cibo.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-cibo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-cibo.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/menu-vini.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu-vini.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-vini.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-vini.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/menu-dolci.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/menu-dolci.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-dolci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-dolci.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/eventi.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/eventi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/eventi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/eventi.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/storia.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/storia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/storia.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/storia.html"/>
+  </url>
+  <url>
+    <loc>https://www.l800.it/en/buoni.html</loc>
+    <lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.l800.it/buoni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.l800.it/en/buoni.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.l800.it/buoni.html"/>
+  </url>
 </urlset>

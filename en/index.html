@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <script>
   // Eseguito PRIMA del rendering — nasconde subito il banner se consenso già dato
@@ -32,25 +32,28 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="L'800">
-<title>Ristorante di pesce ad Amantea, Calabria | L'800 Locanda a Palazzo</title>
-  <meta name="description" content="Ristorante di pesce ad Amantea (CS) in un palazzo dell'Ottocento. Pescato fresco del Tirreno, cucina calabrese autentica, giardino storico. Prenota online.">
-  <meta name="keywords" content="ristorante pesce Amantea, ristorante Calabria, dove mangiare Amantea, cena romantica Amantea, ristorante Cosenza, cucina di mare Tirreno, L800 Locanda Palazzo, ristorante storico Amantea">
+<title>L'800 Locanda a Palazzo – Seafood Restaurant, Amantea Italy</title>
+  <meta name="description" content="L'800 Locanda a Palazzo: seafood restaurant in Amantea, Calabria, set in a 19th-century palazzo. Fresh Tyrrhenian fish and authentic Calabrian cuisine.">
+  <meta name="keywords" content="seafood restaurant Amantea, fish restaurant Calabria, Calabrian cuisine, fresh fish Tyrrhenian, where to eat in Amantea, fine dining Calabria, wedding venue Amantea, anniversary dinner Calabria, romantic dinner Amantea, Italian seafood restaurant">
   <meta name="author" content="L'800 Locanda a Palazzo">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.l800.it/">
+  <link rel="alternate" hreflang="it" href="https://www.l800.it/">
+<link rel="alternate" hreflang="en" href="https://www.l800.it/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.l800.it/">
+<link rel="canonical" href="https://www.l800.it/en/">
 <link rel="alternate" hreflang="it" href="https://www.l800.it/">
 <link rel="alternate" hreflang="en" href="https://www.l800.it/en/index.html">
 <link rel="alternate" hreflang="x-default" href="https://www.l800.it/">
   <meta property="og:type" content="restaurant">
-  <meta property="og:title" content="L'800 Locanda a Palazzo – Ristorante di pesce ad Amantea, Calabria">
-  <meta property="og:description" content="Ristorante di pesce ad Amantea (CS) in un palazzo dell'Ottocento. Pescato fresco del Tirreno, cucina calabrese autentica, giardino storico. Prenota online.">
-  <meta property="og:url" content="https://www.l800.it/">
+  <meta property="og:title" content="L'800 Locanda a Palazzo – Seafood Restaurant, Amantea Italy">
+  <meta property="og:description" content="L'800 Locanda a Palazzo: seafood restaurant in Amantea, Calabria, set in a 19th-century palazzo. Fresh Tyrrhenian fish and authentic Calabrian cuisine.">
+  <meta property="og:url" content="https://www.l800.it/en/">
   <meta property="og:image" content="https://www.l800.it/hero-giardino.jpg">
-  <meta property="og:locale" content="it_IT">
+  <meta property="og:locale" content="en_GB">
   <meta property="og:site_name" content="L'800 Locanda a Palazzo">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="L'800 Locanda a Palazzo – Ristorante di pesce ad Amantea, Calabria">
-  <meta name="twitter:description" content="Ristorante di pesce ad Amantea (CS) in un palazzo dell'Ottocento. Pescato fresco del Tirreno, cucina calabrese autentica, giardino storico. Prenota online.">
+  <meta name="twitter:title" content="L'800 Locanda a Palazzo – Seafood Restaurant, Amantea Italy">
+  <meta name="twitter:description" content="L'800 Locanda a Palazzo: seafood restaurant in Amantea, Calabria, set in a 19th-century palazzo. Fresh Tyrrhenian fish and authentic Calabrian cuisine.">
   <meta name="twitter:image" content="https://www.l800.it/hero-giardino.jpg">
   <script type="application/ld+json">
 {
@@ -286,7 +289,7 @@
   .buoni-features li:last-child { border-bottom: none; }
   .buoni-actions { display: flex; flex-direction: column; gap: 12px; }
 
-  /* ── PRENOTA ── */
+  /* ── BOOKING ── */
   .prenota { background: var(--cream-light); padding: 88px 80px; }
   .prenota-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; max-width: 1100px; margin: 0 auto; }
   .prenota-form { background: var(--cream-dark); border: 1px solid var(--border); padding: 40px; }
@@ -747,11 +750,11 @@
 
 
 <!-- NAV -->
-<div id="cookie-banner" role="dialog" aria-label="Preferenze cookie">
-  <p>Utilizziamo cookie tecnici necessari e, con il tuo consenso, cookie di terze parti (Google Fonts). Leggi la nostra <a href="cookie-policy.html">Cookie Policy</a> e la <a href="privacy-policy.html">Privacy Policy</a>.</p>
+<div id="cookie-banner" role="dialog" aria-label="Cookie preferences">
+  <p>We use necessary technical cookies and, with your consent, third-party cookies (Google Fonts) to improve your browsing experience. Read our <a href="cookie-policy.html">Cookie Policy</a> and the <a href="privacy-policy.html">Privacy Policy</a>.</p>
   <div class="cookie-btns">
-    <button class="cookie-btn-reject" onclick="setCookieConsent(false)">Solo necessari</button>
-    <button class="cookie-btn-accept" onclick="setCookieConsent(true)">Accetta tutti</button>
+    <button class="cookie-btn-reject" onclick="setCookieConsent(false)">Only necessary</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent(true)">Accept all</button>
   </div>
 </div>
 
@@ -761,65 +764,65 @@
     <span class="nav-logo-sub">Locanda a Palazzo</span>
   </div>
   <ul class="nav-links">
-    <li><a href="#storia">La nostra storia</a></li>
-    <li><a href="#cucina">Menu</a></li>
-    <li><a href="#vini">Vini</a></li>
-    <li><a href="#occasioni">Occasioni speciali</a></li>
-    <li><a href="#buoni">Buoni regalo</a></li>
-    <li><a href="#dove">Contatti</a></li>
+    <li><a href="storia.html">Our story</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="menu-vini.html">Wines</a></li>
+    <li><a href="eventi.html">Special events</a></li>
+    <li><a href="buoni.html">Gift vouchers</a></li>
+    <li><a href="#dove">Contact</a></li>
   </ul>
-  <a href="prenota.html" class="nav-cta">Prenota il tuo tavolo</a>
+  <a href="prenota.html" class="nav-cta">Book a table</a>
   <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 
-  <div class="lang-switcher" role="group" aria-label="Selettore lingua">
-    <a href="/" hreflang="it" class="active" aria-label="Italiano">IT</a>
+  <div class="lang-switcher" role="group" aria-label="Language selector">
+    <a href="/" hreflang="it" aria-label="Italiano">IT</a>
     <span class="sep">/</span>
-    <a href="/en/" hreflang="en" aria-label="English">EN</a>
+    <a href="/en/" hreflang="en" class="active" aria-label="English">EN</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="main-content" class="hero">
   <div class="hero-left">
-    <p class="hero-location">Amantea · Costa Tirrenica · Calabria</p>
+    <p class="hero-location">Amantea · Tyrrhenian Coast · Calabria</p>
     <h1 class="hero-title">
-      Un palazzo<br>
-      dell'Ottocento.<br>
-      Il pesce fresco<br>
-      <em>della Calabria.</em>
+      A 19th-century<br>
+      palazzo.<br>
+      The fresh fish<br>
+      <em>of Calabria.</em>
     </h1>
     <p class="hero-subtitle">
-      Nel cuore del centro storico di Amantea, L'800 è un luogo dove il tempo rallenta, il mare arriva in tavola e ogni pasto diventa un ricordo.
+      In the heart of Amantea's old town, L'800 is a place where time slows down, the sea arrives at the table and every meal becomes a memory.
     </p>
     <div class="hero-actions">
-      <a href="prenota.html" class="btn-primary" style="white-space:nowrap;">Prenota il tuo tavolo</a>
-      <a href="menu-cibo.html" class="btn-secondary" style="white-space:nowrap;">Scopri il menu</a>
-      <a href="buoni.html" class="btn-secondary" style="border-color:var(--gold);color:var(--gold);white-space:nowrap;">🎁 Buoni regalo</a>
+      <a href="prenota.html" class="btn-primary" style="white-space:nowrap;">Book your table</a>
+      <a href="menu-cibo.html" class="btn-secondary" style="white-space:nowrap;">Discover the menu</a>
+      <a href="buoni.html" class="btn-secondary" style="border-color:var(--gold);color:var(--gold);white-space:nowrap;">🎁 Gift vouchers</a>
     </div>
     <div class="hero-info">
       <div class="hero-info-item">
-        <span class="hero-info-label">Pranzo</span>
+        <span class="hero-info-label">Lunch</span>
         <span class="hero-info-value">12:30 – 14:30</span>
       </div>
       <div class="hero-info-item">
-        <span class="hero-info-label">Cena</span>
+        <span class="hero-info-label">Dinner</span>
         <span class="hero-info-value">19:30 – 22:00</span>
       </div>
       <div class="hero-info-item">
-        <span class="hero-info-label">Chiuso</span>
-        <span class="hero-info-value">Mercoledì</span>
+        <span class="hero-info-label">Closed</span>
+        <span class="hero-info-value">Wednesday</span>
       </div>
       <div class="hero-info-item">
-        <span class="hero-info-label">Dove</span>
+        <span class="hero-info-label">Address</span>
         <span class="hero-info-value">Via Calavecchia 53</span>
       </div>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-img-wrap">
-      <img src="hero-giardino.jpg" alt="Giardino serale L'800 Locanda a Palazzo" loading="lazy" decoding="async">
+      <img src="/hero-giardino.jpg" alt="L'800 Locanda a Palazzo evening garden" loading="lazy" decoding="async">
     </div>
     <div class="hero-frame"></div>
   </div>
@@ -835,7 +838,7 @@
 <!-- STORIA -->
 <section class="storia" id="storia">
   <div class="storia-image">
-    <img src="sala-interna.jpg" alt="Sala interna L'800 Locanda a Palazzo" loading="lazy" decoding="async">
+    <img src="sala-interna.jpg" alt="L'800 Locanda a Palazzo dining room interior" loading="lazy" decoding="async">
     <div class="storia-frame"></div>
   </div>
   <div class="storia-text fade-in">
@@ -843,19 +846,19 @@
       <div class="section-ornament-line"></div>
       <span class="section-ornament-icon">✦</span>
     </div>
-    <span class="section-label">La nostra storia</span>
+    <span class="section-label">Our story</span>
     <h2 class="section-title">
-      Un palazzo dell'Ottocento.<br>
-      <em>Un giardino nel cuore<br>di Amantea.</em>
+      A nineteenth-century palazzo.<br>
+      <em>A garden in the heart<br>of Amantea.</em>
     </h2>
     <p class="section-text">
-      L'800 nasce in un palazzo storico del centro antico di Amantea, sulla costa tirrenica calabrese. Le sale conservano il fascino austero dell'Ottocento — soffitti alti, pietra a vista, luci basse.
+      L'800 sits in a historic palazzo in Amantea's old town, on the Calabrian Tyrrhenian coast. The rooms still hold the austere charm of the nineteenth century — high ceilings, exposed stone, low lighting.
     </p>
     <p class="section-text">
-      Ma è il giardino la vera sorpresa: un angolo di verde nel cuore della città, con le sue luci soffuse, il profumo del gelsomino e l'atmosfera raccolta di chi sa che stare bene a tavola non è solo una questione di cibo. Non serve uscire da Amantea per trovare un posto speciale — era già qui.
+      But the garden is the real surprise: a green corner in the heart of the city, with soft lighting, the scent of jasmine, and the close-knit atmosphere of those who know that eating well isn't just about food. You don't need to leave Amantea to find somewhere special — it was already here.
     </p>
-    <blockquote class="storia-quote">Qui non si viene solo a mangiare.<br>Si viene a stare bene.</blockquote>
-    <a href="storia.html" class="btn-secondary">Scopri la nostra storia</a>
+    <blockquote class="storia-quote">People don't come here just to eat.<br>They come here to feel good.</blockquote>
+    <a href="storia.html" class="btn-secondary">Discover our story</a>
   </div>
 </section>
 
@@ -863,11 +866,11 @@
 <div class="stats fade-in">
   <div class="stat-item">
     <div class="stat-value">4.8</div>
-    <div class="stat-label">Valutazione TripAdvisor</div>
+    <div class="stat-label">TripAdvisor rating</div>
   </div>
   <div class="stat-item">
     <div class="stat-value">9,3</div>
-    <div class="stat-label">Valutazione TheFork</div>
+    <div class="stat-label">TheFork rating</div>
   </div>
   <div class="stat-item">
     <div class="stat-value" style="font-size:32px;">🌿</div>
@@ -882,7 +885,7 @@
 <!-- RECENSIONI -->
 <section class="recensioni" id="recensioni">
   <div class="recensioni-header fade-in">
-    <span class="section-label">Cosa dicono i nostri ospiti</span>
+    <span class="section-label">What our guests say</span>
     <h2 class="section-title">Le parole di <em>chi è già stato da noi.</em></h2>
     <p style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;color:var(--brown-light);text-transform:uppercase;">4.8 / 5 su TripAdvisor · #5 di 87 ristoranti ad Amantea · Travelers' Choice</p>
   </div>
@@ -919,34 +922,34 @@
         <div class="section-ornament-line"></div>
         <span class="section-ornament-icon">✦</span>
       </div>
-      <span class="section-label">La cucina</span>
+      <span class="section-label">The cuisine</span>
       <h2 class="section-title">
-        Ogni mattina il pescatore<br>
-        ci porta quello che<br>
-        <em>il mare ha deciso.</em>
+        Every morning the fisherman<br>
+        brings us what<br>
+        <em>the sea has decided.</em>
       </h2>
     </div>
     <p class="cucina-header-text">
-      La nostra cucina nasce dal pescato fresco del Tirreno, interpretato con rispetto per la tradizione calabrese e un tocco di ricercatezza contemporanea. Dal crudo di crostacei al bergamotto di Calabria, ai primi fatti a mano, ogni piatto racconta un territorio.
+      Our cuisine is born from the fresh catch of the Tyrrhenian Sea, interpreted with respect for the Calabrian tradition and a touch of contemporary refinement. From raw shellfish with Calabrian bergamot, to handmade pasta, every dish tells the story of a place.
     </p>
   </div>
   <div class="gallery-grid">
     <div class="gallery-item fade-in delay-1">
-      <img src="crudite-pesce-fresco.jpg" alt="Crudité di pesce fresco – barca con gamberi, scampi, ostriche e agrumi – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 60%;">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Crudité di pesce fresco</span></div>
+      <img src="crudite-pesce-fresco.jpg" alt="Fresh raw seafood platter – prawns, langoustines, oysters and citrus – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 60%;">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Fresh raw seafood</span></div>
     </div>
     <div class="gallery-item fade-in delay-2">
-      <img src="tagliolini-arancia-gamberi-rossi.jpg" alt="Tagliolini all'arancia con crudité di gamberi rossi – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 72%;">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Tagliolini all'arancia con gamberi rossi</span></div>
+      <img src="tagliolini-arancia-gamberi-rossi.jpg" alt="Orange tagliolini with raw red prawns – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 72%;">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Orange tagliolini with red prawns</span></div>
     </div>
     <div class="gallery-item fade-in delay-3">
-      <img src="filetto-spigola-pistacchio.jpg" alt="Filetto di spigola in crosta di pistacchio con crema di patate al limone – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 68%;">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Filetto di spigola in crosta di pistacchio</span></div>
+      <img src="filetto-spigola-pistacchio.jpg" alt="Sea bass fillet in pistachio crust with lemon potato cream – L'800 Locanda a Palazzo" loading="lazy" style="object-position: center 68%;">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Sea bass fillet in pistachio crust</span></div>
     </div>
   </div>
   <div class="gallery-cta fade-in">
-    <a href="menu-cibo.html" class="btn-secondary">Consulta il menu completo</a>
-    <a href="prenota.html" class="btn-primary">Prenota il tuo tavolo</a>
+    <a href="menu-cibo.html" class="btn-secondary">View the full menu</a>
+    <a href="prenota.html" class="btn-primary">Book a table</a>
   </div>
 </section>
 
@@ -960,22 +963,22 @@
         <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
         <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
       </div>
-      <span class="section-label" style="color:#E8C88A;letter-spacing:0.28em;">La nostra cantina</span>
+      <span class="section-label" style="color:#E8C88A;letter-spacing:0.28em;">Our wine cellar</span>
       <h2 class="section-title section-title-light">
-        Una scelta di campo.<br>
-        <em>Il vino come<br>il territorio.</em>
+        A definite choice.<br>
+        <em>Wine as<br>the territory itself.</em>
       </h2>
-      <p class="section-text" style="color:#FFFFFF;">La nostra carta dei vini è una scelta editoriale precisa: quasi esclusivamente etichette calabresi, molte delle quali prodotte da piccole cantine artigianali con distribuzione limitatissima. Cantine che non troveresti in una normale enoteca, ma che hanno qualcosa di autentico e straordinario da raccontare.</p>
-      <p class="section-text" style="color:#FFFFFF;margin-top:16px;">Crediamo che il vino debba raccontare lo stesso territorio che hai nel piatto. Per questo ogni denominazione calabrese — dal Cirò al Savuto, dal Lamezia al Bivongi — trova spazio nella nostra lista, accompagnata da una piccola selezione di etichette fuori regione scelte con la stessa cura.</p>
+      <p class="section-text" style="color:#FFFFFF;">Our wine list is a deliberate editorial choice: almost exclusively Calabrian labels, many of them from small artisan wineries with very limited distribution. Wineries you would not find in an ordinary wine shop, but that have something authentic and extraordinary to tell.</p>
+      <p class="section-text" style="color:#FFFFFF;margin-top:16px;">We believe wine should tell the same story as the food on your plate. That is why every Calabrian appellation — from Cirò to Savuto, from Lamezia to Bivongi — has a place on our list, alongside a small selection of out-of-region labels chosen with the same care.</p>
       <div class="vini-cta" style="margin-top:32px;">
-        <a href="menu-vini.html" class="btn-primary-light">Scopri la carta dei vini</a>
+        <a href="menu-vini.html" class="btn-primary-light">Discover the wine list</a>
       </div>
     </div>
 
     <!-- MAPPA DOC CALABRIA SVG -->
     <div class="vini-mappa">
-      <div class="vini-mappa-title">I D.O.C. della Calabria</div>
-      <img src="mappa-doc-calabria.png" alt="Mappa DOC della Calabria con la posizione di Amantea e L'800 Locanda a Palazzo" loading="lazy" style="width:auto;max-width:100%;flex:1;min-height:0;object-fit:contain;display:block;margin:0 auto;"/></div>
+      <div class="vini-mappa-title">The DOCs of Calabria</div>
+      <img src="mappa-doc-calabria.png" alt="Map of Calabrian DOC wine appellations with the position of Amantea and L'800 Locanda a Palazzo" loading="lazy" style="width:auto;max-width:100%;flex:1;min-height:0;object-fit:contain;display:block;margin:0 auto;"/></div>
     </div>
 
   </div>
@@ -984,50 +987,50 @@
 <!-- BUONI REGALO -->
 <section class="prenota" id="prenota">
   <div style="text-align:center;margin-bottom:56px;" class="fade-in">
-    <span class="section-label">Prenota il tuo tavolo</span>
-    <h2 class="section-title">Scegli il momento.<br><em>Ci pensiamo noi al resto.</em></h2>
-    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:17px;color:var(--text-light);max-width:500px;margin:0 auto;line-height:1.7;">Prenota direttamente in meno di un minuto.</p>
+    <span class="section-label">Book your table</span>
+    <h2 class="section-title">Pick the moment.<br><em>We take care of the rest.</em></h2>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:17px;color:var(--text-light);max-width:500px;margin:0 auto;line-height:1.7;">Book directly in less than a minute.</p>
   </div>
   <div class="prenota-inner">
     <div class="fade-in">
       <div class="prenota-form">
-        <div class="form-title">Componi la tua richiesta</div>
+        <div class="form-title">Compose your request</div>
         <div class="form-row">
-          <label class="form-label" for="prenotaData">Data</label>
+          <label class="form-label" for="prenotaData">Date</label>
           <div class="datepicker-wrap">
-            <button type="button" class="datepicker-input" id="datepickerBtn" onclick="dpToggle()" aria-label="Seleziona data">
-              <span id="dpDisplay">Seleziona una data</span>
+            <button type="button" class="datepicker-input" id="datepickerBtn" onclick="dpToggle()" aria-label="Select date">
+              <span id="dpDisplay">Select a date</span>
               <span style="font-size:12px;color:var(--brown-pale);">▾</span>
             </button>
             <div class="datepicker-calendar" id="dpCalendar"></div>
           </div>
           <input type="hidden" id="prenotaData">
-          <span id="nota-mercoledi">⚠ Il mercoledì siamo chiusi — scegli un altro giorno</span>
+          <span id="nota-mercoledi">⚠ We're closed on Wednesdays — please pick another day</span>
         </div>
         <div class="form-row">
-          <label class="form-label" for="prenotaOspiti">Ospiti</label>
+          <label class="form-label" for="prenotaOspiti">Guests</label>
           <select id="prenotaOspiti" class="form-select">
-            <option value="1 persona">1 persona</option>
-            <option value="2 persone" selected>2 persone</option>
-            <option value="3 persone">3 persone</option>
-            <option value="4 persone">4 persone</option>
-            <option value="5 persone">5 persone</option>
-            <option value="6 persone">6 persone</option>
-            <option value="7 persone">7 persone</option>
-            <option value="8 persone">8 persone</option>
+            <option value="1 person">1 guest</option>
+            <option value="2 people" selected>2 guests</option>
+            <option value="3 people">3 guests</option>
+            <option value="4 people">4 guests</option>
+            <option value="5 people">5 guests</option>
+            <option value="6 people">6 guests</option>
+            <option value="7 people">7 guests</option>
+            <option value="8 people">8 guests</option>
           </select>
         </div>
         <div class="form-row">
           <label class="form-label" for="prenotaOrario">Orario</label>
           <select id="prenotaOrario" class="form-select">
             <option value="">Seleziona un orario</option>
-            <optgroup label="Pranzo">
+            <optgroup label="Lunch">
               <option value="12:00">12:00</option>
               <option value="12:30">12:30</option>
               <option value="13:30">13:30</option>
               <option value="14:00">14:00</option>
             </optgroup>
-            <optgroup label="Cena">
+            <optgroup label="Dinner">
               <option value="19:30">19:30</option>
               <option value="20:00">20:00</option>
               <option value="20:30">20:30</option>
@@ -1038,23 +1041,23 @@
           </select>
         </div>
         <a id="btnWhatsapp" href="https://wa.me/390982428262" class="btn-whatsapp" style="width:100%;text-align:center;display:block;margin-top:16px;">
-          📱 Prenota via WhatsApp
+          📱 Book via WhatsApp
         </a>
       </div>
       <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener noreferrer" style="width:100%;text-align:center;display:block;margin-top:12px;box-sizing:border-box;font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-light);background:var(--brown-dark);border:1px solid var(--brown-dark);padding:12px 20px;text-decoration:none;transition:all 0.3s;">
-        Prenota online →
+        Book online →
       </a>
     </div>
     <div class="prenota-info fade-in delay-1">
 
       <div class="contatti-box">
         <h3>Preferisci contattarci direttamente?</h3>
-        <div class="contatto-row"><span>📱</span><a href="https://wa.me/390982428262">Scrivici su WhatsApp</a></div>
-        <div class="contatto-row"><span>🗓</span><a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener noreferrer">Prenota con Octotable</a></div>
+        <div class="contatto-row"><span>📱</span><a href="https://wa.me/390982428262">Message us on WhatsApp</a></div>
+        <div class="contatto-row"><span>🗓</span><a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener noreferrer">Book on Octotable</a></div>
         <div class="contatto-row"><span>📞</span><a href="tel:+390982428262">0982 428262</a></div>
         <div class="contatto-row"><span>✉</span><a href="mailto:info@l800.it">info@l800.it</a></div>
       </div>
-      <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--text-light);line-height:1.6;">Per gruppi superiori a 8 persone <a href="https://wa.me/390982428262" style="color:var(--brown);">scrivici su WhatsApp</a></p>
+      <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--text-light);line-height:1.6;">For groups larger than 8 <a href="https://wa.me/390982428262" style="color:var(--brown);">message us on WhatsApp</a></p>
     </div>
   </div>
 </section>
@@ -1067,32 +1070,32 @@
         <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
         <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
       </div>
-      <span class="section-label" style="color:var(--brown-pale);">Buoni regalo</span>
+      <span class="section-label" style="color:var(--brown-pale);">Gift vouchers</span>
       <h2 class="section-title" style="color:var(--cream-light);">
-        Regala un'esperienza.<br>
-        <em>Regala un ricordo.</em>
+        Give an experience.<br>
+        <em>Give a memory.</em>
       </h2>
-      <p class="section-text" style="color:rgba(245,239,228,0.7);">Il buono regalo L'800 è il dono perfetto per chi vuole vivere un'esperienza autentica in Calabria. Lo inviamo via email subito dopo il pagamento, pronto per un pranzo o una cena speciale nel nostro palazzo storico.</p>
+      <p class="section-text" style="color:rgba(245,239,228,0.7);">The L'800 gift voucher is the perfect gift for those who want an authentic experience in Calabria. We deliver it by email instantly after payment, ready for a special lunch or dinner in our historic palazzo.</p>
       <ul class="buoni-features">
-        <li>Acquisto online immediato con PayPal</li>
-        <li>Consegnato via email in pochi minuti</li>
-        <li>Valido 12 mesi dall'acquisto</li>
-        <li>Utilizzabile sia a pranzo che a cena</li>
+        <li>Instant online purchase with PayPal</li>
+        <li>Delivered by email within minutes</li>
+        <li>Valid 12 months from purchase</li>
+        <li>Can be used for both lunch and dinner</li>
       </ul>
       <div class="buoni-actions" style="margin-top:8px;">
-        <a href="buoni.html" class="btn-primary-light" style="text-align:center;">🎁 Acquista il buono regalo</a>
+        <a href="buoni.html" class="btn-primary-light" style="text-align:center;">🎁 Buy the gift voucher</a>
       </div>
     </div>
     <div class="fade-in delay-1" style="display:flex;flex-direction:column;gap:16px;">
       <!-- Card 3 portate -->
       <div class="buoni-card" style="cursor:pointer;" onclick="location.href='buoni.html'">
-        <div class="buoni-card-portate">3 Portate</div>
-        <span class="buoni-card-sub">Antipasto · Primo o Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
+        <div class="buoni-card-portate">3 Courses</div>
+        <span class="buoni-card-sub">Starter · First or main course · Dessert · Glass of wine · Water · Coffee</span>
       </div>
       <!-- Card 4 portate -->
       <div class="buoni-card" style="cursor:pointer;background:rgba(61,40,16,0.5);" onclick="location.href='buoni.html'">
-        <div class="buoni-card-portate">4 Portate</div>
-        <span class="buoni-card-sub">Antipasto · Primo · Secondo · Dolce · Calice di vino · Acqua · Caffè</span>
+        <div class="buoni-card-portate">4 Courses</div>
+        <span class="buoni-card-sub">Starter · First course · Main · Dessert · Glass of wine · Water · Coffee</span>
       </div>
     </div>
   </div>
@@ -1106,26 +1109,26 @@
         <div class="section-ornament-line"></div>
         <span class="section-ornament-icon">✦</span>
       </div>
-      <span class="section-label">Occasioni speciali</span>
+      <span class="section-label">Special events</span>
       <h2 class="section-title">
-        Un'occasione da ricordare<br>
-        merita <em>il posto giusto.</em>
+        An occasion to remember<br>
+        deserves <em>the right place.</em>
       </h2>
-      <p class="section-text">Matrimoni intimi, comunioni, cresime, compleanni, anniversari, pranzi di lavoro, ricevimenti privati. L'800 offre spazi dedicati e menu personalizzati per rendere ogni cerimonia ed evento indimenticabile.</p>
-      <p class="section-text">Contattaci per raccontarci la tua occasione speciale. Costruiremo insieme l'esperienza perfetta.</p>
+      <p class="section-text">Intimate weddings, communions, confirmations, birthdays, anniversaries, business lunches, private receptions. L'800 offers dedicated spaces and bespoke menus to make every ceremony and event unforgettable.</p>
+      <p class="section-text">Get in touch to tell us about your special occasion. We'll build the perfect experience together.</p>
       <div class="occasioni-tags">
-        <span class="tag">Anniversari</span>
-        <span class="tag">Compleanni</span>
-        <span class="tag">Matrimoni intimi</span>
-        <span class="tag">Comunioni</span>
-        <span class="tag">Cresime</span>
-        <span class="tag">Compleanni</span>
-        <span class="tag">Anniversari</span>
-        <span class="tag">Pranzi di lavoro</span>
+        <span class="tag">Anniversaries</span>
+        <span class="tag">Birthdays</span>
+        <span class="tag">Intimate weddings</span>
+        <span class="tag">Communions</span>
+        <span class="tag">Confirmations</span>
+        <span class="tag">Birthdays</span>
+        <span class="tag">Anniversaries</span>
+        <span class="tag">Business lunches</span>
         <span class="tag">Private dining</span>
-        <span class="tag">Ricevimenti</span>
+        <span class="tag">Receptions</span>
       </div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;"><a href="eventi.html" class="btn-secondary" style="white-space:nowrap;">Scopri cosa possiamo fare per te</a><a href="https://wa.me/390982428262?text=Ciao%2C%20vorrei%20informazioni%20per%20organizzare%20un%20evento%20privato%20da%20L%27800." target="_blank" rel="noopener noreferrer" class="btn-primary" style="white-space:nowrap;">Richiedi informazioni</a></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;"><a href="eventi.html" class="btn-secondary" style="white-space:nowrap;">See what we can do for you</a><a href="https://wa.me/390982428262?text=Hello%2C%20I%27d%20like%20information%20on%20organizing%20a%20private%20event%20at%20L%27800." target="_blank" rel="noopener noreferrer" class="btn-primary" style="white-space:nowrap;">Request information</a></div>
     </div>
     <div class="fade-in delay-1" style="display:flex;flex-direction:column;gap:20px;">
       <div style="position:relative;border:1px solid var(--border);overflow:hidden;min-height:220px;display:flex;align-items:flex-end;">
@@ -1136,7 +1139,7 @@
         </div>
       </div>
       <div style="position:relative;border:1px solid var(--border);overflow:hidden;min-height:220px;display:flex;align-items:flex-end;">
-        <img src="evento-sala-interna.jpg" alt="Sale interne del palazzo L'800 Locanda a Palazzo con travi in legno e tavoli apparecchiati" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;">
+        <img src="/sala-interna.jpg" alt="Sale interne del palazzo L'800 Locanda a Palazzo con travi in legno e tavoli apparecchiati" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;">
         <div style="position:relative;z-index:2;width:100%;padding:24px 28px;background:linear-gradient(to top, rgba(20,10,2,0.92) 0%, rgba(20,10,2,0.55) 50%, rgba(20,10,2,0.25) 100%);">
           <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.2em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:6px;">Le sale del palazzo</div>
           <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(245,239,228,0.88);line-height:1.6;">Ambienti d'epoca con soffitti alti e atmosfera esclusiva, disponibili per cene private e ricevimenti.</p>
@@ -1149,21 +1152,21 @@
 <!-- DOVE SIAMO -->
 <section class="dove" id="dove">
   <div style="text-align:center;margin-bottom:52px;" class="fade-in">
-    <span class="section-label">Dove siamo</span>
-    <h2 class="section-title">Trovaci nel cuore <em>di Amantea.</em></h2>
+    <span class="section-label">Find us</span>
+    <h2 class="section-title">Find us in the heart <em>of Amantea.</em></h2>
   </div>
   <div class="dove-inner">
     <div class="dove-info fade-in">
       <div class="dove-block">
-        <h3>Indirizzo</h3>
-        <p>Via Calavecchia 53<br>87032 Amantea (CS)<br>Calabria, Italia</p>
+        <h3>Address</h3>
+        <p>Via Calavecchia 53<br>87032 Amantea (CS)<br>Calabria, Italy</p>
       </div>
       <div class="dove-block">
-        <h3>Orari di apertura</h3>
-        <p>Tutti i giorni escluso mercoledì<br>Pranzo: 12:30 – 14:30<br>Cena: 19:30 – 22:00<br><em>Mercoledì: chiuso</em></p>
+        <h3>Opening hours</h3>
+        <p>Every day except Wednesday<br>Lunch: 12:30 – 14:30<br>Dinner: 19:30 – 22:00<br><em>Wednesday: closed</em></p>
       </div>
       <div class="dove-block">
-        <h3>Contatti</h3>
+        <h3>Contact</h3>
         <p>
           <a href="tel:+390982428262">+39 0982 428262</a><br>
           <a href="mailto:info@l800.it">info@l800.it</a><br>
@@ -1171,13 +1174,13 @@
         </p>
       </div>
       <div class="dove-block">
-        <h3>Prenotazioni</h3>
+        <h3>Bookings</h3>
         <p>
-          <a href="https://wa.me/390982428262">Scrivici su WhatsApp</a><br>
-          <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener noreferrer">Prenota con Octotable</a><br>
-          <a href="tel:+390982428262">Chiama: 0982 428262</a><br>
+          <a href="https://wa.me/390982428262">Message us on WhatsApp</a><br>
+          <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener noreferrer">Book on Octotable</a><br>
+          <a href="tel:+390982428262">Call: 0982 428262</a><br>
           <a href="mailto:info@l800.it">Email: info@l800.it</a><br>
-          Anche su <a href="#">TheFork</a>
+          Also on <a href="#">TheFork</a>
         </p>
       </div>
     </div>
@@ -1185,8 +1188,8 @@
       <div class="mappa-overlay" id="mappa-overlay">
         <span class="mappa-overlay-icon">📍</span>
         <p class="mappa-overlay-text">Via Calavecchia 53<br>Amantea (CS)</p>
-        <a href="https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A" target="_blank" rel="noopener noreferrer" class="mappa-overlay-btn">Apri in Google Maps →</a>
-        <button class="mappa-overlay-accept" onclick="setCookieConsent(true)">Accetta i cookie per vedere la mappa</button>
+        <a href="https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A" target="_blank" rel="noopener noreferrer" class="mappa-overlay-btn">Open in Google Maps →</a>
+        <button class="mappa-overlay-accept" onclick="setCookieConsent(true)">Accept cookies to view the map</button>
       </div>
       <iframe
         data-src-consent="https://maps.google.com/maps?q=Via+Calavecchia,+53,+87032+Amantea+CS,+Italy&z=17&output=embed" src="about:blank"
@@ -1196,7 +1199,7 @@
         title="L'800 Locanda a Palazzo — Via Calavecchia 53, Amantea">
       </iframe>
       <a class="mappa-link" href="https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A" target="_blank" rel="noopener">
-        Apri in Maps →
+        Open in Maps →
       </a>
     </div>
   </div>
@@ -1204,20 +1207,20 @@
 
 <!-- WHATSAPP BANNER -->
 <div class="wa-banner fade-in">
-  <p>Hai una domanda? Vuoi prenotare o chiedere informazioni?</p>
-  <a href="https://wa.me/390982428262" class="btn-whatsapp">Scrivici su WhatsApp</a>
+  <p>Got a question? Want to book or ask for information?</p>
+  <a href="https://wa.me/390982428262" class="btn-whatsapp">Message us on WhatsApp</a>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <span class="footer-brand">L'800</span>
-    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea</span>
+    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · VAT 03906130780 · Via Calavecchia 53, Amantea (CS), Italy</span>
   </div>
   <div class="footer-legal">
     <a href="privacy-policy.html">Privacy Policy</a>
     <a href="cookie-policy.html">Cookie Policy</a>
-    <a href="termini-condizioni.html">Termini e Condizioni</a>
+    <a href="termini-condizioni.html">Terms &amp; Conditions</a>
   </div>
 </footer>
 
@@ -1247,16 +1250,16 @@
     if (!dataEl || !ospiti || !orario || !btn) return;
 
     const dataVal = dataEl.value
-      ? new Date(dataEl.value).toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" })
+      ? new Date(dataEl.value).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
       : "";
     const ospVal = ospiti.value;
     const orVal  = orario.value;
 
-    let msg = "Ciao, vorrei prenotare un tavolo";
-    if (ospVal) msg += " per " + ospVal;
-    if (dataVal) msg += " il " + dataVal;
-    if (orVal)  msg += " alle " + orVal;
-    msg += ". È disponibile?";
+    let msg = "Hello, I'd like to book a table";
+    if (ospVal) msg += " for " + ospVal;
+    if (dataVal) msg += " on " + dataVal;
+    if (orVal)  msg += " at " + orVal;
+    msg += ". Is it available?";
 
     btn.href = "https://wa.me/390982428262?text=" + encodeURIComponent(msg);
   }
@@ -1277,8 +1280,8 @@
     },
     render() {
       const cal = document.getElementById('dpCalendar');
-      const mesi = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
-                    'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+      const mesi = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
       const oggi = new Date(); oggi.setHours(0,0,0,0);
       const primoGiorno = new Date(this.year, this.month, 1);
       const ultimoGiorno = new Date(this.year, this.month + 1, 0);
@@ -1292,7 +1295,7 @@
       html += '<button onclick="event.stopPropagation();DP.nextMese(event)">&#8250;</button></div>';
 
       html += '<div class="dp-grid">';
-      const dows = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+      const dows = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
       dows.forEach((d, i) => {
         html += '<div class="dp-dow' + (i===2?' dp-wed':'') + '">' + d + '</div>';
       });
@@ -1328,7 +1331,7 @@
       const pad = n => String(n).padStart(2,'0');
       const val = y + '-' + pad(m+1) + '-' + pad(g);
       document.getElementById('prenotaData').value = val;
-      const it = this.selected.toLocaleDateString('it-IT', {day:'2-digit',month:'long',year:'numeric'});
+      const it = this.selected.toLocaleDateString('en-GB', {day:'2-digit',month:'long',year:'numeric'});
       document.getElementById('dpDisplay').textContent = it;
       document.getElementById('dpCalendar').classList.remove('open');
       document.getElementById('datepickerBtn').classList.remove('open');

@@ -36,6 +36,9 @@
 <meta name="description" content="Termini e condizioni d'uso del sito www.l800.it e di acquisto dei buoni regalo di L'800 Locanda a Palazzo, Amantea (CS).">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://www.l800.it/termini-condizioni.html">
+<link rel="alternate" hreflang="it" href="https://www.l800.it/termini-condizioni.html">
+<link rel="alternate" hreflang="en" href="https://www.l800.it/en/termini-condizioni.html">
+<link rel="alternate" hreflang="x-default" href="https://www.l800.it/termini-condizioni.html">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.l800.it/termini-condizioni.html">
@@ -125,6 +128,17 @@
   @media (max-width:768px) {
     .footer-sitemap { padding:24px 24px 14px; }
     .footer-sitemap-inner { gap:16px 22px; }
+  }
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher { display:inline-flex; align-items:center; gap:6px; margin-left:18px; }
+  .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
+  .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
+  .lang-switcher a:hover:not(.active) { color:var(--brown); }
+  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  @media (max-width:768px) {
+    .lang-switcher { margin-left:8px; }
+    .lang-switcher a { font-size:9px; padding:3px 6px; }
   }
 </style>
 
@@ -228,6 +242,12 @@
 <nav>
   <a href="index.html" class="nav-logo"><span class="nav-logo-main">L'800</span><span class="nav-logo-sub">Locanda a Palazzo</span></a>
   <a href="index.html" class="nav-back">← Torna al sito</a>
+
+  <div class="lang-switcher" role="group" aria-label="Selettore lingua">
+    <a href="/termini-condizioni.html" hreflang="it" class="active" aria-label="Italiano">IT</a>
+    <span class="sep">/</span>
+    <a href="/en/termini-condizioni.html" hreflang="en" aria-label="English">EN</a>
+  </div>
 </nav>
 
 <div class="contenuto" id="main-content">
