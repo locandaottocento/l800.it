@@ -1,0 +1,93 @@
+/* ===========================================================
+   L'800 — Locanda a Palazzo
+   Brand design tokens (CSS custom properties)
+   =========================================================== */
+
+:root {
+  /* ---- COLORI BRAND ---- */
+  --l800-tabacco:        #6f3b1c;   /* marrone tabacco principale  */
+  --l800-tabacco-scuro:  #4a2612;   /* tabacco profondo per fondi  */
+  --l800-tabacco-chiaro: #8a5630;   /* tabacco hover / link        */
+  --l800-sabbia:         #d9b988;   /* sabbia principale           */
+  --l800-sabbia-chiara:  #ecd9b6;   /* crema / fondo               */
+  --l800-sabbia-scura:   #b8893f;   /* oro / accento               */
+
+  /* ---- NEUTRI ---- */
+  --l800-bianco:         #ffffff;
+  --l800-crema:          #fbf7ef;   /* fondo pagina caldo          */
+  --l800-inchiostro:     #2a1a10;   /* testo principale            */
+  --l800-grigio:         #807068;   /* testo secondario            */
+
+  /* ---- TIPOGRAFIA ---- */
+  /* Script (usato solo per "L'800" — preferire l'immagine SVG/PNG fornita) */
+  --l800-font-script:    "Pinyon Script", "Allura", cursive;
+  /* Serif principale per titoli / sottotitoli (Cormorant Garamond) */
+  --l800-font-serif:     "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  /* Sans secondario per UI / body (Inter come default) */
+  --l800-font-sans:      "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ---- TIPOGRAFIA — SCALA ---- */
+  --l800-fs-xs:    0.75rem;   /* 12px */
+  --l800-fs-sm:    0.875rem;  /* 14px */
+  --l800-fs-base:  1rem;      /* 16px */
+  --l800-fs-lg:    1.25rem;   /* 20px */
+  --l800-fs-xl:    1.5rem;    /* 24px */
+  --l800-fs-2xl:   2rem;      /* 32px */
+  --l800-fs-3xl:   2.5rem;    /* 40px */
+  --l800-fs-4xl:   3.5rem;    /* 56px */
+  --l800-fs-hero:  5rem;      /* 80px */
+
+  /* ---- LETTER-SPACING ---- */
+  --l800-tracking-tight:  -0.01em;
+  --l800-tracking-normal: 0;
+  --l800-tracking-wide:   0.08em;
+  --l800-tracking-wider:  0.24em;
+  --l800-tracking-widest: 0.42em; /* per "LOCANDA A PALAZZO" maiuscolo */
+
+  /* ---- SPAZIATURE ---- */
+  --l800-space-1:  0.25rem;
+  --l800-space-2:  0.5rem;
+  --l800-space-3:  0.75rem;
+  --l800-space-4:  1rem;
+  --l800-space-6:  1.5rem;
+  --l800-space-8:  2rem;
+  --l800-space-12: 3rem;
+  --l800-space-16: 4rem;
+  --l800-space-24: 6rem;
+
+  /* ---- RAGGI ---- */
+  --l800-radius-sm: 2px;
+  --l800-radius-md: 4px;
+  --l800-radius-lg: 8px;
+
+  /* ---- OMBRE ---- */
+  --l800-shadow-sm: 0 1px 2px rgba(74, 38, 18, 0.06);
+  --l800-shadow-md: 0 4px 12px rgba(74, 38, 18, 0.08);
+  --l800-shadow-lg: 0 12px 32px rgba(74, 38, 18, 0.12);
+}
+
+/* ---- Helpers tipografici ---- */
+
+.l800-eyebrow {
+  font-family: var(--l800-font-serif);
+  font-size: var(--l800-fs-sm);
+  letter-spacing: var(--l800-tracking-widest);
+  text-transform: uppercase;
+  color: var(--l800-sabbia);
+  padding-left: var(--l800-tracking-widest);
+}
+
+.l800-heading {
+  font-family: var(--l800-font-serif);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: var(--l800-tracking-tight);
+  color: var(--l800-tabacco);
+  line-height: 1.05;
+}
+
+.l800-body {
+  font-family: var(--l800-font-sans);
+  color: var(--l800-inchiostro);
+  line-height: 1.6;
+}

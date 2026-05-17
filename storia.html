@@ -22,13 +22,12 @@
 <link rel="dns-prefetch" href="https://connect.facebook.net">
 <link rel="dns-prefetch" href="https://www.facebook.com">
 <!-- Favicon & Mobile icons -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#7A4E28">
-<meta name="msapplication-TileColor" content="#7A4E28">
+<meta name="theme-color" content="#6f3b1c">
+<meta name="msapplication-TileColor" content="#6f3b1c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="L'800">
@@ -45,13 +44,13 @@
   <meta property="og:title" content="La nostra storia — Tre generazioni ad Amantea dal 1971">
   <meta property="og:description" content="Tre generazioni nel cuore di Amantea: dal Bar Natale (1971) alla Locanda di Mare (1998), all'L'800 di oggi — ristorante di pesce in un palazzo dell'Ottocento.">
   <meta property="og:url" content="https://www.l800.it/storia.html">
-  <meta property="og:image" content="https://www.l800.it/sala-interna.jpg">
+  <meta property="og:image" content="https://www.l800.it/og-image.png">
   <meta property="og:locale" content="it_IT">
   <meta property="og:site_name" content="L'800 Locanda a Palazzo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="La nostra storia — Tre generazioni ad Amantea dal 1971">
   <meta name="twitter:description" content="Tre generazioni nel cuore di Amantea: dal Bar Natale (1971) alla Locanda di Mare (1998), all'L'800 di oggi — ristorante di pesce in un palazzo dell'Ottocento.">
-  <meta name="twitter:image" content="https://www.l800.it/sala-interna.jpg">
+  <meta name="twitter:image" content="https://www.l800.it/og-image.png">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org","@type":"AboutPage",
@@ -61,25 +60,25 @@
     "mainEntity":{"@type":"Restaurant","name":"L'800 Locanda a Palazzo","foundingDate":"2024","url":"https://www.l800.it"}
   }
   </script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #F5EFE4;
-    --cream-light: #FAF6EF;
-    --cream-dark: #EDE4D4;
-    --brown: #7A4E28;
-    --brown-dark: #5C3515;
-    --brown-light: #A67C52;
-    --brown-pale: #C4A882;
-    --text: #3D2810;
-    --text-light: #7A5C3C;
-    --border: rgba(122,78,40,0.18);
+    --cream: #fbf7ef;
+    --cream-light: #fbf7ef;
+    --cream-dark: #ecd9b6;
+    --brown: #6f3b1c;
+    --brown-dark: #4a2612;
+    --brown-light: #8a5630;
+    --brown-pale: #d9b988;
+    --text: #2a1a10;
+    --text-light: #807068;
+    --border: rgba(111,59,28,0.18);
   }
 
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   html, body { overflow-x:hidden; scroll-behavior:smooth; }
   img { max-width:100%; height:auto; }
-  body { font-family:'EB Garamond',Georgia,serif; background:var(--cream-light); color:var(--text); }
+  body { font-family:'Cormorant Garamond',Georgia,serif; background:var(--cream-light); color:var(--text); }
 
   /* ── NAV ── */
   nav {
@@ -104,14 +103,14 @@
   .hero::before {
     content:'';
     position:absolute; inset:0;
-    background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FAF6EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FBF7EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
     pointer-events:none;
   }
   .hero-inner { position:relative; z-index:2; max-width:720px; }
   .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:20px; display:block; }
   .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,6vw,72px); font-weight:300; color:var(--cream-light); line-height:1.05; margin-bottom:32px; }
   .hero-title em { font-style:italic; color:var(--brown-pale); }
-  .hero-incipit { font-family:'EB Garamond',serif; font-style:italic; font-size:20px; color:rgba(245,239,228,0.75); line-height:1.75; max-width:600px; border-left:2px solid var(--brown-pale); padding-left:24px; }
+  .hero-incipit { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:rgba(245,239,228,0.75); line-height:1.75; max-width:600px; border-left:2px solid var(--brown-pale); padding-left:24px; }
 
   /* ── TIMELINE LINE ── */
   .timeline { padding:0 80px 100px; background:var(--cream-light); position:relative; }
@@ -167,7 +166,7 @@
   .capitolo-titolo { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,44px); font-weight:300; line-height:1.1; color:var(--text); margin-bottom:28px; }
   .capitolo-titolo em { font-style:italic; color:var(--brown); }
 
-  .capitolo-testo { font-family:'EB Garamond',serif; font-size:17px; line-height:1.85; color:var(--text-light); max-width:680px; }
+  .capitolo-testo { font-family:'Cormorant Garamond',serif; font-size:17px; line-height:1.85; color:var(--text-light); max-width:680px; }
   .capitolo-testo p { margin-bottom:18px; }
   .capitolo-testo p:last-child { margin-bottom:0; }
 
@@ -188,7 +187,7 @@
     font-size:10px; letter-spacing:0.5em; color:var(--brown-pale);
   }
   .decor-storico-cit {
-    font-family:'EB Garamond',serif; font-style:italic;
+    font-family:'Cormorant Garamond',serif; font-style:italic;
     font-size:18px; color:var(--text-light); line-height:1.6; max-width:460px;
   }
 
@@ -205,14 +204,14 @@
   .highlight::after { right:-10px; }
   .highlight-label { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.25em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:10px; display:block; }
   .highlight-val { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:28px; color:var(--cream-light); line-height:1.2; }
-  .highlight-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.6); margin-top:8px; display:block; }
+  .highlight-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.6); margin-top:8px; display:block; }
 
   /* ── CHIUSURA ── */
   .chiusura { background:var(--cream-dark); padding:80px; text-align:center; border-top:1px solid var(--border); }
   .chiusura-ornament { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--brown-pale); letter-spacing:12px; margin-bottom:28px; display:block; }
   .chiusura-titolo { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,4vw,40px); font-weight:300; color:var(--text); margin-bottom:16px; }
   .chiusura-titolo em { font-style:italic; color:var(--brown); }
-  .chiusura-testo { font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:var(--text-light); max-width:520px; margin:0 auto 40px; line-height:1.7; }
+  .chiusura-testo { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:var(--text-light); max-width:520px; margin:0 auto 40px; line-height:1.7; }
 
   /* ── BUTTONS ── */
   .btn-primary { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--cream-light); background:var(--brown); border:none; padding:14px 32px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:inline-block; }
@@ -277,7 +276,7 @@
     transform:translateY(100%); transition:transform 0.4s ease;
   }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'EB Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
@@ -289,7 +288,7 @@
   /* ── SKIP LINK ACCESSIBILITÀ ── */
   .skip-link {
     position:absolute; top:-100px; left:0;
-    background:var(--brown,#7A4E28); color:#fff;
+    background:var(--brown,#6f3b1c); color:#fff;
     padding:12px 20px; z-index:9999;
     font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
     text-decoration:none; text-transform:uppercase;
@@ -298,7 +297,7 @@
 
   /* ── FOOTER SITEMAP NAV ── */
   .footer-sitemap {
-    background:#3D2810;
+    background:#2a1a10;
     padding:32px 80px 20px;
     border-bottom:1px solid rgba(245,239,228,0.08);
   }
@@ -312,7 +311,7 @@
     text-decoration:none; transition:color 0.2s;
     padding:6px 0;
   }
-  .footer-sitemap a:hover { color:#c4a882; }
+  .footer-sitemap a:hover { color:#d9b988; }
   @media (max-width:768px) {
     .footer-sitemap { padding:24px 24px 14px; }
     .footer-sitemap-inner { gap:16px 22px; }
