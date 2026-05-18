@@ -10,6 +10,25 @@ const PAYPAL_API = 'https://api-m.paypal.com';   // produzione PayPal
 const MAX_PDF_BYTES = 2 * 1024 * 1024;           // 2 MB hard cap base64-decoded
 const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+// Helper: fetch con timeout esplicito per prevenire 504 Gateway Timeout.
+// I Workers Cloudflare hanno 30s di wall clock; PayPal e Resend di solito rispondono
+// in <3s ma in caso di lentezza esterna vogliamo fallire in modo ordinato.
+async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const resp = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timer);
+    return resp;
+  } catch (err) {
+    clearTimeout(timer);
+    if (err.name === 'AbortError') {
+      throw new Error(`Timeout dopo ${timeoutMs}ms: ${url}`);
+    }
+    throw err;
+  }
+}
+
 // Rate limiting in-memory per istanza (Cloudflare Workers riavvia spesso,
 // ma protegge contro burst da stesso IP entro la stessa istanza)
 const ipHits = new Map();
@@ -67,7 +86,7 @@ async function verifyPaypalOrder(orderId, expectedAmount, env) {
   }
   try {
     const basic = btoa(`${env.PAYPAL_CLIENT_ID}:${env.PAYPAL_SECRET}`);
-    const tokenR = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
+    const tokenR = await fetchWithTimeout(`${PAYPAL_API}/v1/oauth2/token`, {
       method: 'POST',
       headers: {
         'Authorization': `Basic ${basic}`,
@@ -80,7 +99,7 @@ async function verifyPaypalOrder(orderId, expectedAmount, env) {
       return { ok: false, reason: 'auth_failed' };
     }
     const { access_token } = await tokenR.json();
-    const orderR = await fetch(`${PAYPAL_API}/v2/checkout/orders/${encodeURIComponent(orderId)}`, {
+    const orderR = await fetchWithTimeout(`${PAYPAL_API}/v2/checkout/orders/${encodeURIComponent(orderId)}`, {
       headers: { 'Authorization': `Bearer ${access_token}` },
     });
     if (!orderR.ok) {
@@ -289,7 +308,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // 7. Email all'acquirente (await — bloccante)
   let r1;
   try {
-    r1 = await fetch(RESEND_URL, {
+    r1 = await fetchWithTimeout(RESEND_URL, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
