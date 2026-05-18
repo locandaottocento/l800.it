@@ -40,15 +40,30 @@ export async function onRequestOptions({ request }) {
   return new Response(null, { status: 200, headers: buildCors(request.headers.get('Origin')) });
 }
 
+// === Listino prezzi server-side (anti-frode) ===
+// I prezzi NON vengono mai presi dal client. Il client dichiara numPortate
+// e numPersone; l'importo atteso viene calcolato qui e confrontato con
+// quello effettivamente addebitato da PayPal.
+const PREZZI_VOUCHER = { 3: 50, 4: 65 };  // €/persona
+
+function calcolaImportoAtteso(numPortate, numPersone) {
+  const prezzoUnit = PREZZI_VOUCHER[numPortate];
+  if (!prezzoUnit) return null;
+  const persone = parseInt(numPersone, 10);
+  if (!Number.isFinite(persone) || persone < 1 || persone > 200) return null;
+  return prezzoUnit * persone;
+}
+
 // ── Verifica server-side dell'ordine PayPal ──────────────────────────
-// Recupera l'access token e poi i dettagli dell'ordine. Restituisce true
-// se l'ordine esiste ed è in stato COMPLETED, altrimenti false.
-async function verifyPaypalOrder(orderId, env) {
+// Recupera l'access token e poi i dettagli dell'ordine. Restituisce
+// { ok: true } se l'ordine esiste, è COMPLETED, e l'importo coincide con
+// expectedAmount. Altrimenti { ok: false, reason: '...' }.
+async function verifyPaypalOrder(orderId, expectedAmount, env) {
   if (!env.PAYPAL_CLIENT_ID || !env.PAYPAL_SECRET) {
-    // Se le credenziali non sono configurate, NON blocchiamo il flusso (retrocompatibilità)
-    // ma logghiamo un warning per dare visibilità.
-    console.warn('PayPal credentials non configurate: verifica ordine saltata');
-    return true;
+    // SECURITY: se le credenziali mancano NON saltiamo la verifica.
+    // Senza credenziali la verifica non è possibile → l'ordine è da ritenere non verificato.
+    console.error('SECURITY: PayPal credentials mancanti — verifica impossibile, blocco l\'invio.');
+    return { ok: false, reason: 'verifica_disabilitata' };
   }
   try {
     const basic = btoa(`${env.PAYPAL_CLIENT_ID}:${env.PAYPAL_SECRET}`);
@@ -62,7 +77,7 @@ async function verifyPaypalOrder(orderId, env) {
     });
     if (!tokenR.ok) {
       console.error('PayPal token fail:', tokenR.status);
-      return false;
+      return { ok: false, reason: 'auth_failed' };
     }
     const { access_token } = await tokenR.json();
     const orderR = await fetch(`${PAYPAL_API}/v2/checkout/orders/${encodeURIComponent(orderId)}`, {
@@ -70,13 +85,39 @@ async function verifyPaypalOrder(orderId, env) {
     });
     if (!orderR.ok) {
       console.error('PayPal order fail:', orderR.status, orderId);
-      return false;
+      return { ok: false, reason: 'order_not_found' };
     }
     const order = await orderR.json();
-    return order && order.status === 'COMPLETED';
+    if (!order || order.status !== 'COMPLETED') {
+      return { ok: false, reason: `order_status_${order?.status || 'unknown'}` };
+    }
+
+    // SECURITY CRITICAL: controlla che l'importo pagato corrisponda all'atteso
+    const pu = Array.isArray(order.purchase_units) ? order.purchase_units[0] : null;
+    const amtRaw = pu?.amount?.value;
+    const amtCurrency = pu?.amount?.currency_code;
+    const amtPaid = parseFloat(amtRaw);
+
+    if (amtCurrency !== 'EUR') {
+      console.error('PayPal currency mismatch:', amtCurrency, 'expected EUR');
+      return { ok: false, reason: 'currency_mismatch' };
+    }
+    if (!Number.isFinite(amtPaid)) {
+      console.error('PayPal amount non parseable:', amtRaw);
+      return { ok: false, reason: 'amount_invalid' };
+    }
+    // tolleranza 0.01€ per arrotondamenti
+    if (Math.abs(amtPaid - expectedAmount) > 0.01) {
+      console.error('SECURITY: PayPal amount mismatch.', JSON.stringify({
+        orderId, paid: amtPaid, expected: expectedAmount, diff: amtPaid - expectedAmount,
+      }));
+      return { ok: false, reason: 'amount_mismatch' };
+    }
+
+    return { ok: true };
   } catch (err) {
     console.error('verifyPaypalOrder error:', err.message);
-    return false;
+    return { ok: false, reason: 'exception' };
   }
 }
 
@@ -182,7 +223,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // 3. Valida i campi obbligatori
   const required = [
     'nomeAcquirente', 'emailAcquirente', 'nomeDestinatario',
-    'prodotto', 'numPersone', 'codiceVoucher', 'scadenza',
+    'prodotto', 'numPortate', 'numPersone', 'codiceVoucher', 'scadenza',
     'paypalOrderId', 'pdfBase64',
   ];
   for (const field of required) {
@@ -209,16 +250,28 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // 4. Sanificazioni
   d.numPersone = parseInt(d.numPersone, 10) || 1;
   if (d.numPersone < 1 || d.numPersone > 200) d.numPersone = 1;
+  d.numPortate = parseInt(d.numPortate, 10);
+  if (![3, 4].includes(d.numPortate)) {
+    return jsonResponse({ error: 'numPortate non valido (atteso 3 o 4)' }, 400, cors);
+  }
+
+  // 4a. Calcolo importo atteso server-side (anti-frode: il prezzo NON viene preso dal client)
+  const expectedAmount = calcolaImportoAtteso(d.numPortate, d.numPersone);
+  if (expectedAmount == null) {
+    return jsonResponse({ error: 'Impossibile calcolare importo atteso' }, 400, cors);
+  }
 
   // Rimuovi eventuale prefisso data URI (safety net — il browser lo fa già)
   const pdfContent = pdfBase64Raw.includes(',')
     ? pdfBase64Raw.split(',')[1]
     : pdfBase64Raw;
 
-  // 4b. Verifica server-side dell'ordine PayPal (anti-frode)
-  const paypalOk = await verifyPaypalOrder(d.paypalOrderId, env);
-  if (!paypalOk) {
-    return jsonResponse({ error: 'Ordine PayPal non valido o non completato' }, 402, cors);
+  // 4b. Verifica server-side dell'ordine PayPal (anti-frode):
+  //     - ordine esiste, è COMPLETED, in EUR, e l'importo coincide con quello atteso
+  const paypalResult = await verifyPaypalOrder(d.paypalOrderId, expectedAmount, env);
+  if (!paypalResult.ok) {
+    console.error('Pagamento rifiutato:', paypalResult.reason, 'orderId:', d.paypalOrderId);
+    return jsonResponse({ error: 'Ordine PayPal non valido', reason: paypalResult.reason }, 402, cors);
   }
 
   // 5. Allegato Resend — nome file personalizzato con codice voucher
@@ -346,16 +399,16 @@ function htmlAcquirente(d) {
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:3px;color:#d9b988;text-transform:uppercase;margin-bottom:14px;">Riepilogo acquisto</div>
       <div style="font-family:Georgia,serif;font-size:17px;font-style:italic;color:#fbf7ef;margin-bottom:4px;">${esc(d.prodotto)}</div>
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;color:#d9b988;text-transform:uppercase;margin-bottom:18px;padding:8px 12px;background:rgba(255,255,255,0.08);">Valido per <strong style="color:#fbf7ef;font-size:15px;">${persone}</strong></div>
-      <div style="border-top:1px dashed rgba(196,168,130,0.3);padding-top:18px;">
+      <div style="border-top:1px dashed rgba(217,185,136,0.3);padding-top:18px;">
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:2.5px;color:#d9b988;text-transform:uppercase;margin-bottom:8px;">Codice voucher</div>
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:22px;font-weight:bold;color:#fbf7ef;letter-spacing:3px;">${d.codiceVoucher}</div>
-        <div style="font-family:Georgia,serif;font-size:11px;font-style:italic;color:rgba(245,239,228,0.5);margin-top:8px;">Valido fino al ${d.scadenza}</div>
+        <div style="font-family:Georgia,serif;font-size:11px;font-style:italic;color:rgba(251,247,239,0.5);margin-top:8px;">Valido fino al ${d.scadenza}</div>
       </div>
     </div>
 
     <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
-      <tr><td style="padding:9px 0;border-bottom:1px solid rgba(122,78,40,0.1);font-size:13px;color:#8a5630;width:38%;">Destinatario</td>
-          <td style="padding:9px 0;border-bottom:1px solid rgba(122,78,40,0.1);font-size:14px;font-weight:bold;color:#2a1a10;">${esc(d.nomeDestinatario)}</td></tr>
+      <tr><td style="padding:9px 0;border-bottom:1px solid rgba(111,59,28,0.1);font-size:13px;color:#8a5630;width:38%;">Destinatario</td>
+          <td style="padding:9px 0;border-bottom:1px solid rgba(111,59,28,0.1);font-size:14px;font-weight:bold;color:#2a1a10;">${esc(d.nomeDestinatario)}</td></tr>
       <tr><td style="padding:9px 0;font-size:13px;color:#8a5630;">ID transazione</td>
           <td style="padding:9px 0;font-size:11px;color:#8a5630;font-family:monospace;">${d.paypalOrderId}</td></tr>
     </table>
@@ -386,7 +439,7 @@ function htmlAcquirente(d) {
   </div>
 
   <div style="background:#fbf7ef;padding:0 48px 36px;">
-    <div style="border-top:1px solid rgba(122,78,40,0.12);padding-top:24px;">
+    <div style="border-top:1px solid rgba(111,59,28,0.12);padding-top:24px;">
       <div style="font-size:20px;font-style:italic;color:#6f3b1c;">L&rsquo;800</div>
       <div style="font-family:Helvetica,sans-serif;font-size:8px;letter-spacing:2px;color:#8a5630;text-transform:uppercase;margin-top:3px;">Locanda a Palazzo</div>
       <p style="font-size:12px;color:#8a5630;margin:8px 0 0;line-height:1.6;">
@@ -399,7 +452,7 @@ function htmlAcquirente(d) {
   </div>
 
   <div style="background:#6f3b1c;padding:16px 48px;text-align:center;">
-    <p style="font-family:Helvetica,sans-serif;font-size:9px;color:rgba(245,239,228,0.5);margin:0;letter-spacing:1px;">Il mare, il palazzo, la Calabria.</p>
+    <p style="font-family:Helvetica,sans-serif;font-size:9px;color:rgba(251,247,239,0.5);margin:0;letter-spacing:1px;">Il mare, il palazzo, la Calabria.</p>
   </div>
 
 </div></body></html>`;
@@ -449,10 +502,10 @@ function htmlDestinatario(d) {
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:3px;color:#d9b988;text-transform:uppercase;margin-bottom:14px;">Il tuo Buono Regalo</div>
       <div style="font-family:Georgia,serif;font-size:18px;font-style:italic;color:#fbf7ef;margin-bottom:4px;">${esc(d.prodotto)}</div>
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;color:#d9b988;text-transform:uppercase;margin-bottom:18px;padding:8px 12px;background:rgba(255,255,255,0.08);">Valido per <strong style="color:#fbf7ef;font-size:15px;">${persone}</strong></div>
-      <div style="border-top:1px dashed rgba(196,168,130,0.3);padding-top:18px;">
+      <div style="border-top:1px dashed rgba(217,185,136,0.3);padding-top:18px;">
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:2.5px;color:#d9b988;text-transform:uppercase;margin-bottom:8px;">Codice voucher</div>
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:22px;font-weight:bold;color:#fbf7ef;letter-spacing:3px;">${d.codiceVoucher}</div>
-        <div style="font-family:Georgia,serif;font-size:11px;font-style:italic;color:rgba(245,239,228,0.5);margin-top:8px;">Valido fino al ${d.scadenza}</div>
+        <div style="font-family:Georgia,serif;font-size:11px;font-style:italic;color:rgba(251,247,239,0.5);margin-top:8px;">Valido fino al ${d.scadenza}</div>
       </div>
     </div>
 
@@ -477,7 +530,7 @@ function htmlDestinatario(d) {
   </div>
 
   <div style="background:#fbf7ef;padding:0 48px 36px;">
-    <div style="border-top:1px solid rgba(122,78,40,0.12);padding-top:24px;">
+    <div style="border-top:1px solid rgba(111,59,28,0.12);padding-top:24px;">
       <div style="font-size:20px;font-style:italic;color:#6f3b1c;">L&rsquo;800</div>
       <div style="font-family:Helvetica,sans-serif;font-size:8px;letter-spacing:2px;color:#8a5630;text-transform:uppercase;margin-top:3px;">Locanda a Palazzo</div>
       <p style="font-size:12px;color:#8a5630;margin:8px 0 0;line-height:1.6;">
@@ -490,7 +543,7 @@ function htmlDestinatario(d) {
   </div>
 
   <div style="background:#6f3b1c;padding:16px 48px;text-align:center;">
-    <p style="font-family:Helvetica,sans-serif;font-size:9px;color:rgba(245,239,228,0.5);margin:0;letter-spacing:1px;">Il mare, il palazzo, la Calabria.</p>
+    <p style="font-family:Helvetica,sans-serif;font-size:9px;color:rgba(251,247,239,0.5);margin:0;letter-spacing:1px;">Il mare, il palazzo, la Calabria.</p>
   </div>
 
 </div></body></html>`;

@@ -43,6 +43,7 @@
 <link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-vini.html">
 <link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-vini.html">
 <meta property="og:title" content="Wine list — L'800 Locanda a Palazzo, Amantea">
+<meta property="og:type" content="restaurant.menu">
 <meta property="og:description" content="L'800 Locanda a Palazzo wine list in Amantea: an almost exclusively Calabrian selection from small artisan wineries. Whites, rosés, reds and sparkling wines.">
 <meta property="og:image" content="https://www.l800.it/og-image.png">
 <meta property="og:locale" content="en_GB">
@@ -53,9 +54,9 @@
 <meta name="twitter:image" content="https://www.l800.it/og-image.png">
 <meta property="og:url" content="https://www.l800.it/en/menu-vini.html">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--cream:#fbf7ef;--cream-light:#fbf7ef;--cream-dark:#ecd9b6;--brown:#6f3b1c;--brown-dark:#4a2612;--brown-light:#8a5630;--brown-pale:#d9b988;--text:#2a1a10;--text-light:#807068;--border:rgba(111,59,28,0.18);--gold:#b8893f;}
+  :root{--cream:#fbf7ef;--cream-light:#fbf7ef;--cream-dark:#ecd9b6;--brown:#6f3b1c;--brown-dark:#4a2612;--brown-light:#8a5630;--brown-pale:#d9b988;--text:#2a1a10;--text-light:#5e5046;--border:rgba(111,59,28,0.18);--gold:#b8893f;}
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream-light);color:var(--text);}
@@ -73,8 +74,8 @@
   .hero-eyebrow{font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.3em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:16px;display:block;}
   .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.5vw,68px);font-weight:300;color:var(--cream-light);line-height:1.05;margin-bottom:18px;}
   .hero-title em{font-style:italic;color:var(--brown-pale);}
-  .hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:rgba(245,239,228,0.65);line-height:1.75;}
-  .menu-nav{position:sticky;top:64px;z-index:90;background:var(--cream-dark);border-bottom:1px solid var(--border);padding:0 80px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:rgba(251,247,239,0.65);line-height:1.75;}
+  .menu-nav{position:sticky;top:64px;z-index:90;background:var(--cream-dark);border-bottom:1px solid var(--border);box-sizing:border-box;width:100%;max-width:100vw;padding:0 80px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
   .menu-nav::-webkit-scrollbar{display:none;}
   .menu-nav-item{font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;color:var(--text-light);text-transform:uppercase;text-decoration:none;padding:16px 20px;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;flex-shrink:0;}
   .menu-nav-item:hover,.menu-nav-item.active{color:var(--brown);border-bottom-color:var(--brown);}
@@ -107,25 +108,25 @@
     footer { background:var(--brown-dark); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   .footer-top { display:flex; align-items:center; gap:20px; flex-shrink:0; }
   .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
-  .footer-copy { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(245,239,228,0.55); text-transform:uppercase; }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(251,247,239,0.55); text-transform:uppercase; }
   .footer-legal { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
-  .footer-legal a { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(245,239,228,0.55); text-transform:uppercase; text-decoration:none; transition:color 0.2s; }
-  .footer-legal a:hover { color:rgba(245,239,228,0.85); }
+  .footer-legal a { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(251,247,239,0.55); text-transform:uppercase; text-decoration:none; transition:color 0.2s; }
+  .footer-legal a:hover { color:rgba(251,247,239,0.85); }
   .footer-brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream-light);}
-  .footer-copy{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;}
+  .footer-copy{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;}
   .footer-legal{display:flex;gap:20px;flex-wrap:wrap;}
-  .footer-legal a{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;}
+  .footer-legal a{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;}
   @media(max-width:1024px){.menu-nav{padding:0 40px;}.menu-body{padding:56px 40px 80px;}}
   @media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.hero{padding:88px 24px 48px;}.menu-nav{padding:0 20px;}.menu-body{padding:40px 20px 64px;}footer{padding:20px;}.footer-top{flex-direction:column;text-align:center;}}
 
   /* ── COOKIE BANNER ── */
   #cookie-banner { position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(30,18,6,0.96); backdrop-filter:blur(8px); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; border-top:1px solid rgba(196,168,130,0.3); transform:translateY(100%); transition:transform 0.4s ease; }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
-  .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; white-space:nowrap; }
-  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; white-space:nowrap; }
+  .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:14px 22px; cursor:pointer; white-space:nowrap; min-height:44px; }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.7); background:transparent; border:1px solid rgba(251,247,239,0.25); padding:14px 22px; cursor:pointer; white-space:nowrap; min-height:44px; }
   @media(max-width:768px){ #cookie-banner{ padding:16px 20px; } .cookie-btns{ width:100%; } .cookie-btn-accept,.cookie-btn-reject{ flex:1; text-align:center; } }
 
   /* ── SKIP LINK ACCESSIBILITÀ ── */
@@ -142,7 +143,7 @@
   .footer-sitemap {
     background:#2a1a10;
     padding:32px 80px 20px;
-    border-bottom:1px solid rgba(245,239,228,0.08);
+    border-bottom:1px solid rgba(251,247,239,0.08);
   }
   .footer-sitemap-inner {
     display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
@@ -150,7 +151,7 @@
   }
   .footer-sitemap a {
     font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
-    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
     text-decoration:none; transition:color 0.2s;
     padding:6px 0;
   }
@@ -165,12 +166,23 @@
   .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
   .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
   .lang-switcher a:hover:not(.active) { color:var(--brown); }
-  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
   }
-</style>
+
+  /* === FIX OVERFLOW MOBILE === */
+  html, body { overflow-x: clip; }
+  footer { overflow-x: clip; }
+  .menu-nav { overflow-x: auto !important; max-width:100vw; }
+  .footer-top, .footer-copy { min-width: 0; }
+  .footer-copy { overflow-wrap: anywhere; word-break: break-word; }
+  @media(max-width:768px){
+    footer { padding-inline: 16px; }
+    .footer-copy { font-size: 7.5px; text-align:center; }
+  }
+  </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
   <script>
@@ -286,7 +298,7 @@
 <nav>
   <a href="index.html" class="nav-logo"><span class="nav-logo-main">L'800</span><span class="nav-logo-sub">Locanda a Palazzo</span></a>
   <div class="nav-links">
-    <a href="index.html" class="nav-link" style="color:var(--brown-pale);border-right:1px solid var(--border);padding-right:24px;margin-right:4px;">← Home</a>
+    <a href="index.html" class="nav-link" style="color:var(--brown);font-weight:500;border-right:1px solid var(--border);padding-right:24px;margin-right:4px;">← Home</a>
     <a href="menu-cibo.html" class="nav-link">Menu</a>
     <a href="menu-vini.html" class="nav-link active">Wines</a>
     <a href="menu-dolci.html" class="nav-link">Desserts</a>
@@ -365,7 +377,7 @@
     <div class="vino"><div><div class="vino-nome">Bivongi – Rosé</div><div class="vino-cantina">Cantine Lavorata</div><div class="vino-uve">Grapes: Greco Nero, Gaglioppo, Calabrese · 13%</div></div></div>
 
     <h3 style="font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.2em;color:var(--brown);text-transform:uppercase;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border);">Scavigna</h3>
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--brown-pale);padding-bottom:16px;">Nessun produttore, purtroppo.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--brown);padding-bottom:16px;">Nessun produttore, purtroppo.</p>
   </section>
 
   <!-- VINI SENZA DENOMINAZIONE -->

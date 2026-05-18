@@ -55,12 +55,12 @@
 <meta name="twitter:image" content="https://www.l800.it/og-image.png">
 <meta property="og:site_name" content="L'800 Locanda a Palazzo">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #fbf7ef; --cream-light: #fbf7ef; --cream-dark: #ecd9b6;
     --brown: #6f3b1c; --brown-dark: #4a2612; --brown-light: #8a5630;
-    --brown-pale: #d9b988; --text: #2a1a10; --text-light: #807068;
+    --brown-pale: #d9b988; --text: #2a1a10; --text-light: #5e5046;
     --border: rgba(111,59,28,0.18); --gold: #b8893f;
   }
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -83,7 +83,7 @@
   .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:18px; display:block; }
   .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(40px,5.5vw,66px); font-weight:300; color:var(--cream-light); line-height:1.06; margin-bottom:20px; }
   .hero-title em { font-style:italic; color:var(--brown-pale); }
-  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:rgba(245,239,228,0.7); line-height:1.75; max-width:520px; }
+  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:rgba(251,247,239,0.7); line-height:1.75; max-width:520px; }
 
   /* MENU GRID */
   .menu-section { padding:88px 80px 100px; background:var(--cream-light); }
@@ -140,7 +140,7 @@
   .cta { background:var(--brown); padding:64px 80px; text-align:center; }
   .cta-title { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,44px); font-weight:300; color:var(--cream-light); margin-bottom:14px; }
   .cta-title em { font-style:italic; }
-  .cta-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(245,239,228,0.7); margin-bottom:32px; }
+  .cta-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(251,247,239,0.7); margin-bottom:32px; }
   .btn-cta { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--brown); background:var(--cream-light); border:none; padding:14px 32px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:inline-block; }
   .btn-cta:hover { background:var(--cream-dark); }
 
@@ -149,7 +149,7 @@
   .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
   .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
-  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(245,239,228,0.35); text-transform:uppercase; }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(251,247,239,0.75); text-transform:uppercase; }
 
   /* FADE IN */
   .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease; }
@@ -210,13 +210,13 @@
     transform:translateY(100%); transition:transform 0.4s ease;
   }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
   .cookie-btn-accept:hover { background:var(--brown-dark); }
-  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.6); background:transparent; border:1px solid rgba(251,247,239,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(251,247,239,0.5); color:rgba(251,247,239,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 
   /* ── SKIP LINK ACCESSIBILITÀ ── */
@@ -233,7 +233,7 @@
   .footer-sitemap {
     background:#2a1a10;
     padding:32px 80px 20px;
-    border-bottom:1px solid rgba(245,239,228,0.08);
+    border-bottom:1px solid rgba(251,247,239,0.08);
   }
   .footer-sitemap-inner {
     display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
@@ -241,7 +241,7 @@
   }
   .footer-sitemap a {
     font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
-    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
     text-decoration:none; transition:color 0.2s;
     padding:6px 0;
   }
@@ -256,7 +256,7 @@
   .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
   .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
   .lang-switcher a:hover:not(.active) { color:var(--brown); }
-  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
@@ -493,7 +493,7 @@
   <h2 class="cta-title">Decided what to order?<br><em>Book your table.</em></h2>
   <p class="cta-sub">Via Calavecchia 53, Amantea · Open Tuesday to Sunday for lunch and dinner</p>
   <a href="prenota.html" class="btn-cta">Book now</a>
-  <a href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-cta" style="background:transparent;border:1px solid rgba(245,239,228,0.35);color:var(--cream-light);margin-left:14px;">📱 Message us on WhatsApp</a>
+  <a href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-cta" style="background:transparent;border:1px solid rgba(251,247,239,0.35);color:var(--cream-light);margin-left:14px;">📱 Message us on WhatsApp</a>
 
 </section>
 
@@ -515,9 +515,9 @@
   <span class="footer-brand">L'800</span>
   <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · VAT 03906130780 · Amantea (CS), Italy</span>
 <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px;">
-    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
-    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
-    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Terms &amp; Conditions</a>
+    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
+    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Terms &amp; Conditions</a>
   </div>
 </footer>
 

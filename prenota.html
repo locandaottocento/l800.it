@@ -124,12 +124,12 @@
 }
   </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #fbf7ef; --cream-light: #fbf7ef; --cream-dark: #ecd9b6;
     --brown: #6f3b1c; --brown-dark: #4a2612; --brown-light: #8a5630;
-    --brown-pale: #d9b988; --text: #2a1a10; --text-light: #807068;
+    --brown-pale: #d9b988; --text: #2a1a10; --text-light: #5e5046;
     --border: rgba(111,59,28,0.18); --gold: #b8893f;
   }
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -152,7 +152,7 @@
   .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:18px; display:block; }
   .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(38px,5vw,64px); font-weight:300; color:var(--cream-light); line-height:1.06; margin-bottom:20px; }
   .hero-title em { font-style:italic; color:var(--brown-pale); }
-  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:rgba(245,239,228,0.7); line-height:1.75; }
+  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:rgba(251,247,239,0.7); line-height:1.75; }
 
   /* MAIN LAYOUT */
   .prenota-main { display:grid; grid-template-columns:1fr 420px; gap:0; max-width:1200px; margin:0 auto; padding:80px 48px 100px; align-items:start; gap:60px; }
@@ -194,7 +194,7 @@
 
   .btn-wa { font-family:'Cormorant SC',serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; background:#2e7d32; border:none; padding:16px 24px; cursor:pointer; text-decoration:none; transition:background 0.3s; display:flex; align-items:center; justify-content:center; gap:10px; width:100%; margin-top:8px; }
   .btn-wa:hover { background:#1b5e20; }
-  .nota { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.14em; color:var(--brown-pale); text-transform:uppercase; margin-top:12px; text-align:center; }
+  .nota { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.14em; color:var(--text-light); text-transform:uppercase; margin-top:12px; text-align:center; }
 
   /* SIDEBAR */
   .sidebar { display:flex; flex-direction:column; gap:24px; }
@@ -211,7 +211,7 @@
   .orari-cell { background:var(--cream-light); padding:10px 12px; }
   .orari-giorno { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:var(--brown-light); text-transform:uppercase; display:block; margin-bottom:3px; }
   .orari-ore { font-family:'Cormorant Garamond',serif; font-size:14px; color:var(--text); }
-  .orari-chiuso { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--brown-pale); }
+  .orari-chiuso { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--brown); }
 
   .btn-octotable { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--cream-light); background:var(--brown-dark); border:1px solid var(--brown-dark); padding:14px 20px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:block; text-align:center; }
   .btn-octotable:hover { background:var(--brown); border-color:var(--brown); }
@@ -220,7 +220,7 @@
   .context-section { background:var(--cream-dark); padding:72px 80px; border-top:1px solid var(--border); }
   .context-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; max-width:1000px; margin:40px auto 0; }
   .context-item { }
-  .context-num { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:40px; color:var(--brown-pale); line-height:1; margin-bottom:8px; display:block; }
+  .context-num { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:40px; color:var(--brown); line-height:1; margin-bottom:8px; display:block; }
   .context-label { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em; color:var(--brown); text-transform:uppercase; margin-bottom:8px; display:block; }
   .context-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--text-light); line-height:1.65; }
 
@@ -235,7 +235,7 @@
   .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
   .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
-  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(245,239,228,0.35); text-transform:uppercase; }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(251,247,239,0.75); text-transform:uppercase; }
 
   /* FADE IN */
   .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease; }
@@ -273,13 +273,13 @@
     transform:translateY(100%); transition:transform 0.4s ease;
   }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
   .cookie-btn-accept:hover { background:var(--brown-dark); }
-  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.6); background:transparent; border:1px solid rgba(251,247,239,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(251,247,239,0.5); color:rgba(251,247,239,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 
   .info-sotto-form { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
@@ -299,7 +299,7 @@
   .footer-sitemap {
     background:#2a1a10;
     padding:32px 80px 20px;
-    border-bottom:1px solid rgba(245,239,228,0.08);
+    border-bottom:1px solid rgba(251,247,239,0.08);
   }
   .footer-sitemap-inner {
     display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
@@ -307,7 +307,7 @@
   }
   .footer-sitemap a {
     font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
-    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
     text-decoration:none; transition:color 0.2s;
     padding:6px 0;
   }
@@ -322,7 +322,7 @@
   .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
   .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
   .lang-switcher a:hover:not(.active) { color:var(--brown); }
-  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
@@ -456,7 +456,7 @@
         <div class="datepicker-wrap">
           <button type="button" class="datepicker-input" id="datepickerBtn2" onclick="dpToggle2()" aria-label="Seleziona data">
             <span id="dpDisplay2">Seleziona una data</span>
-            <span style="font-size:12px;color:var(--brown-pale);">▾</span>
+            <span style="font-size:12px;color:var(--brown);">▾</span>
           </button>
           <div class="datepicker-calendar" id="dpCalendar2"></div>
         </div>
@@ -624,9 +624,9 @@
     <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea (CS)</span>
   </div>
   <div class="footer-legal">
-    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
-    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
-    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.35);text-transform:uppercase;text-decoration:none;">Termini e Condizioni</a>
+    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
+    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;">Termini e Condizioni</a>
   </div>
 </footer>
 

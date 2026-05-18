@@ -136,7 +136,7 @@
     --brown-light: #8a5630;
     --brown-pale: #d9b988;
     --text: #2a1a10;
-    --text-light: #807068;
+    --text-light: #5e5046;
     --gold: #b8893f;
     --border: rgba(111, 59, 28, 0.2);
   }
@@ -174,7 +174,7 @@
   .hero-actions { display: flex; gap: clamp(8px, 1vw, 14px); align-items: center; flex-wrap: wrap; margin-bottom: clamp(24px, 3.5vw, 48px); }
   .hero-info { display: flex; gap: 36px; padding-top: 36px; border-top: 1px solid var(--border); }
   .hero-info-item { display: flex; flex-direction: column; gap: 4px; }
-  .hero-info-label { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.22em; color: var(--brown-pale); text-transform: uppercase; }
+  .hero-info-label { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.22em; color:var(--brown); text-transform: uppercase; }
   .hero-info-value { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--text-light); }
   .hero-right { position: relative; overflow: hidden; min-height: 400px; }
   .hero-img-wrap { position: absolute; inset: 0; }
@@ -195,10 +195,10 @@
   /* ── DIVIDER ── */
   .divider { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 32px 80px; background: var(--cream-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .divider-line { flex: 1; height: 1px; background: var(--border); max-width: 200px; }
-  .divider-ornament { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--brown-pale); letter-spacing: 12px; }
+  .divider-ornament { font-family: 'Cormorant Garamond', serif; font-size: 20px; color:var(--brown); letter-spacing: 12px; }
 
   /* ── SECTION COMMON ── */
-  .section-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: 0.28em; color: var(--brown-light); text-transform: uppercase; display: block; margin-bottom: 14px; }
+  .section-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: 0.28em; color:var(--brown); text-transform: uppercase; display: block; margin-bottom: 14px; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 3.8vw, 50px); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 22px; }
   .section-title em { font-style: italic; color: var(--brown); }
   .section-title-light { color: #FFFFFF; }
@@ -206,7 +206,7 @@
   .section-text { font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.85; color: var(--text-light); margin-bottom: 16px; }
   .section-ornament { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .section-ornament-line { width: 36px; height: 1px; background: var(--brown-pale); }
-  .section-ornament-icon { color: var(--brown-pale); font-size: 12px; }
+  .section-ornament-icon { color:var(--brown); font-size: 12px; }
 
   /* ── STORIA ── */
   .storia { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; background: var(--cream-light); }
@@ -245,10 +245,10 @@
   .recensioni-header { text-align: center; margin-bottom: 56px; }
   .recensioni-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto 40px; }
   .recensione-card { background: var(--cream); border: 1px solid var(--border); padding: 36px 32px; position: relative; }
-  .recensione-virgolette { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 0.6; color: var(--brown-pale); margin-bottom: 20px; display: block; }
+  .recensione-virgolette { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 0.6; color:var(--brown); margin-bottom: 20px; display: block; }
   .recensione-testo { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; line-height: 1.8; color: var(--text-light); margin-bottom: 24px; }
   .recensione-autore { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--brown-light); text-transform: uppercase; }
-  .recensione-stelle { color: var(--gold); font-size: 12px; margin-bottom: 6px; }
+  .recensione-stelle { color:var(--brown); font-size: 12px; margin-bottom: 6px; }
   .recensioni-cta { text-align: center; }
 
   /* ── VINI ── */
@@ -264,11 +264,11 @@
   .vino-row { padding: 9px 0; border-bottom: 1px dotted rgba(196,168,130,0.2); }
   .vino-row:last-child { border-bottom: none; }
   .vino-nome { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--cream-light); display: block; }
-  .vino-uve { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.12em; color: rgba(245,239,228,0.45); display: block; margin-top: 2px; }
+  .vino-uve { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.12em; color: rgba(251,247,239,0.45); display: block; margin-top: 2px; }
   .vini-passito { grid-column: 1 / -1; background: rgba(61,40,16,0.3); border: 1px solid rgba(196,168,130,0.2); padding: 20px 24px; }
   .vini-passito-badge { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; display: block; }
   .vini-passito-nome { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--cream-light); }
-  .vini-passito-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: rgba(245,239,228,0.55); margin-top: 6px; }
+  .vini-passito-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: rgba(251,247,239,0.55); margin-top: 6px; }
   .vini-cta { margin-top: 32px; }
 
   /* ── BUONI REGALO ── */
@@ -281,9 +281,9 @@
   .buoni-card-sub { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 24px; display: block; }
   .buoni-card-amount { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--gold); line-height: 1; }
   .buoni-card-desc { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.15em; color: var(--brown-pale); text-transform: uppercase; margin-top: 8px; }
-  .buoni-card-place { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: rgba(245,239,228,0.5); margin-top: 16px; }
+  .buoni-card-place { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: rgba(251,247,239,0.5); margin-top: 16px; }
   .buoni-features { list-style: none; margin: 20px 0 32px; }
-  .buoni-features li { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: rgba(245,239,228,0.7); padding: 8px 0; border-bottom: 1px dotted rgba(196,168,130,0.25); display: flex; align-items: center; gap: 10px; }
+  .buoni-features li { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: rgba(251,247,239,0.7); padding: 8px 0; border-bottom: 1px dotted rgba(196,168,130,0.25); display: flex; align-items: center; gap: 10px; }
   .buoni-features li::before { content: '✦'; color: var(--brown-pale); font-size: 9px; }
   .buoni-features li:last-child { border-bottom: none; }
   .buoni-actions { display: flex; flex-direction: column; gap: 12px; }
@@ -386,21 +386,21 @@
 
   /* ── FOOTER ── */
   footer { background: var(--brown-dark); padding: 56px 80px 32px; }
-  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(245,239,228,0.12); }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(251,247,239,0.12); }
   .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 28px; color: var(--cream-light); display: block; }
   .footer-brand-sub { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.25em; color: var(--brown-pale); text-transform: uppercase; display: block; margin-bottom: 16px; }
-  .footer-brand-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: rgba(245,239,228,0.5); line-height: 1.6; margin-bottom: 16px; }
-  .footer-contact-line { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(245,239,228,0.45); line-height: 1.7; }
-  .footer-contact-line a { color: rgba(245,239,228,0.55); text-decoration: none; }
+  .footer-brand-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: rgba(251,247,239,0.5); line-height: 1.6; margin-bottom: 16px; }
+  .footer-contact-line { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(251,247,239,0.45); line-height: 1.7; }
+  .footer-contact-line a { color: rgba(251,247,239,0.55); text-decoration: none; }
   .footer-col h5 { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.22em; color: var(--brown-pale); text-transform: uppercase; margin-bottom: 16px; }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .footer-col ul li a { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(245,239,228,0.5); text-decoration: none; transition: color 0.3s; }
+  .footer-col ul li a { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(251,247,239,0.5); text-decoration: none; transition: color 0.3s; }
   .footer-col ul li a:hover { color: var(--cream-light); }
   .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
-  .footer-copy { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.18em; color: rgba(245,239,228,0.3); text-transform: uppercase; }
+  .footer-copy { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.18em; color: rgba(251,247,239,0.75); text-transform: uppercase; }
   .footer-legal { display: flex; gap: 20px; }
-  .footer-legal a { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.15em; color: rgba(245,239,228,0.3); text-decoration: none; text-transform: uppercase; }
-  .footer-legal a:hover { color: rgba(245,239,228,0.6); }
+  .footer-legal a { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.15em; color: rgba(251,247,239,0.75); text-decoration: none; text-transform: uppercase; }
+  .footer-legal a:hover { color: rgba(251,247,239,0.6); }
 
   /* ── FADE IN ── */
   .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -633,13 +633,13 @@
     transform:translateY(100%); transition:transform 0.4s ease;
   }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
   .cookie-btn-accept:hover { background:var(--brown-dark); }
-  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.6); background:transparent; border:1px solid rgba(251,247,239,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(251,247,239,0.5); color:rgba(251,247,239,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 
   /* ── VINI NUOVA STRUTTURA ── */
@@ -650,7 +650,7 @@
 
   /* SVG Calabria */
   .calabria-svg { width:100%; max-width:260px; height:auto; }
-  .calabria-regione { fill:rgba(255,255,255,0.08); stroke:rgba(196,168,130,0.5); stroke-width:1.5; }
+  .calabria-regione { fill:rgba(255,255,255,0.08); stroke:rgba(217,185,136,0.85); stroke-width:1.5; }
   .doc-zona { fill:rgba(196,168,130,0.35); stroke:rgba(196,168,130,0.7); stroke-width:1; transition:fill 0.2s; cursor:default; }
   .doc-zona:hover { fill:rgba(196,168,130,0.6); }
   .doc-zona-accent { fill:rgba(212,160,60,0.45); stroke:rgba(212,160,60,0.8); }
@@ -686,12 +686,15 @@
   .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
   .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
   .lang-switcher a:hover:not(.active) { color:var(--brown); }
-  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
   }
-</style>
+
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; color: var(--cream-light); }
+  #buoni .section-label{color:var(--brown-pale);}
+  </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
   <script>
@@ -798,7 +801,7 @@
     <div class="hero-actions">
       <a href="prenota.html" class="btn-primary" style="white-space:nowrap;">Book your table</a>
       <a href="menu-cibo.html" class="btn-secondary" style="white-space:nowrap;">Discover the menu</a>
-      <a href="buoni.html" class="btn-secondary" style="border-color:var(--gold);color:var(--gold);white-space:nowrap;">🎁 Gift vouchers</a>
+      <a href="buoni.html" class="btn-secondary" style="white-space:nowrap;">🎁 Gift vouchers</a>
     </div>
     <div class="hero-info">
       <div class="hero-info-item">
@@ -960,7 +963,7 @@
     <div class="vini-testo">
       <div class="section-ornament">
         <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
-        <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
+        <span class="section-ornament-icon" style="color:rgba(217,185,136,0.85);">✦</span>
       </div>
       <span class="section-label" style="color:#E8C88A;letter-spacing:0.28em;">Our wine cellar</span>
       <h2 class="section-title section-title-light">
@@ -999,7 +1002,7 @@
           <div class="datepicker-wrap">
             <button type="button" class="datepicker-input" id="datepickerBtn" onclick="dpToggle()" aria-label="Select date">
               <span id="dpDisplay">Select a date</span>
-              <span style="font-size:12px;color:var(--brown-pale);">▾</span>
+              <span style="font-size:12px;color:var(--brown);">▾</span>
             </button>
             <div class="datepicker-calendar" id="dpCalendar"></div>
           </div>
@@ -1067,14 +1070,14 @@
     <div class="fade-in">
       <div class="section-ornament">
         <div class="section-ornament-line" style="background:rgba(196,168,130,0.4);"></div>
-        <span class="section-ornament-icon" style="color:rgba(196,168,130,0.5);">✦</span>
+        <span class="section-ornament-icon" style="color:rgba(217,185,136,0.85);">✦</span>
       </div>
       <span class="section-label" style="color:var(--brown-pale);">Gift vouchers</span>
       <h2 class="section-title" style="color:var(--cream-light);">
         Give an experience.<br>
         <em>Give a memory.</em>
       </h2>
-      <p class="section-text" style="color:rgba(245,239,228,0.7);">The L'800 gift voucher is the perfect gift for those who want an authentic experience in Calabria. We deliver it by email instantly after payment, ready for a special lunch or dinner in our historic palazzo.</p>
+      <p class="section-text" style="color:rgba(251,247,239,0.7);">The L'800 gift voucher is the perfect gift for those who want an authentic experience in Calabria. We deliver it by email instantly after payment, ready for a special lunch or dinner in our historic palazzo.</p>
       <ul class="buoni-features">
         <li>Instant online purchase with PayPal</li>
         <li>Delivered by email within minutes</li>
@@ -1133,15 +1136,15 @@
       <div style="position:relative;border:1px solid var(--border);overflow:hidden;min-height:220px;display:flex;align-items:flex-end;">
         <img src="/giardino-eventi-drone.jpg" alt="Giardino de L'800 Locanda a Palazzo allestito per un evento serale, vista drone" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;" loading="lazy" decoding="async">
         <div style="position:relative;z-index:2;width:100%;padding:24px 28px;background:linear-gradient(to top, rgba(20,10,2,0.92) 0%, rgba(20,10,2,0.55) 50%, rgba(20,10,2,0.25) 100%);">
-          <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.2em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:6px;">Il nostro giardino</div>
-          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(245,239,228,0.88);line-height:1.6;">Un angolo di verde nel cuore di Amantea, perfetto per eventi privati all'aperto nelle serate estive.</p>
+          <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.2em;color:var(--brown);text-transform:uppercase;margin-bottom:6px;">Il nostro giardino</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--brown-dark);line-height:1.6;">Un angolo di verde nel cuore di Amantea, perfetto per eventi privati all'aperto nelle serate estive.</p>
         </div>
       </div>
       <div style="position:relative;border:1px solid var(--border);overflow:hidden;min-height:220px;display:flex;align-items:flex-end;">
         <img src="/sala-interna.jpg" alt="Sale interne del palazzo L'800 Locanda a Palazzo con travi in legno e tavoli apparecchiati" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;">
         <div style="position:relative;z-index:2;width:100%;padding:24px 28px;background:linear-gradient(to top, rgba(20,10,2,0.92) 0%, rgba(20,10,2,0.55) 50%, rgba(20,10,2,0.25) 100%);">
-          <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.2em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:6px;">Le sale del palazzo</div>
-          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(245,239,228,0.88);line-height:1.6;">Ambienti d'epoca con soffitti alti e atmosfera esclusiva, disponibili per cene private e ricevimenti.</p>
+          <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.2em;color:var(--brown);text-transform:uppercase;margin-bottom:6px;">Le sale del palazzo</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--brown-dark);line-height:1.6;">Ambienti d'epoca con soffitti alti e atmosfera esclusiva, disponibili per cene private e ricevimenti.</p>
         </div>
       </div>
     </div>

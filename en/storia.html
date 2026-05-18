@@ -74,7 +74,7 @@
     --brown-light: #8a5630;
     --brown-pale: #d9b988;
     --text: #2a1a10;
-    --text-light: #807068;
+    --text-light: #5e5046;
     --border: rgba(111,59,28,0.18);
   }
 
@@ -113,7 +113,7 @@
   .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:20px; display:block; }
   .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,6vw,72px); font-weight:300; color:var(--cream-light); line-height:1.05; margin-bottom:32px; }
   .hero-title em { font-style:italic; color:var(--brown-pale); }
-  .hero-incipit { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:rgba(245,239,228,0.75); line-height:1.75; max-width:600px; border-left:2px solid var(--brown-pale); padding-left:24px; }
+  .hero-incipit { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:rgba(251,247,239,0.75); line-height:1.75; max-width:600px; border-left:2px solid var(--brown-pale); padding-left:24px; }
 
   /* ── TIMELINE LINE ── */
   .timeline { padding:0 80px 100px; background:var(--cream-light); position:relative; }
@@ -146,7 +146,7 @@
   }
   .capitolo-anno-val {
     font-family:'Cormorant Garamond',serif; font-style:italic;
-    font-size:38px; font-weight:300; color:var(--brown-pale);
+    font-size:38px; font-weight:300; color:var(--brown);
     writing-mode:vertical-rl; letter-spacing:0.02em;
     transform:rotate(180deg); line-height:1;
     position:relative; z-index:3;
@@ -187,7 +187,7 @@
     font-weight:300; color:var(--brown); letter-spacing:0.08em; line-height:1;
   }
   .decor-storico-ornament {
-    font-size:10px; letter-spacing:0.5em; color:var(--brown-pale);
+    font-size:10px; letter-spacing:0.5em; color:var(--brown);
   }
   .decor-storico-cit {
     font-family:'Cormorant Garamond',serif; font-style:italic;
@@ -207,11 +207,11 @@
   .highlight::after { right:-10px; }
   .highlight-label { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.25em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:10px; display:block; }
   .highlight-val { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:28px; color:var(--cream-light); line-height:1.2; }
-  .highlight-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.6); margin-top:8px; display:block; }
+  .highlight-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.6); margin-top:8px; display:block; }
 
   /* ── CHIUSURA ── */
   .chiusura { background:var(--cream-dark); padding:80px; text-align:center; border-top:1px solid var(--border); }
-  .chiusura-ornament { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--brown-pale); letter-spacing:12px; margin-bottom:28px; display:block; }
+  .chiusura-ornament { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--brown); letter-spacing:12px; margin-bottom:28px; display:block; }
   .chiusura-titolo { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,4vw,40px); font-weight:300; color:var(--text); margin-bottom:16px; }
   .chiusura-titolo em { font-style:italic; color:var(--brown); }
   .chiusura-testo { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:var(--text-light); max-width:520px; margin:0 auto 40px; line-height:1.7; }
@@ -227,7 +227,7 @@
   .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
   .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
-  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(245,239,228,0.35); text-transform:uppercase; }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(251,247,239,0.75); text-transform:uppercase; }
 
   /* ── FADE IN ── */
   .fade-in { opacity:0; transform:translateY(22px); transition:opacity 0.7s ease, transform 0.7s ease; }
@@ -279,13 +279,13 @@
     transform:translateY(100%); transition:transform 0.4s ease;
   }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
   .cookie-btn-accept:hover { background:var(--brown-dark); }
-  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.6); background:transparent; border:1px solid rgba(251,247,239,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(251,247,239,0.5); color:rgba(251,247,239,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 
   /* ── SKIP LINK ACCESSIBILITÀ ── */
@@ -302,7 +302,7 @@
   .footer-sitemap {
     background:#2a1a10;
     padding:32px 80px 20px;
-    border-bottom:1px solid rgba(245,239,228,0.08);
+    border-bottom:1px solid rgba(251,247,239,0.08);
   }
   .footer-sitemap-inner {
     display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
@@ -310,7 +310,7 @@
   }
   .footer-sitemap a {
     font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
-    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
     text-decoration:none; transition:color 0.2s;
     padding:6px 0;
   }
@@ -325,7 +325,7 @@
   .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
   .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
   .lang-switcher a:hover:not(.active) { color:var(--brown); }
-  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
@@ -563,9 +563,9 @@
   <span class="footer-brand">L'800</span>
   <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780</span>
 <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px;">
-    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
-    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
-    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Terms &amp; Conditions</a>
+    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
+    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Terms &amp; Conditions</a>
   </div>
 </footer>
 

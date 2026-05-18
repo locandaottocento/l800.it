@@ -77,7 +77,7 @@
     --brown-light: #8a5630;
     --brown-pale: #d9b988;
     --text: #2a1a10;
-    --text-light: #807068;
+    --text-light: #5e5046;
     --gold: #b8893f;
     --border: rgba(111,59,28,0.2);
     --green: #2e7d32;
@@ -119,7 +119,7 @@
   .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:20px; display:block; }
   .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,60px); font-weight:300; color:var(--cream-light); line-height:1.1; margin-bottom:20px; }
   .hero-title em { font-style:italic; color:var(--gold); }
-  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:rgba(245,239,228,0.7); line-height:1.7; }
+  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:rgba(251,247,239,0.7); line-height:1.7; }
 
   /* ── PRODOTTI ── */
   .prodotti { padding:72px 80px; background:var(--cream-light); }
@@ -175,7 +175,7 @@
   .carrello { max-width:900px; margin:0 auto; border:1px solid var(--border); background:var(--cream-light); }
   .carrello-header { padding:24px 32px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:14px; }
   .carrello-header h3 { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.22em; color:var(--brown); text-transform:uppercase; }
-  .carrello-vuoto { padding:32px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-pale); }
+  .carrello-vuoto { padding:32px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); }
   .carrello-items { padding:0 32px; }
   .carrello-item { display:flex; justify-content:space-between; align-items:center; padding:16px 0; border-bottom:1px dotted var(--border); }
   .carrello-item:last-child { border-bottom:none; }
@@ -211,7 +211,7 @@
   .pagamento-title { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.22em; color:var(--brown); text-transform:uppercase; margin-bottom:24px; padding-bottom:14px; border-bottom:1px solid var(--border); }
   .pagamento-sicurezza { display:flex; align-items:center; gap:10px; margin-bottom:24px; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.15em; color:var(--text-light); text-transform:uppercase; }
   #paypal-button-container { max-width:480px; }
-  .pagamento-disabilitato { padding:20px; background:var(--cream-dark); border:1px dashed var(--border); text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-pale); }
+  .pagamento-disabilitato { padding:20px; background:var(--cream-dark); border:1px dashed var(--border); text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown); }
 
   /* ── CONFERMA ── */
   #schermata-conferma {
@@ -241,19 +241,19 @@
   .voucher-label { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.25em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:6px; display:block; }
   .voucher-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:28px; color:var(--cream-light); margin-bottom:2px; }
   .voucher-brand-sub { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.2em; color:var(--brown-pale); text-transform:uppercase; display:block; margin-bottom:20px; }
-  .voucher-prodotto { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:rgba(245,239,228,0.85); margin-bottom:4px; }
+  .voucher-prodotto { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:rgba(251,247,239,0.85); margin-bottom:4px; }
   .voucher-prezzo { font-family:'Cormorant Garamond',serif; font-size:44px; font-weight:300; color:var(--gold); line-height:1; margin-bottom:20px; }
   .voucher-dashed { border-top:1px dashed rgba(196,168,130,0.4); margin:20px 0; }
   .voucher-codice-label { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.2em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:8px; display:block; }
   .voucher-codice-wrap { display:flex; align-items:center; justify-content:center; gap:12px; margin:8px 0; flex-wrap:wrap; }
   .voucher-codice { font-family:'Cormorant SC',serif; font-size:22px; letter-spacing:0.15em; color:var(--cream-light); background:none; padding:0; }
-  .voucher-copia-btn { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; background:rgba(245,239,228,0.08); color:var(--cream-light); border:1px solid rgba(245,239,228,0.25); padding:8px 14px; cursor:pointer; transition:all 0.2s; min-width:96px; }
-  .voucher-copia-btn:hover { background:rgba(245,239,228,0.18); }
+  .voucher-copia-btn { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; background:rgba(251,247,239,0.08); color:var(--cream-light); border:1px solid rgba(251,247,239,0.25); padding:8px 14px; cursor:pointer; transition:all 0.2s; min-width:96px; }
+  .voucher-copia-btn:hover { background:rgba(251,247,239,0.18); }
   .voucher-copia-btn:focus { outline:2px solid var(--cream-light); outline-offset:2px; }
   .voucher-copia-ok { display:none; }
   .voucher-copia-btn.copied .voucher-copia-default { display:none; }
   .voucher-copia-btn.copied .voucher-copia-ok { display:inline; color:#a3d99b; }
-  .voucher-valido { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.15em; color:rgba(245,239,228,0.45); text-transform:uppercase; margin-top:12px; display:block; }
+  .voucher-valido { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.15em; color:rgba(251,247,239,0.78); text-transform:uppercase; margin-top:12px; display:block; }
   .conferma-dettagli { background:var(--cream-dark); border:1px solid var(--border); padding:28px 32px; text-align:left; margin-bottom:32px; }
   .conferma-dettagli p { font-family:'Cormorant Garamond',serif; font-size:15px; color:var(--text-light); line-height:1.8; }
   .conferma-dettagli strong { color:var(--text); font-weight:500; }
@@ -269,7 +269,7 @@
   /* ── DIVIDER ── */
   .divider { display:flex; align-items:center; gap:20px; padding:32px 80px; background:var(--cream-dark); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
   .divider-line { flex:1; height:1px; background:var(--border); }
-  .divider-ornament { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--brown-pale); letter-spacing:10px; }
+  .divider-ornament { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--brown); letter-spacing:10px; }
 
   /* ── ERROR ── */
   .campo-errore { border-color:#c0392b !important; }
@@ -280,7 +280,7 @@
   .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
   .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
-  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(245,239,228,0.35); text-transform:uppercase; }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(251,247,239,0.75); text-transform:uppercase; }
 
   /* ── RESPONSIVE ── */
 
@@ -341,13 +341,13 @@
     transform:translateY(100%); transition:transform 0.4s ease;
   }
   #cookie-banner.visible { transform:translateY(0); }
-  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(245,239,228,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
   .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
   .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
   .cookie-btn-accept:hover { background:var(--brown-dark); }
-  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,239,228,0.6); background:transparent; border:1px solid rgba(245,239,228,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .cookie-btn-reject:hover { border-color:rgba(245,239,228,0.5); color:rgba(245,239,228,0.9); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.6); background:transparent; border:1px solid rgba(251,247,239,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(251,247,239,0.5); color:rgba(251,247,239,0.9); }
   @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
 
   /* ── SKIP LINK ACCESSIBILITÀ ── */
@@ -377,7 +377,7 @@
   .footer-sitemap {
     background:#2a1a10;
     padding:32px 80px 20px;
-    border-bottom:1px solid rgba(245,239,228,0.08);
+    border-bottom:1px solid rgba(251,247,239,0.08);
   }
   .footer-sitemap-inner {
     display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
@@ -385,7 +385,7 @@
   }
   .footer-sitemap a {
     font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
-    text-transform:uppercase; color:rgba(245,239,228,0.7);
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
     text-decoration:none; transition:color 0.2s;
     padding:6px 0;
   }
@@ -400,7 +400,7 @@
   .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
   .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
   .lang-switcher a:hover:not(.active) { color:var(--brown); }
-  .lang-switcher .sep { color:var(--brown-pale); font-size:10px; }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
@@ -533,7 +533,7 @@
       <div class="prodotto-qty">
         <span class="qty-label">Quantity</span>
         <button class="qty-btn" onclick="cambiaQty(event,'tre',-1)">−</button>
-        <input class="qty-val" id="qty-tre" type="text" value="1" readonly>
+        <input class="qty-val" id="qty-tre" type="text" value="1" readonly aria-label="Number of guests for 3 courses voucher">
         <button class="qty-btn" onclick="cambiaQty(event,'tre',+1)">+</button>
       </div>
       <div class="disponibile">Available</div>
@@ -554,7 +554,7 @@
       <div class="prodotto-qty">
         <span class="qty-label">Quantity</span>
         <button class="qty-btn" onclick="cambiaQty(event,'quattro',-1)">−</button>
-        <input class="qty-val" id="qty-quattro" type="text" value="1" readonly>
+        <input class="qty-val" id="qty-quattro" type="text" value="1" readonly aria-label="Number of guests for 4 courses voucher">
         <button class="qty-btn" onclick="cambiaQty(event,'quattro',+1)">+</button>
       </div>
       <div class="disponibile">Available</div>
@@ -640,7 +640,7 @@
     <div class="conferma-icon">🎉</div>
     <h2 class="conferma-title">Payment<br><em>completed successfully!</em></h2>
     <p class="conferma-sub" id="conferma-sub-text">The gift voucher has been sent to your email. Keep the code below.</p>
-    <p id="email-status" style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:20px;">
+    <p id="email-status" style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;color:var(--brown);text-transform:uppercase;margin-bottom:20px;">
       ⏳ Sending email…
     </p>
 
@@ -689,14 +689,14 @@
   <span class="footer-brand">L'800</span>
   <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · VAT 03906130780</span>
 <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px;">
-    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
-    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
-    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(245,239,228,0.45);text-transform:uppercase;text-decoration:none;">Terms &amp; Conditions</a>
+    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
+    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Terms &amp; Conditions</a>
   </div>
 </footer>
 
 <!-- PAYPAL SDK -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=Afw_NTlvBV8q6y1HigSn4lXPzqbXdBFFW9EziyM0nR0dKPd6ost9BJN3QLSKhaSnevwKylPqFXyvAwlw&currency=EUR&locale=en_GB&intent=capture&components=buttons"></script>
 
 <script>
