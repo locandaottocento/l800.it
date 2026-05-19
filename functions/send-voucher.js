@@ -379,6 +379,62 @@ export async function onRequestPost({ request, env, waitUntil }) {
     inviato_destinatario: emailDestValida,
   }));
 
+  // 8c. Meta Conversions API — evento Purchase server-side
+  // Più affidabile del Pixel client-side su iOS e con ad blocker.
+  // Richiede: env.META_CAPI_TOKEN (System User Access Token da Meta Business Suite)
+  //           env.META_PIXEL_ID  (1266689621145892 — già noto)
+  // Se le env var non sono configurate, l'invio viene saltato silenziosamente.
+  if (env.META_CAPI_TOKEN && env.META_PIXEL_ID) {
+    const prezziUnitari = { 3: 50, 4: 65 };
+    const prezzoUnitario = prezziUnitari[d.numPortate] || 0;
+    const valore = prezzoUnitario * d.numPersone;
+
+    // Hash SHA-256 dell'email (richiesto da Meta per matching)
+    async function hashEmail(email) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(email.trim().toLowerCase());
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const emailHash = await hashEmail(d.emailAcquirente);
+
+    waitUntil(
+      fetchWithTimeout(
+        `https://graph.facebook.com/v19.0/${env.META_PIXEL_ID}/events`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            data: [{
+              event_name: 'Purchase',
+              event_time: Math.floor(Date.now() / 1000),
+              action_source: 'website',
+              event_source_url: 'https://www.l800.it/buoni.html',
+              event_id: d.codiceVoucher,              // deduplication con Pixel client-side
+              user_data: {
+                em: [emailHash],                       // email hashed SHA-256
+              },
+              custom_data: {
+                value: valore,
+                currency: 'EUR',
+                content_ids: [`voucher_${d.numPortate}portate`],
+                content_type: 'product',
+                num_items: d.numPersone,
+              },
+            }],
+            access_token: env.META_CAPI_TOKEN,
+            // test_event_code: 'TEST12345',           // ← decommenta solo in fase di test
+          }),
+        },
+        10000
+      ).then(r => r.json())
+        .then(j => console.log('META_CAPI', JSON.stringify(j)))
+        .catch(err => console.error('Meta CAPI error:', err.message))
+    );
+  }
+
   // 9. Risposta di successo
   return jsonResponse({ success: true }, 200, cors);
 }
