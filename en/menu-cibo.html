@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  // Eseguito PRIMA del rendering — nasconde subito il banner se consenso già dato
+  (function() {
+    var c = localStorage.getItem('l800_cookie_consent');
+    if (c !== null) {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('cookie-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Performance: preconnect resorse esterne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.facebook.com">
+<!-- Favicon & Mobile icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6f3b1c">
+<meta name="msapplication-TileColor" content="#6f3b1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="L'800">
+<title>Food menu — Fresh fish &amp; Calabrian cuisine · L'800 Amantea</title>
+<meta name="description" content="L'800 Locanda a Palazzo's food menu in Amantea: starters, fresh raw seafood, first courses and mains. Authentic Calabrian cuisine. Updated 2025.">
+<meta name="keywords" content="food menu Amantea, fish menu Calabria, fresh seafood Tyrrhenian, Calabrian cuisine, L800 menu">
+<meta name="robots" content="index, follow">
+<link rel="alternate" hreflang="it" href="https://www.l800.it/menu-cibo.html">
+<link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-cibo.html">
+<link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-cibo.html">
+<link rel="canonical" href="https://www.l800.it/en/menu-cibo.html">
+<link rel="alternate" hreflang="it" href="https://www.l800.it/menu-cibo.html">
+<link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu-cibo.html">
+<link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu-cibo.html">
+<meta property="og:title" content="Food menu — L'800 Locanda a Palazzo, Amantea">
+<meta property="og:type" content="restaurant.menu">
+<meta property="og:description" content="L'800 Locanda a Palazzo's food menu in Amantea: starters, fresh raw seafood, first courses and mains. Authentic Calabrian cuisine. Updated 2025.">
+<meta property="og:image" content="https://www.l800.it/og-image.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Food menu — L'800 Locanda a Palazzo, Amantea">
+<meta name="twitter:description" content="L'800 Locanda a Palazzo's food menu in Amantea: starters, fresh raw seafood, first courses and mains. Authentic Calabrian cuisine. Updated 2025.">
+<meta name="twitter:image" content="https://www.l800.it/og-image.png">
+<meta property="og:url" content="https://www.l800.it/en/menu-cibo.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "name": "Menu L'800 Locanda a Palazzo",
+  "url": "https://www.l800.it/menu-cibo.html",
+  "inLanguage": "it",
+  "hasMenuSection": [
+    {"@type":"MenuSection","name":"Antipasti"},
+    {"@type":"MenuSection","name":"Crudité"},
+    {"@type":"MenuSection","name":"Primi"},
+    {"@type":"MenuSection","name":"Secondi"},
+    {"@type":"MenuSection","name":"Contorni"}
+  ],
+  "hasMenuItem": [
+    {"@type":"MenuItem","name":"Tagliolini all'arancia, pesto di mandorle, crudité di gambero rosso","offers":{"@type":"Offer","price":"18","priceCurrency":"EUR"}},
+    {"@type":"MenuItem","name":"Filetto di spigola in crosta di pistacchio, crema di patate al limone","offers":{"@type":"Offer","price":"16","priceCurrency":"EUR"}},
+    {"@type":"MenuItem","name":"Crudité di pesce fresco","offers":{"@type":"Offer","price":"36","priceCurrency":"EUR"}},
+    {"@type":"MenuItem","name":"Ris800 – Carnaroli, crostacei, zucca, zafferano","offers":{"@type":"Offer","price":"22","priceCurrency":"EUR"}}
+  ],
+  "provider": {
+    "@type": "Restaurant",
+    "name": "L'800 Locanda a Palazzo",
+    "address": {"@type":"PostalAddress","streetAddress":"Via Calavecchia 53","addressLocality":"Amantea","addressRegion":"Cosenza","postalCode":"87032","addressCountry":"IT"},
+    "telephone": "+390982428262",
+    "url": "https://www.l800.it"
+  }
+}
+</script>
+
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap"></noscript>
+<style>
+  :root {
+    --cream:#fbf7ef; --cream-light:#fbf7ef; --cream-dark:#ecd9b6;
+    --brown:#6f3b1c; --brown-dark:#4a2612; --brown-light:#8a5630;
+    --brown-pale:#d9b988; --text:#2a1a10; --text-light:#5e5046;
+    --border:rgba(111,59,28,0.18); --gold:#b8893f;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream-light);color:var(--text);}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(250,246,239,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .nav-logo{text-decoration:none;display:flex;flex-direction:column;line-height:1;}
+  .nav-logo-main{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--brown);}
+  .nav-logo-sub{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.25em;color:var(--brown-light);text-transform:uppercase;}
+  .nav-links{display:flex;gap:28px;align-items:center;}
+  .nav-link{font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;color:var(--text-light);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+  .nav-link:hover,.nav-link.active{color:var(--brown);}
+  .nav-cta{font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-light);background:var(--brown);padding:9px 18px;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
+  .nav-cta:hover{background:var(--brown-dark);}
+
+  /* HERO */
+  .hero{padding:120px 80px 60px;background:var(--brown-dark);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FBF7EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+  .hero-inner{position:relative;z-index:2;max-width:700px;}
+  .hero-eyebrow{font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.3em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:16px;display:block;}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.5vw,68px);font-weight:300;color:var(--cream-light);line-height:1.05;margin-bottom:18px;}
+  .hero-title em{font-style:italic;color:var(--brown-pale);}
+  .hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:rgba(251,247,239,0.65);line-height:1.75;margin-bottom:28px;}
+  .hero-note{font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:0.2em;color:rgba(196,168,130,0.9);text-transform:uppercase;}
+  .coperto-note{display:inline-block;margin-top:16px;font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:0.18em;color:rgba(196,168,130,0.7);text-transform:uppercase;border:1px solid rgba(196,168,130,0.25);padding:8px 16px;}
+
+  /* MENU NAV */
+  .menu-nav{position:sticky;top:64px;z-index:90;background:var(--cream-dark);border-bottom:1px solid var(--border);box-sizing:border-box;width:100%;max-width:100vw;padding:0 80px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .menu-nav::-webkit-scrollbar{display:none;}
+  .menu-nav-item{font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.18em;color:var(--text-light);text-transform:uppercase;text-decoration:none;padding:16px 20px;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;flex-shrink:0;}
+  .menu-nav-item:hover{color:var(--brown);}
+  .menu-nav-item.active{color:var(--brown);border-bottom-color:var(--brown);}
+
+  /* MAIN */
+  .menu-body{max-width:900px;margin:0 auto;padding:72px 48px 100px;}
+
+  /* SEZIONE */
+  .sezione{margin-bottom:72px;}
+  .sezione-header{margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+  .sezione-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--text);line-height:1.1;}
+  .sezione-title em{font-style:italic;color:var(--brown);}
+  .sezione-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--text-light);margin-top:10px;line-height:1.65;max-width:580px;}
+  .ornament{width:36px;height:1px;background:var(--brown-pale);margin:14px 0;}
+
+  /* PIATTO */
+  .piatto{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;padding:20px 0;border-bottom:1px solid var(--border);}
+  .piatto:last-child{border-bottom:none;}
+  .piatto-left{}
+  .piatto-nome{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--text);line-height:1.25;margin-bottom:5px;}
+  .piatto-nome.carne{color:#c0440a;}
+  .piatto-nome.vegetariano{color:#3a7d44;}
+  .piatto-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--text-light);line-height:1.55;}
+  .piatto-allergeni{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;}
+  .allergene{font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.12em;color:var(--brown);text-transform:uppercase;border:1px solid var(--brown-pale);padding:4px 9px;background:var(--cream-dark);}
+  .piatto-right{text-align:right;flex-shrink:0;}
+  .piatto-prezzo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--brown);white-space:nowrap;}
+  .piatto-prezzo::before{content:'€';}
+
+  /* TERRA LABEL */
+  .terra-tag{display:inline-block;font-family:'Cormorant SC',serif;font-size:7px;letter-spacing:0.12em;color:var(--brown-light);text-transform:uppercase;border:1px solid rgba(111,59,28,0.2);padding:2px 7px;margin-left:8px;vertical-align:middle;}
+
+  /* ALLEGENI LEGENDA */
+  .legenda{background:var(--cream-dark);border:1px solid var(--border);padding:24px 28px;margin-top:48px;}
+  .legenda-title{font-family:'Cormorant SC',serif;font-size:9px;letter-spacing:0.2em;color:var(--brown-light);text-transform:uppercase;margin-bottom:14px;display:block;}
+  .legenda-grid{display:flex;flex-wrap:wrap;gap:8px 20px;}
+  .legenda-item{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.12em;color:var(--text-light);text-transform:uppercase;}
+
+  /* COPERTO */
+  .coperto-row{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:2px solid var(--border);margin-top:16px;}
+  .coperto-label{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);}
+  .coperto-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--text-light);}
+  .coperto-price{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--brown);}
+  .coperto-price::before{content:'€';}
+
+  /* CTA */
+  .cta-section{background:var(--brown-dark);padding:56px 48px;text-align:center;margin-top:80px;}
+  .cta-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(26px,3.5vw,38px);font-weight:300;color:var(--cream-light);margin-bottom:20px;}
+  .cta-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-light);background:var(--brown);border:none;padding:14px 24px;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
+  .btn-primary:hover{background:var(--brown-light);}
+  .btn-secondary{font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--brown-pale);background:transparent;border:1px solid rgba(196,168,130,0.4);padding:14px 24px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+  .btn-secondary:hover{border-color:var(--brown-pale);}
+
+  /* FADE IN */
+  .fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  /* FOOTER */
+    footer { background:var(--brown-dark); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .footer-top { display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(251,247,239,0.55); text-transform:uppercase; }
+  .footer-legal { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer-legal a { font-family:'Cormorant SC',serif; font-size:8.5px; letter-spacing:0.14em; color:rgba(251,247,239,0.55); text-transform:uppercase; text-decoration:none; transition:color 0.2s; }
+  .footer-legal a:hover { color:rgba(251,247,239,0.85); }
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream-light);}
+  .footer-copy{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;}
+  .footer-legal{display:flex;gap:20px;flex-wrap:wrap;}
+  .footer-legal a{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){.menu-nav{padding:0 40px;}.menu-body{padding:56px 40px 80px;}}
+  @media(max-width:768px){
+    nav{padding:14px 20px;}.nav-links{display:none;}
+    .hero{padding:88px 24px 48px;}
+    .menu-nav{padding:0 20px;}
+    .menu-body{padding:40px 20px 64px;}
+    .piatto{grid-template-columns:1fr auto;}
+    footer{padding:20px;}.footer-top{flex-direction:column;text-align:center;}
+  }
+
+  /* ── COOKIE BANNER ── */
+  #cookie-banner { position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(30,18,6,0.96); backdrop-filter:blur(8px); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; border-top:1px solid rgba(196,168,130,0.3); transform:translateY(100%); transition:transform 0.4s ease; }
+  #cookie-banner.visible { transform:translateY(0); }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
+  .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
+  .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:14px 22px; cursor:pointer; white-space:nowrap; min-height:44px; }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.7); background:transparent; border:1px solid rgba(251,247,239,0.25); padding:14px 22px; cursor:pointer; white-space:nowrap; min-height:44px; }
+  @media(max-width:768px){ #cookie-banner{ padding:16px 20px; } .cookie-btns{ width:100%; } .cookie-btn-accept,.cookie-btn-reject{ flex:1; text-align:center; } }
+
+  /* ── SKIP LINK ACCESSIBILITÀ ── */
+  .skip-link {
+    position:absolute; top:-100px; left:0;
+    background:var(--brown,#6f3b1c); color:#fff;
+    padding:12px 20px; z-index:9999;
+    font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
+    text-decoration:none; text-transform:uppercase;
+  }
+  .skip-link:focus { top:0; outline:2px solid #fff; }
+
+  /* ── FOOTER SITEMAP NAV ── */
+  .footer-sitemap {
+    background:#2a1a10;
+    padding:32px 80px 20px;
+    border-bottom:1px solid rgba(251,247,239,0.08);
+  }
+  .footer-sitemap-inner {
+    display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
+    max-width:980px; margin:0 auto;
+  }
+  .footer-sitemap a {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
+    text-decoration:none; transition:color 0.2s;
+    padding:6px 0;
+  }
+  .footer-sitemap a:hover { color:#d9b988; }
+  @media (max-width:768px) {
+    .footer-sitemap { padding:24px 24px 14px; }
+    .footer-sitemap-inner { gap:16px 22px; }
+  }
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher { display:inline-flex; align-items:center; gap:6px; margin-left:18px; }
+  .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
+  .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
+  .lang-switcher a:hover:not(.active) { color:var(--brown); }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
+  @media (max-width:768px) {
+    .lang-switcher { margin-left:8px; }
+    .lang-switcher a { font-size:9px; padding:3px 6px; }
+  }
+
+  /* === FIX OVERFLOW MOBILE === */
+  html, body { overflow-x: clip; }
+  footer { overflow-x: clip; }
+  .menu-nav { overflow-x: auto !important; max-width:100vw; }
+  .footer-top, .footer-copy { min-width: 0; }
+  .footer-copy { overflow-wrap: anywhere; word-break: break-word; }
+  @media(max-width:768px){
+    footer { padding-inline: 16px; }
+    .footer-copy { font-size: 7.5px; text-align:center; }
+  }
+  
+  /* === MENU SWITCHER (tab cibo/vini/dolci) === */
+  .menu-switcher{position:relative;display:flex;justify-content:center;gap:0;background:var(--cream-light);border-bottom:1px solid var(--border);padding:0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .menu-switcher::-webkit-scrollbar{display:none;}
+  .menu-switch-item{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--brown);text-decoration:none;padding:20px 28px;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s;flex-shrink:0;letter-spacing:0.02em;}
+  .menu-switch-item:hover{color:var(--brown-dark);background:var(--cream-dark);}
+  .menu-switch-item.active{color:var(--brown-dark);border-bottom-color:var(--brown);font-weight:500;font-style:italic;}
+  @media(max-width:768px){
+    .menu-switch-item{font-size:15px;padding:16px 18px;}
+  }
+
+  .menu-switch-pdf{font-style:normal !important;font-size:14px !important;color:var(--brown-light) !important;border-left:1px solid var(--border);margin-left:12px;padding-left:24px !important;}
+  .menu-switch-pdf:hover{color:var(--brown-dark) !important;}
+  /* === MIGLIORO CONTRASTO/DIMENSIONE NAV INTERNA SEZIONI === */
+  .menu-nav-item{font-size:12px !important;color:var(--brown) !important;padding:18px 22px !important;font-weight:500;}
+  .menu-nav-item:hover{color:var(--brown-dark) !important;background:var(--cream-dark);}
+  .menu-nav-item.active{color:var(--brown-dark) !important;border-bottom-color:var(--brown) !important;border-bottom-width:2px;font-weight:600;}
+  </style>
+
+  <!-- Google Consent Mode v2 — default negato per utenti SEE -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage':             'denied',
+      'ad_user_data':           'denied',
+      'ad_personalization':     'denied',
+      'analytics_storage':      'denied',
+      'functionality_storage':  'denied',
+      'personalization_storage':'denied',
+      'security_storage':       'granted',
+      'wait_for_update':        500,
+      'region': ['IT','AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR',
+                 'GR','HR','HU','IE','LT','LU','LV','MT','NL','PL','PT','RO',
+                 'SE','SI','SK']
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+    gtag('config', 'AW-16773067765');  // Google Ads
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TGDTNGVH');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1266689621145892');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.l800.it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Menu",
+      "item": "https://www.l800.it/menu.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Menu Cibo",
+      "item": "https://www.l800.it/menu-cibo.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" role="dialog" aria-label="Cookie preferences">
+  <p>We use necessary technical cookies and, with your consent, third-party cookies (Google Fonts) to improve your browsing experience. Read our <a href="cookie-policy.html">Cookie Policy</a> and the <a href="privacy-policy.html">Privacy Policy</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-reject" onclick="setCookieConsent(false)">Only necessary</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent(true)">Accept all</button>
+  </div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-main">L'800</span>
+    <span class="nav-logo-sub">Locanda a Palazzo</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link" style="color:var(--brown);font-weight:500;border-right:1px solid var(--border);padding-right:24px;margin-right:4px;">← Home</a>
+    <a href="menu-cibo.html" class="nav-link active">Menu</a>
+    <a href="menu-vini.html" class="nav-link">Wines</a>
+    <a href="menu-dolci.html" class="nav-link">Desserts</a>
+    <a href="prenota.html" class="nav-cta">Book</a>
+  </div>
+
+  <div class="lang-switcher" role="group" aria-label="Language selector">
+    <a href="/menu-cibo.html" hreflang="it" aria-label="Italiano">IT</a>
+    <span class="sep">/</span>
+    <a href="/en/menu-cibo.html" hreflang="en" class="active" aria-label="English">EN</a>
+  </div>
+</nav>
+
+<section class="hero" id="main-content">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">L'800 · Locanda a Palazzo · Amantea</span>
+    <h1 class="hero-title">Il <em>menu</em></h1>
+    <p class="hero-sub">Calabrian cuisine with fresh fish from the Tyrrhenian Sea. Every dish comes from the catch of the day and local ingredients.</p>
+    <span class="hero-note">Dishes highlighted in orange are meat-based or fish-free</span>
+
+  </div>
+</section>
+
+<nav class="menu-switcher" aria-label="Choose menu section">
+  <a href="menu-cibo.html" class="menu-switch-item active" aria-current="page">Food</a>
+  <a href="menu-vini.html" class="menu-switch-item">Wines</a>
+  <a href="menu-dolci.html" class="menu-switch-item">Desserts</a>
+  <a href="menu.html" class="menu-switch-item menu-switch-pdf" aria-label="Download menus as PDF">↓ PDF</a>
+</nav>
+
+<nav class="menu-nav" aria-label="Sezioni menu">
+  <a href="#antipasti" class="menu-nav-item">Antipasti</a>
+  <a href="#crudite" class="menu-nav-item">Crudité</a>
+  <a href="#primi" class="menu-nav-item">Primi</a>
+  <a href="#secondi" class="menu-nav-item">Secondi</a>
+  <a href="#contorni" class="menu-nav-item">Sides</a>
+</nav>
+
+<main class="menu-body">
+
+  <!-- STARTERS -->
+  <section class="sezione fade-in" id="antipasti">
+    <div class="sezione-header">
+      <h2 class="sezione-title">Anti<em>pasti</em></h2>
+      <p class="sezione-desc" style="font-style:italic;color:var(--brown);font-size:13px;margin-top:4px;">Starters</p>
+      <div class="ornament"></div>
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">L'800: da dividere in due</div>
+        <div class="piatto-desc">Tuna tartare, marinated anchovies, swordfish fresella with melon and primosale, octopus salad, raw red prawns, oysters, stuffed anchovies, monacelle, anchovy cutlets, mussels and 'nduja</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">gluten</span><span class="allergene">dairy</span><span class="allergene">molluscs</span><span class="allergene">fish</span><span class="allergene">sulphites</span><span class="allergene">eggs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">La tradizione di Amantea</div>
+        <div class="piatto-desc">Marinated anchovies, stuffed anchovies, monacelle, anchovy cutlets</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">sulphites</span><span class="allergene">fish</span><span class="allergene">eggs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Impepata di cozze</div>
+        <div class="piatto-allergeni"><span class="allergene">molluscs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Seppia su crema di patate al limone, piselli, crostini</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">molluscs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome carne">Polpette di podolica e maialino nero<span class="terra-tag" style="border-color:rgba(192,68,10,0.35);color:#c0440a;">meat</span></div>
+        <div class="piatto-desc">Potato cream, caramelised red onion</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">eggs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome vegetariano">Millefoglie, spuma di burrata, zucchine<span class="terra-tag" style="border-color:rgba(58,125,68,0.4);color:#3a7d44;">vegetarian</span></div>
+        <div class="piatto-desc">Caramelised red onion, almonds</div>
+        <div class="piatto-allergeni"><span class="allergene">dairy</span><span class="allergene">gluten</span><span class="allergene">nuts</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- CRUDITÉ -->
+  <section class="sezione fade-in" id="crudite">
+    <div class="sezione-header">
+      <h2 class="sezione-title">Cru<em>dité</em></h2>
+      <div class="ornament"></div>
+      <p class="sezione-desc">Raw fish selected daily based on the catch of the day.</p>
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tartare di tonno, pistacchio, cipolla rossa</div>
+        <div class="piatto-allergeni"><span class="allergene">fish</span><span class="allergene">nuts</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Crudité di pesce fresco</div>
+        <div class="piatto-desc">Prawns (red, violet, pink — depending on availability), langoustine, oyster, tuna, razor clams and more, depending on the catch</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">molluscs</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tris di crudité di crostacei al bergamotto di Calabria e frutta secca</div>
+        <div class="piatto-desc">White prawn with pistachio, red (or violet) prawn with almond, langoustine with walnuts</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">nuts</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FIRST COURSES -->
+  <section class="sezione fade-in" id="primi">
+    <div class="sezione-header">
+      <h2 class="sezione-title">Pri<em>mi</em></h2>
+      <p class="sezione-desc" style="font-style:italic;color:var(--brown);font-size:13px;margin-top:4px;">First courses · pasta &amp; rice</p>
+      <div class="ornament"></div>
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Ris800</div>
+        <div class="piatto-desc">Carnaroli, crostacei, zucca, zafferano, polvere di liquirizia</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Chitarra, seppia e il suo nero</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">molluscs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Paccheri, tonno fresco, cipolla rossa, pesto di mandorle, melanzane</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">fish</span><span class="allergene">nuts</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Chitarra ai sei molluschi</div>
+        <div class="piatto-desc">Clams, mussels, fasolari clams, razor clams, sea truffles, hairy mussels</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">molluscs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tagliolini al tartufo, pesce san pietro, pomodorini gialli, zest di limone</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tagliolini all'arancia, pesto di mandorle, crudité di gambero rosso</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">nuts</span><span class="allergene">shellfish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Chitarra alla mollica</div>
+        <div class="piatto-desc">Stale breadcrumbs and salted anchovies: the tradition of Amantea</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">fish</span><span class="allergene">nuts</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome carne">Ravioli alla patata della Sila e porcini, burro nocciola, speck, spuma di burrata<span class="terra-tag" style="border-color:rgba(192,68,10,0.35);color:#c0440a;">meat</span></div>
+        <div class="piatto-desc">Senza speck per chi non mangia carne</div>
+        <div class="piatto-allergeni"><span class="allergene">dairy</span><span class="allergene">gluten</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Troccoli pesce spada, pesto di pistacchio, datterini</div>
+        <div class="piatto-allergeni"><span class="allergene">gluten</span><span class="allergene">nuts</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- MAIN COURSES -->
+  <section class="sezione fade-in" id="secondi">
+    <div class="sezione-header">
+      <h2 class="sezione-title">Secon<em>di</em></h2>
+      <p class="sezione-desc" style="font-style:italic;color:var(--brown);font-size:13px;margin-top:4px;">Main courses</p>
+      <div class="ornament"></div>
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Selezione di pesce alla griglia</div>
+        <div class="piatto-desc">Tuna, swordfish, squid, red prawns</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">molluscs</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tris di involtini di pesce spada</div>
+        <div class="piatto-desc">Courgette mint primosale, aubergine pistachio caciocavallo, aubergine 'nduja caciocavallo</div>
+        <div class="piatto-allergeni"><span class="allergene">nuts</span><span class="allergene">dairy</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tagliata di tonno, confettura di cipolla rossa, rucola</div>
+        <div class="piatto-allergeni"><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Filetto di tonno all'acquapazza</div>
+        <div class="piatto-desc">Datterini, cipolla rossa, capperi</div>
+        <div class="piatto-allergeni"><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Pesce spada alla piastra, asparagi</div>
+        <div class="piatto-allergeni"><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Filetto di spigola in crosta di pistacchio, crema di patate al limone</div>
+        <div class="piatto-allergeni"><span class="allergene">nuts</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Tortino di alici, pangrattato, uvetta, pinoli</div>
+        <div class="piatto-desc">Servito con insalatina di finocchio, arancia, mela, olive, cipolla rossa, ravanelli, mandorle</div>
+        <div class="piatto-allergeni"><span class="allergene">nuts</span><span class="allergene">gluten</span><span class="allergene">fish</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome carne">Tris di involtini di podolica<span class="terra-tag" style="border-color:rgba(192,68,10,0.35);color:#c0440a;">meat</span></div>
+        <div class="piatto-desc">Courgette mint primosale, aubergine pistachio caciocavallo, aubergine 'nduja caciocavallo</div>
+        <div class="piatto-allergeni"><span class="allergene">nuts</span><span class="allergene">dairy</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Alici arriganati</div>
+        <div class="piatto-desc">Frittura di alici con aggiunta di origano e peperoncino: la tradizione di Amantea</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">gluten</span><span class="allergene">molluscs</span><span class="allergene">fish</span><span class="allergene">eggs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Frittura di calamari veraci</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">gluten</span><span class="allergene">molluscs</span><span class="allergene">fish</span><span class="allergene">eggs</span></div>
+      </div>
+      
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Frittura della Calavecchia</div>
+        <div class="piatto-desc">Calamari, gamberi, alici e altro in base al pescato</div>
+        <div class="piatto-allergeni"><span class="allergene">shellfish</span><span class="allergene">gluten</span><span class="allergene">molluscs</span><span class="allergene">fish</span><span class="allergene">eggs</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- SIDES -->
+  <section class="sezione fade-in" id="contorni">
+    <div class="sezione-header">
+      <h2 class="sezione-title">Con<em>torni</em></h2>
+      <p class="sezione-desc" style="font-style:italic;color:var(--brown);font-size:13px;margin-top:4px;">Side dishes</p>
+      <div class="ornament"></div>
+    </div>
+
+    <div class="piatto">
+      <div class="piatto-left"><div class="piatto-nome">Insalata di lattuga</div></div>
+      
+    </div>
+    <div class="piatto">
+      <div class="piatto-left">
+        <div class="piatto-nome">Finocchio, arancia, mela, olive, cipolla rossa, ravanelli, mandorle</div>
+        <div class="piatto-allergeni"><span class="allergene">nuts</span></div>
+      </div>
+      
+    </div>
+    <div class="piatto">
+      <div class="piatto-left"><div class="piatto-nome">Carciofi, aglio, menta</div></div>
+      
+    </div>
+    <div class="piatto">
+      <div class="piatto-left"><div class="piatto-nome">Asparagi</div></div>
+      
+    </div>
+
+    <div class="coperto-row">
+      <div><div class="coperto-label">Cover charge, bread and service</div><div class="coperto-sub">per person</div></div>
+      
+    </div>
+  </section>
+
+
+</main>
+
+<div class="cta-section">
+  <p class="cta-title">Decided what to order?</p>
+  <div class="cta-links">
+    <a href="prenota.html" class="btn-primary">Book a table</a>
+    <a href="menu-vini.html" class="btn-secondary">View the wines →</a>
+    <a href="menu-dolci.html" class="btn-secondary">Desserts &amp; after dinner →</a>
+  </div>
+</div>
+
+<!-- INTERNAL NAVIGATION -->
+<nav class="footer-sitemap" aria-label="Sitemap">
+  <div class="footer-sitemap-inner">
+    <a href="index.html">Home</a>
+    <a href="storia.html">Our story</a>
+    <a href="menu-cibo.html">Menu</a>
+    <a href="menu-vini.html">Wines</a>
+    <a href="eventi.html">Special events</a>
+    <a href="buoni.html">Gift vouchers</a>
+    <a href="prenota.html">Book a table</a>
+  </div>
+</nav>
+
+<footer>
+  <div class="footer-top">
+    <span class="footer-brand">L'800</span>
+    <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea</span>
+  </div>
+  <div class="footer-legal">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="cookie-policy.html">Cookie Policy</a>
+    <a href="termini-condizioni.html">Terms &amp; Conditions</a>
+  </div>
+</footer>
+
+<script>
+  // Menu nav attivo sullo scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.menu-nav-item');
+  const sectionObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const a = document.querySelector('.menu-nav-item[href="#' + e.target.id + '"]');
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => sectionObs.observe(s));
+
+  // Cookie consent
+  (function() {
+    var consent = localStorage.getItem('l800_cookie_consent');
+    var banner  = document.getElementById('cookie-banner');
+    if (consent === null) {
+      setTimeout(function() { if (banner) banner.classList.add('visible'); }, 800);
+    } else {
+      if (banner) banner.style.display = 'none';
+    }
+  })();
+  function setCookieConsent(accepted) {
+    localStorage.setItem('l800_cookie_consent', accepted ? 'true' : 'false');
+    var b = document.getElementById('cookie-banner');
+    if (b) b.style.display = 'none';
+  }
+  window.riapriBannerCookie = function() {
+    localStorage.removeItem('l800_cookie_consent');
+    var b = document.getElementById('cookie-banner');
+    if (b) b.classList.add('visible');
+  };
+
+  // Fade in
+  try {
+    const fo = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.06 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => fo.observe(el));
+  } catch(e) {
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }
+  setTimeout(function() {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 2000);
+</script>
+<script src="/analytics-events.js" defer></script>
+</body>
+</html>

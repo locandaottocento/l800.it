@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<script>
+  // Eseguito PRIMA del rendering — nasconde subito il banner se consenso già dato
+  (function() {
+    var c = localStorage.getItem('l800_cookie_consent');
+    if (c !== null) {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('cookie-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Performance: preconnect resorse esterne -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="https://www.facebook.com">
+<!-- Favicon & Mobile icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6f3b1c">
+<meta name="msapplication-TileColor" content="#6f3b1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="L'800">
+<title>Menu, vini e dolci — L'800 Locanda a Palazzo Amantea</title>
+<meta name="description" content="Consulta e scarica i menu di L'800 Locanda a Palazzo ad Amantea: menu del ristorante, carta dei vini calabresi e carta dei dolci. Cucina di pesce autentica.">
+<meta name="keywords" content="menu ristorante Amantea, carta dei vini Amantea, menu pesce Calabria, L800 menu, ristorante menu Amantea, menu dolci calabresi">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.l800.it/menu.html">
+<link rel="alternate" hreflang="it" href="https://www.l800.it/menu.html">
+<link rel="alternate" hreflang="en" href="https://www.l800.it/en/menu.html">
+<link rel="alternate" hreflang="x-default" href="https://www.l800.it/menu.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Menu, vini e dolci — L'800 Locanda a Palazzo">
+<meta property="og:description" content="Consulta e scarica i menu di L'800 Locanda a Palazzo ad Amantea: menu del ristorante, carta dei vini calabresi e carta dei dolci. Cucina di pesce autentica.">
+<meta property="og:url" content="https://www.l800.it/menu.html">
+<meta property="og:image" content="https://www.l800.it/og-image.png">
+<meta property="og:locale" content="it_IT">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Menu, vini e dolci — L'800 Locanda a Palazzo">
+<meta name="twitter:description" content="Consulta e scarica i menu di L'800 Locanda a Palazzo ad Amantea: menu del ristorante, carta dei vini calabresi e carta dei dolci. Cucina di pesce autentica.">
+<meta name="twitter:image" content="https://www.l800.it/og-image.png">
+<meta property="og:site_name" content="L'800 Locanda a Palazzo">
+
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&display=swap"></noscript>
+<style>
+  :root {
+    --cream: #fbf7ef; --cream-light: #fbf7ef; --cream-dark: #ecd9b6;
+    --brown: #6f3b1c; --brown-dark: #4a2612; --brown-light: #8a5630;
+    --brown-pale: #d9b988; --text: #2a1a10; --text-light: #5e5046;
+    --border: rgba(111,59,28,0.18); --gold: #b8893f;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html, body { overflow-x:hidden; scroll-behavior:smooth; }
+  body { font-family:'Cormorant Garamond',Georgia,serif; background:var(--cream-light); color:var(--text); }
+  img { max-width:100%; height:auto; }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 48px; background:rgba(250,246,239,0.96); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { text-decoration:none; display:flex; flex-direction:column; line-height:1; }
+  .nav-logo-main { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:26px; color:var(--brown); }
+  .nav-logo-sub { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.25em; color:var(--brown-light); text-transform:uppercase; }
+  .nav-back { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; color:var(--text-light); text-decoration:none; text-transform:uppercase; transition:color 0.3s; }
+  .nav-back:hover { color:var(--brown); }
+
+  /* HERO */
+  .hero { padding:130px 80px 72px; background:var(--brown-dark); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FBF7EF' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events:none; }
+  .hero-inner { position:relative; z-index:2; max-width:640px; }
+  .hero-eyebrow { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.3em; color:var(--brown-pale); text-transform:uppercase; margin-bottom:18px; display:block; }
+  .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(40px,5.5vw,66px); font-weight:300; color:var(--cream-light); line-height:1.06; margin-bottom:20px; }
+  .hero-title em { font-style:italic; color:var(--brown-pale); }
+  .hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; color:rgba(251,247,239,0.7); line-height:1.75; max-width:520px; }
+
+  /* MENU GRID */
+  .menu-section { padding:88px 80px 100px; background:var(--cream-light); }
+  .menu-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; max-width:1100px; margin:0 auto; }
+
+  /* CARD */
+  .menu-card { background:var(--cream); border:1px solid var(--border); display:flex; flex-direction:column; transition:box-shadow 0.3s, transform 0.3s; }
+  .menu-card:hover { box-shadow:0 8px 32px rgba(61,40,16,0.10); transform:translateY(-3px); }
+
+  /* Anteprima PDF */
+  .card-preview {
+    position:relative; background:var(--cream-dark);
+    border-bottom:1px solid var(--border);
+    overflow:hidden; height:360px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-preview iframe {
+    width:100%; height:100%; border:none;
+    pointer-events:none; /* impedisce scroll nel preview */
+  }
+  .card-preview-overlay {
+    position:absolute; inset:0;
+    background:transparent;
+    cursor:default;
+  }
+  .card-preview-placeholder {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:12px; height:100%; width:100%; padding:32px;
+    text-align:center;
+  }
+  .placeholder-icon { font-size:48px; opacity:0.35; }
+  .placeholder-label { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em; color:var(--brown-pale); text-transform:uppercase; }
+
+  /* Corpo card */
+  .card-body { padding:32px 28px 28px; flex:1; display:flex; flex-direction:column; }
+  .card-tag { font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.25em; color:var(--brown-light); text-transform:uppercase; margin-bottom:10px; display:block; }
+  .card-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; color:var(--text); margin-bottom:10px; }
+  .card-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--text-light); line-height:1.7; flex:1; margin-bottom:24px; }
+  .card-actions { display:flex; flex-direction:column; gap:10px; }
+
+  /* Bottoni */
+  .btn-download { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--cream-light); background:var(--brown); border:none; padding:13px 20px; cursor:pointer; text-decoration:none; transition:background 0.3s; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-download:hover { background:var(--brown-dark); }
+  .btn-view { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--brown); background:transparent; border:1px solid var(--border); padding:13px 20px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-view:hover { border-color:var(--brown); background:var(--cream-dark); }
+
+  /* NOTE */
+  .note-section { background:var(--cream-dark); padding:56px 80px; border-top:1px solid var(--border); }
+  .note-inner { max-width:700px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .note-block h4 { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.22em; color:var(--brown); text-transform:uppercase; margin-bottom:12px; }
+  .note-block p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--text-light); line-height:1.75; }
+
+  /* CTA PRENOTA */
+  .cta { background:var(--brown); padding:64px 80px; text-align:center; }
+  .cta-title { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,44px); font-weight:300; color:var(--cream-light); margin-bottom:14px; }
+  .cta-title em { font-style:italic; }
+  .cta-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(251,247,239,0.7); margin-bottom:32px; }
+  .btn-cta { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--brown); background:var(--cream-light); border:none; padding:14px 32px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:inline-block; }
+  .btn-cta:hover { background:var(--cream-dark); }
+
+  /* FOOTER */
+  footer { background:var(--brown-dark); padding:28px 48px; display:flex; flex-direction:column; gap:10px; }
+  .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
+  .footer-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--cream-light); }
+  .footer-copy { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; color:rgba(251,247,239,0.75); text-transform:uppercase; }
+
+  /* FADE IN */
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+  .delay-1 { transition-delay:0.12s; }
+  .delay-2 { transition-delay:0.24s; }
+
+  /* MODALE PDF */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(30,18,6,0.75); z-index:200; align-items:center; justify-content:center; padding:24px; }
+  .modal-overlay.open { display:flex; }
+  .modal-box { background:var(--cream-light); width:100%; max-width:800px; max-height:90vh; display:flex; flex-direction:column; position:relative; }
+  .modal-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .modal-title { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.2em; color:var(--brown); text-transform:uppercase; }
+  .modal-close { font-size:22px; color:var(--brown-pale); cursor:pointer; background:none; border:none; line-height:1; padding:4px 8px; transition:color 0.2s; }
+  .modal-close:hover { color:var(--brown); }
+  .modal-iframe-wrap { flex:1; overflow:hidden; min-height:500px; }
+  .modal-iframe-wrap iframe { width:100%; height:100%; border:none; min-height:500px; }
+  .modal-footer { padding:12px 20px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; }
+
+  /* RESPONSIVE */
+  @media (max-width:1024px) {
+    nav { padding:14px 32px; }
+    .hero { padding:100px 48px 60px; }
+    .menu-section { padding:64px 40px 80px; }
+    .menu-grid { grid-template-columns:1fr 1fr; gap:20px; }
+    .note-section { padding:48px 40px; }
+    .cta { padding:56px 40px; }
+    footer { padding:24px 40px; }
+  }
+  @media (max-width:768px) {
+    nav { padding:14px 20px; }
+    .hero { padding:88px 24px 52px; }
+    .menu-section { padding:48px 20px 64px; }
+    .menu-grid { grid-template-columns:1fr; gap:20px; }
+    .card-preview { height:280px; }
+    .card-body { padding:24px 20px 20px; }
+    .card-actions { flex-direction:column; }
+    .note-section { padding:40px 20px; }
+    .note-inner { grid-template-columns:1fr; gap:28px; }
+    .cta { padding:48px 20px; }
+    footer { padding:20px; } .footer-top { flex-direction:column; text-align:center; }
+    .modal-overlay { padding:12px; }
+    .modal-iframe-wrap { min-height:360px; }
+    .modal-iframe-wrap iframe { min-height:360px; }
+  }
+  @media (max-width:400px) {
+    .hero-title { font-size:32px; }
+    .card-title { font-size:22px; }
+  }
+
+  /* ── COOKIE BANNER ── */
+  #cookie-banner {
+    position:fixed; bottom:0; left:0; right:0; z-index:9999;
+    background:rgba(30,18,6,0.96); backdrop-filter:blur(8px);
+    padding:20px 32px; display:flex; align-items:center;
+    justify-content:space-between; gap:20px; flex-wrap:wrap;
+    border-top:1px solid rgba(196,168,130,0.3);
+    transform:translateY(100%); transition:transform 0.4s ease;
+  }
+  #cookie-banner.visible { transform:translateY(0); }
+  #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
+  #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
+  .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
+  .cookie-btn-accept { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:var(--brown); border:none; padding:10px 20px; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
+  .cookie-btn-accept:hover { background:var(--brown-dark); }
+  .cookie-btn-reject { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(251,247,239,0.6); background:transparent; border:1px solid rgba(251,247,239,0.2); padding:10px 20px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .cookie-btn-reject:hover { border-color:rgba(251,247,239,0.5); color:rgba(251,247,239,0.9); }
+  @media(max-width:768px) { #cookie-banner { padding:16px 20px; } .cookie-btns { width:100%; } .cookie-btn-accept, .cookie-btn-reject { flex:1; text-align:center; } }
+
+  /* ── SKIP LINK ACCESSIBILITÀ ── */
+  .skip-link {
+    position:absolute; top:-100px; left:0;
+    background:var(--brown,#6f3b1c); color:#fff;
+    padding:12px 20px; z-index:9999;
+    font-family:'Cormorant SC',serif; font-size:13px; letter-spacing:0.18em;
+    text-decoration:none; text-transform:uppercase;
+  }
+  .skip-link:focus { top:0; outline:2px solid #fff; }
+
+  /* ── FOOTER SITEMAP NAV ── */
+  .footer-sitemap {
+    background:#2a1a10;
+    padding:32px 80px 20px;
+    border-bottom:1px solid rgba(251,247,239,0.08);
+  }
+  .footer-sitemap-inner {
+    display:flex; flex-wrap:wrap; gap:24px 36px; justify-content:center;
+    max-width:980px; margin:0 auto;
+  }
+  .footer-sitemap a {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:rgba(251,247,239,0.7);
+    text-decoration:none; transition:color 0.2s;
+    padding:6px 0;
+  }
+  .footer-sitemap a:hover { color:#d9b988; }
+  @media (max-width:768px) {
+    .footer-sitemap { padding:24px 24px 14px; }
+    .footer-sitemap-inner { gap:16px 22px; }
+  }
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher { display:inline-flex; align-items:center; gap:6px; margin-left:18px; }
+  .lang-switcher a { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.18em; text-decoration:none; color:var(--text-light); padding:4px 8px; border:1px solid transparent; transition:all 0.2s; text-transform:uppercase; }
+  .lang-switcher a.active { color:var(--brown); border-color:var(--border); }
+  .lang-switcher a:hover:not(.active) { color:var(--brown); }
+  .lang-switcher .sep { color:var(--brown); font-size:10px; }
+  @media (max-width:768px) {
+    .lang-switcher { margin-left:8px; }
+    .lang-switcher a { font-size:9px; padding:3px 6px; }
+  }
+</style>
+
+  <!-- Google Consent Mode v2 — default negato per utenti SEE -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage':             'denied',
+      'ad_user_data':           'denied',
+      'ad_personalization':     'denied',
+      'analytics_storage':      'denied',
+      'functionality_storage':  'denied',
+      'personalization_storage':'denied',
+      'security_storage':       'granted',
+      'wait_for_update':        500,
+      'region': ['IT','AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR',
+                 'GR','HR','HU','IE','LT','LU','LV','MT','NL','PL','PT','RO',
+                 'SE','SI','SK']
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+    gtag('config', 'AW-16773067765');  // Google Ads
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TGDTNGVH');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1266689621145892');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.l800.it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Menu",
+      "item": "https://www.l800.it/menu.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "name": "I nostri menù — L'800 Locanda a Palazzo",
+  "description": "Menu del cibo, carta dei vini e menu dei dolci di L'800 Locanda a Palazzo ad Amantea. Cucina di pesce calabrese e vini calabresi artigianali.",
+  "inLanguage": "it-IT",
+  "provider": {
+    "@type": "Restaurant",
+    "name": "L'800 Locanda a Palazzo",
+    "url": "https://www.l800.it"
+  }
+}
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<a href="#main-content" class="skip-link">Salta al contenuto</a>
+
+
+
+<!-- NAV -->
+<div id="cookie-banner" role="dialog" aria-label="Preferenze cookie">
+  <p>Utilizziamo cookie tecnici necessari e, con il tuo consenso, cookie di terze parti (Google Fonts). Leggi la nostra <a href="cookie-policy.html">Cookie Policy</a> e la <a href="privacy-policy.html">Privacy Policy</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-reject" onclick="setCookieConsent(false)">Solo necessari</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent(true)">Accetta tutti</button>
+  </div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-main">L'800</span>
+    <span class="nav-logo-sub">Locanda a Palazzo</span>
+  </a>
+  <a href="index.html" class="nav-back">← Torna al sito</a>
+
+  <div class="lang-switcher" role="group" aria-label="Selettore lingua">
+    <a href="/menu.html" hreflang="it" class="active" aria-label="Italiano">IT</a>
+    <span class="sep">/</span>
+    <a href="/en/menu.html" hreflang="en" aria-label="English">EN</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="main-content" class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Amantea · Calabria · Cucina di pesce</span>
+    <h1 class="hero-title">I nostri<br><em>menù</em></h1>
+    <p class="hero-sub">
+      Sfoglia e scarica i nostri menù. La nostra proposta cambia con le stagioni e segue il pescato del giorno.
+    </p>
+  </div>
+</section>
+
+<!-- MENU CARDS -->
+<section class="menu-section">
+  <div class="menu-grid">
+
+    <!-- MENU CIBO -->
+    <div class="menu-card fade-in">
+      <div class="card-preview">
+        <iframe src="menu.pdf#view=FitH&toolbar=0"
+                title="Anteprima menu L'800"
+                loading="lazy"
+                onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍽</span><span class=\'placeholder-label\'>Menu del cibo</span></div>'">
+        </iframe>
+        
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Cucina di pesce</span>
+        <h2 class="card-title">Menù del ristorante</h2>
+        <p class="card-desc">
+          Antipasti, crudité di pesce fresco, primi piatti, secondi e contorni. Pescato fresco del Tirreno, cucina calabrese autentica con un tocco di ricercatezza contemporanea.
+        </p>
+        <div class="card-actions">
+          <a href="menu.pdf" download="menu-l800.pdf" class="btn-download">
+            ↓ Scarica il menù (PDF)
+          </a>
+          <a href="menu.pdf" target="_blank" rel="noopener" class="btn-view">↗ Visualizza a schermo intero</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARTA DEI VINI -->
+    <div class="menu-card fade-in delay-1">
+      <div class="card-preview">
+        <iframe src="carta-dei-vini.pdf#view=FitH&toolbar=0"
+                title="Anteprima carta dei vini L'800"
+                loading="lazy"
+                onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍷</span><span class=\'placeholder-label\'>Carta dei vini</span></div>'">
+        </iframe>
+        
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Vini e bevande</span>
+        <h2 class="card-title">Carta dei vini</h2>
+        <p class="card-desc">
+          Una selezione quasi esclusivamente calabrese, con una spiccata preferenza per piccole cantine di altissima qualità. Bianchi, rossi, rosati, bollicine e il Moscato al governo di Saracena.
+        </p>
+        <div class="card-actions">
+          <a href="carta-dei-vini.pdf" download="carta-vini-l800.pdf" class="btn-download">
+            ↓ Scarica la carta (PDF)
+          </a>
+          <a href="carta-dei-vini.pdf" target="_blank" rel="noopener" class="btn-view">↗ Visualizza a schermo intero</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU DOLCI -->
+    <div class="menu-card fade-in delay-2">
+      <div class="card-preview">
+        <iframe src="menu-dolci.pdf#view=FitH&toolbar=0"
+                title="Anteprima menu dolci L'800"
+                loading="lazy"
+                onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍰</span><span class=\'placeholder-label\'>Menu dolci</span></div>'">
+        </iframe>
+        
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Dolci e fine pasto</span>
+        <h2 class="card-title">Carta dei dolci</h2>
+        <p class="card-desc">
+          Bocconotto di Amantea del Panificio Ferro, millefoglie al mascarpone, tiramisù scomposto, tartufi artigianali di Pizzo Calabro. E il Moscato al governo di Saracena per accompagnarli.
+        </p>
+        <div class="card-actions">
+          <a href="menu-dolci.pdf" download="menu-dolci-l800.pdf" class="btn-download">
+            ↓ Scarica il menù (PDF)
+          </a>
+          <a href="menu-dolci.pdf" target="_blank" rel="noopener" class="btn-view">↗ Visualizza a schermo intero</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOTE -->
+<section class="note-section">
+  <div class="note-inner">
+    <div class="note-block fade-in">
+      <h3>Il menu cambia con le stagioni</h3>
+      <p>La nostra cucina segue il ritmo del mare e del mercato. Alcuni piatti sono disponibili solo in determinati periodi dell'anno o in base al pescato del giorno. Contattaci per qualsiasi esigenza o allergia alimentare.</p>
+    </div>
+    <div class="note-block fade-in delay-1">
+      <h3>Vieni a scoprirla di persona</h3>
+      <p>I menu raccontano solo una parte di quello che troverai. La vera cucina di L'800 si scopre seduti a tavola, con un calice in mano e il mare che arriva nel piatto. Ti aspettiamo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 class="cta-title">Hai scelto cosa ordinare?<br><em>Prenota il tuo tavolo.</em></h2>
+  <p class="cta-sub">Via Calavecchia 53, Amantea · Aperto martedì–domenica a pranzo e cena</p>
+  <a href="index.html#prenota" class="btn-cta">Prenota ora</a>
+  <a href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-cta" style="background:transparent;border:1px solid rgba(251,247,239,0.35);color:var(--cream-light);margin-left:14px;">📱 Scrivici su WhatsApp</a>
+
+</section>
+
+<!-- FOOTER -->
+<!-- NAVIGAZIONE INTERNA -->
+<nav class="footer-sitemap" aria-label="Mappa del sito">
+  <div class="footer-sitemap-inner">
+    <a href="index.html">Home</a>
+    <a href="storia.html">La nostra storia</a>
+    <a href="menu-cibo.html">Menu</a>
+    <a href="menu-vini.html">Vini</a>
+    <a href="eventi.html">Occasioni speciali</a>
+    <a href="buoni.html">Buoni regalo</a>
+    <a href="prenota.html">Prenota</a>
+  </div>
+</nav>
+
+<footer>
+  <span class="footer-brand">L'800</span>
+  <span class="footer-copy">© 2025 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Amantea (CS)</span>
+<div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px;">
+    <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Privacy Policy</a>
+    <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Cookie Policy</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.78);text-transform:uppercase;text-decoration:none;">Termini e Condizioni</a>
+  </div>
+</footer>
+
+<!-- MODALE PDF -->
+<div class="modal-overlay" id="pdfModal" onclick="chiudiModale(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Menù</span>
+      <button class="modal-close" onclick="chiudiModale()">✕</button>
+    </div>
+    <div class="modal-iframe-wrap">
+      <iframe id="modalIframe" src="" title="Visualizza PDF"></iframe>
+    </div>
+    <div class="modal-footer">
+      <a id="modalDownload" href="" download class="btn-download" style="padding:10px 20px;font-size:10px;">↓ Scarica</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Fade in observer
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Modale PDF
+  function apriModale(src, titolo) {
+    document.getElementById('modalIframe').src = src;
+    document.getElementById('modalTitle').textContent = titolo;
+    document.getElementById('modalDownload').href = src;
+    document.getElementById('modalDownload').download = src.replace('.pdf', '-l800.pdf');
+    document.getElementById('pdfModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function chiudiModale(e) {
+    if (e && e.target !== document.getElementById('pdfModal')) return;
+    document.getElementById('pdfModal').classList.remove('open');
+    document.getElementById('modalIframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.getElementById('pdfModal').classList.remove('open');
+      document.getElementById('modalIframe').src = '';
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Fallback: dopo 2s forza visibilità su elementi ancora nascosti
+  setTimeout(function() {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
+  }, 2000);
+</script>
+<script>
+  // ── COOKIE CONSENT ──
+  (function() {
+    var consent = localStorage.getItem('l800_cookie_consent');
+    var banner  = document.getElementById('cookie-banner');
+    if (consent === null) {
+      // Prima visita: mostra banner dopo 800ms
+      setTimeout(function() {
+        if (banner) banner.classList.add('visible');
+      }, 800);
+    } else {
+      // Consenso già espresso: nascondi e aggiorna GTM
+      if (banner) banner.style.display = 'none';
+      if (consent === 'true') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'update', {
+          'ad_storage':             'granted',
+          'ad_user_data':           'granted',
+          'ad_personalization':     'granted',
+          'analytics_storage':      'granted',
+          'functionality_storage':  'granted',
+          'personalization_storage':'granted'
+        });
+        enableThirdParty();
+      }
+    }
+  })();
+
+  function setCookieConsent(accepted) {
+    localStorage.setItem('l800_cookie_consent', accepted ? 'true' : 'false');
+    var banner = document.getElementById('cookie-banner');
+    if (banner) { banner.style.display = 'none'; }
+    // Aggiorna Google Consent Mode v2
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    if (accepted) {
+      gtag('consent', 'update', {
+        'ad_storage':             'granted',
+        'ad_user_data':           'granted',
+        'ad_personalization':     'granted',
+        'analytics_storage':      'granted',
+        'functionality_storage':  'granted',
+        'personalization_storage':'granted'
+      });
+      enableThirdParty();
+    } else {
+      gtag('consent', 'update', {
+        'ad_storage':             'denied',
+        'ad_user_data':           'denied',
+        'ad_personalization':     'denied',
+        'analytics_storage':      'denied',
+        'functionality_storage':  'denied',
+        'personalization_storage':'denied'
+      });
+    }
+  }
+
+  function enableThirdParty() {
+    // Attiva Google Maps iframe
+    document.querySelectorAll('[data-src-consent]').forEach(function(el) {
+      el.src = el.getAttribute('data-src-consent');
+    });
+  }
+
+  // Funzione per riaprire banner dalla cookie policy
+  window.riapriBannerCookie = function() {
+    localStorage.removeItem('l800_cookie_consent');
+    var banner = document.getElementById('cookie-banner');
+    if (banner) banner.classList.add('visible');
+  };
+</script>
+<script src="/analytics-events.js" defer></script>
+</body>
+</html>
