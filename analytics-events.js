@@ -50,14 +50,25 @@
     if (typeof dataLayer !== 'undefined') dataLayer.push(obj);
   }
 
+  // ── HELPER: lead unificato ────────────────────────────────────────────────
+  // metodo: 'whatsapp' | 'telefono' | 'octotable'
+  // Invia lo stesso parametro `metodo` in modo coerente a tutti i sistemi:
+  //   GA4         → generate_lead { method, metodo }
+  //   Meta Pixel  → Contact { content_name: 'lead_' + metodo, metodo }
+  //   Google Ads  → conversion (label specifica del metodo)
+  //   GTM         → l800_lead { metodo }
+  function trackLead(metodo) {
+    ga4('generate_lead', { method: metodo, metodo: metodo });
+    meta('Contact', { content_name: 'lead_' + metodo, metodo: metodo });
+    gads(metodo);
+    dlPush({ event: 'l800_lead', metodo: metodo });
+  }
+
   // ── EVENTO: WhatsApp prenota ──────────────────────────────────────────────
   function setupWhatsApp() {
     document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]').forEach(function (el) {
       el.addEventListener('click', function () {
-        ga4('generate_lead', { method: 'whatsapp' });
-        meta('Contact', { content_name: 'whatsapp_prenota' });
-        gads('whatsapp');
-        dlPush({ event: 'l800_lead', lead_type: 'whatsapp' });
+        trackLead('whatsapp');
       });
     });
   }
@@ -66,10 +77,7 @@
   function setupTelefono() {
     document.querySelectorAll('a[href^="tel:"]').forEach(function (el) {
       el.addEventListener('click', function () {
-        ga4('generate_lead', { method: 'telefono' });
-        meta('Contact', { content_name: 'chiamata_telefono' });
-        gads('telefono');
-        dlPush({ event: 'l800_lead', lead_type: 'telefono' });
+        trackLead('telefono');
       });
     });
   }
@@ -78,10 +86,7 @@
   function setupOctotable() {
     document.querySelectorAll('a[href*="octotable"]').forEach(function (el) {
       el.addEventListener('click', function () {
-        ga4('generate_lead', { method: 'octotable' });
-        meta('Contact', { content_name: 'prenota_octotable' });
-        gads('octotable');
-        dlPush({ event: 'l800_lead', lead_type: 'octotable' });
+        trackLead('octotable');
       });
     });
   }
