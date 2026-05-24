@@ -210,7 +210,16 @@
 
   /* ── PRODOTTI ── */
   .prodotti { padding:72px 80px; background:var(--cream-light); }
-  .prodotti-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:900px; margin:0 auto; }
+  .prodotti-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1080px; margin:0 auto; }
+  @media(max-width:980px){ .prodotti-grid { grid-template-columns:1fr; max-width:460px; } }
+  .importo-libero-wrap { margin-bottom:24px; }
+  .importo-libero-field { display:flex; align-items:center; gap:0; border:1px solid var(--border); background:var(--cream-light); transition:border-color 0.2s; }
+  .importo-libero-field:focus-within { border-color:var(--brown); }
+  .importo-libero-euro { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:var(--brown); padding:0 4px 0 16px; }
+  .importo-libero-input { flex:1; width:100%; border:none; background:transparent; font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:var(--text); padding:10px 16px 10px 4px; outline:none; -moz-appearance:textfield; }
+  .importo-libero-input::-webkit-outer-spin-button, .importo-libero-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+  .importo-libero-hint { font-family:'Cormorant Garamond',serif; font-size:13px; color:var(--text-light); margin-top:8px; font-style:italic; }
+  .importo-libero-err { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.08em; color:#b3402e; text-transform:uppercase; margin-top:8px; display:none; }
 
   .prodotto-card {
     border:1px solid var(--border);
@@ -648,6 +657,30 @@
       <div class="disponibile">Available</div>
     </div>
 
+    <!-- PRODOTTO 3 — FREE AMOUNT -->
+    <div class="prodotto-card fade-in delay-2" id="card-libero" onclick="selezionaLibero()">
+      <span class="prodotto-badge">Gift voucher</span>
+      <div class="prodotto-nome">Custom amount</div>
+      <div class="prodotto-prezzo" style="margin-bottom:18px;">You choose <span>the amount</span></div>
+      <ul class="prodotto-include">
+        <li>A value to use towards the bill</li>
+        <li>Valid on the entire menu</li>
+        <li>The perfect gift for any occasion</li>
+      </ul>
+      <div class="importo-libero-wrap">
+        <div class="importo-libero-field">
+          <span class="importo-libero-euro">€</span>
+          <input class="importo-libero-input" id="input-libero" type="number" inputmode="numeric"
+                 min="25" step="1" placeholder="25"
+                 onclick="event.stopPropagation()" oninput="onImportoLibero()"
+                 aria-label="Gift voucher amount in euro">
+        </div>
+        <div class="importo-libero-hint">Minimum amount €25</div>
+        <div class="importo-libero-err" id="err-libero">Please enter an amount of at least €25</div>
+      </div>
+      <div class="disponibile">Available</div>
+    </div>
+
   </div>
 </section>
 
@@ -808,24 +841,73 @@ const PRODOTTI = {
 let qty = { 'tre': 0, 'quattro': 0 };
 let paypalRendered = false;
 
+// ── FREE AMOUNT ──
+const IMPORTO_LIBERO_MIN = 25;
+let liberoAttivo = false;
+let importoLibero = 0;
+
 // ── SELEZIONE PRODOTTO ──
 function selezionaProdotto(id) {
   const card = document.getElementById('card-' + id);
   const qtyInput = document.getElementById('qty-' + id);
 
   if (qty[id] === 0) {
-    // Deseleziona l'altra tipologia se già selezionata (vincolo: una sola tipologia per acquisto)
     for (const altroId of Object.keys(qty)) {
       if (altroId !== id && qty[altroId] > 0) {
         qty[altroId] = 0;
         document.getElementById('card-' + altroId).classList.remove('selezionato');
       }
     }
+    if (liberoAttivo) deselezionaLibero();
     qty[id] = parseInt(qtyInput.value) || 1;
     card.classList.add('selezionato');
   } else {
     qty[id] = 0;
     card.classList.remove('selezionato');
+  }
+  aggiornaCarrello();
+}
+
+// ── FREE-AMOUNT VOUCHER SELECTION ──
+function selezionaLibero() {
+  const card = document.getElementById('card-libero');
+  const input = document.getElementById('input-libero');
+  if (!liberoAttivo) {
+    for (const altroId of Object.keys(qty)) {
+      if (qty[altroId] > 0) {
+        qty[altroId] = 0;
+        document.getElementById('card-' + altroId).classList.remove('selezionato');
+      }
+    }
+    liberoAttivo = true;
+    card.classList.add('selezionato');
+    input.focus();
+  } else {
+    deselezionaLibero();
+  }
+  aggiornaCarrello();
+}
+
+function deselezionaLibero() {
+  liberoAttivo = false;
+  importoLibero = 0;
+  document.getElementById('card-libero').classList.remove('selezionato');
+  document.getElementById('err-libero').style.display = 'none';
+}
+
+function onImportoLibero() {
+  const input = document.getElementById('input-libero');
+  const raw = parseInt(input.value, 10);
+  importoLibero = Number.isFinite(raw) ? raw : 0;
+  if (!liberoAttivo && input.value !== '') {
+    for (const altroId of Object.keys(qty)) {
+      if (qty[altroId] > 0) {
+        qty[altroId] = 0;
+        document.getElementById('card-' + altroId).classList.remove('selezionato');
+      }
+    }
+    liberoAttivo = true;
+    document.getElementById('card-libero').classList.add('selezionato');
   }
   aggiornaCarrello();
 }
@@ -873,6 +955,21 @@ function aggiornaCarrello() {
         <div class="carrello-item-prezzo">€${sub}</div>`;
       container.appendChild(row);
     }
+  }
+
+  // Free-amount voucher branch
+  if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) {
+    haItems = true;
+    totale += importoLibero;
+    const row = document.createElement('div');
+    row.className = 'carrello-item';
+    row.innerHTML = `
+      <div>
+        <div class="carrello-item-nome">Gift voucher – Custom amount</div>
+        <div class="carrello-item-qty">Value € ${importoLibero}</div>
+      </div>
+      <div class="carrello-item-prezzo">€${importoLibero}</div>`;
+    container.appendChild(row);
   }
 
   vuoto.style.display = haItems ? 'none' : 'block';
@@ -948,14 +1045,19 @@ function aggiornaPayPal(haItems, totale) {
 }
 
 function calcolaTotale() {
-  return Object.entries(qty).reduce((sum, [id, q]) => sum + (q > 0 ? PRODOTTI[id].prezzo * q : 0), 0);
+  let t = Object.entries(qty).reduce((sum, [id, q]) => sum + (q > 0 ? PRODOTTI[id].prezzo * q : 0), 0);
+  if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) t += importoLibero;
+  return t;
 }
 
 function descrizioneOrdine() {
-  return Object.entries(qty)
+  const parti = Object.entries(qty)
     .filter(([,q]) => q > 0)
-    .map(([id, q]) => `${PRODOTTI[id].nome} × ${q}`)
-    .join(' + ');
+    .map(([id, q]) => `${PRODOTTI[id].nome} × ${q}`);
+  if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) {
+    parti.push(`Gift voucher – Custom amount (€${importoLibero})`);
+  }
+  return parti.join(' + ');
 }
 
 // ── VALIDAZIONE FORM ──
@@ -992,6 +1094,19 @@ function validaForm() {
     const errDes = document.getElementById('err-emailDes');
     if (errDes) errDes.style.display = 'block';
     ok = false;
+  }
+
+  // Free-amount validation (if free card selected)
+  const errLibero = document.getElementById('err-libero');
+  if (liberoAttivo) {
+    if (!Number.isInteger(importoLibero) || importoLibero < IMPORTO_LIBERO_MIN) {
+      if (errLibero) errLibero.style.display = 'block';
+      const inp = document.getElementById('input-libero');
+      if (inp) inp.classList.add('campo-errore');
+      ok = false;
+    } else {
+      if (errLibero) errLibero.style.display = 'none';
+    }
   }
 
   if (!ok) {
@@ -1036,10 +1151,12 @@ async function mostraConferma(details) {
   const numPortate = getNumPortateTesto();
   const numPersone = getTotalPersone();
 
-  const prodDesc = Object.entries(qty)
-    .filter(([,q]) => q > 0)
-    .map(([id, q]) => `${PRODOTTI[id].nome}${q > 1 ? ' x ' + q : ''}`)
-    .join(' + ');
+  const prodDesc = liberoAttivo
+    ? `Gift voucher – Custom amount (€${importoLibero})`
+    : Object.entries(qty)
+        .filter(([,q]) => q > 0)
+        .map(([id, q]) => `${PRODOTTI[id].nome}${q > 1 ? ' x ' + q : ''}`)
+        .join(' + ');
 
   const scadenza = new Date();
   scadenza.setFullYear(scadenza.getFullYear() + 1);
@@ -1055,6 +1172,8 @@ async function mostraConferma(details) {
     importo:     totale,
     numPortate:  numPortate,
     numPersone:  numPersone,
+    tipo:          liberoAttivo ? 'libero' : 'fisso',
+    importoLibero: liberoAttivo ? importoLibero : 0,
     codiceVoucher: codice,
     scadenza:    scadStr,
     paypalOrderId: details.id
@@ -1196,6 +1315,7 @@ async function generateVoucherPDF(data) {
   doc.text('Gift Voucher', W / 2, 110, { align: 'center' });
 
   // === SUBTITLE — TYPE ===
+  const isLibero = data.tipo === 'libero';
   const np = data.numPersone || 1;
   const numPortate = data.numPortate || 3;
   const guestsStr = np === 1 ? 'one guest' : np + ' guests';
@@ -1204,8 +1324,13 @@ async function generateVoucherPDF(data) {
   doc.setFont('times', 'italic');
   doc.setFontSize(13);
   doc.setTextColor(...brown);
-  doc.text(coursesStr + '   ·   For ' + guestsStr,
-           W / 2, 121, { align: 'center' });
+  if (isLibero) {
+    doc.text('An experience worth \u20ac ' + (data.importoLibero || 0),
+             W / 2, 121, { align: 'center' });
+  } else {
+    doc.text(coursesStr + '   \u00b7   For ' + guestsStr,
+             W / 2, 121, { align: 'center' });
+  }
 
   // === RECIPIENT ===
   let y = 145;
@@ -1242,16 +1367,21 @@ async function generateVoucherPDF(data) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
   doc.setTextColor(...brownPale);
-  textCenterSpaced('THE EXPERIENCE INCLUDES', W / 2, y, 1.3);
+  textCenterSpaced(isLibero ? 'A VOUCHER TO SPEND AS YOU WISH' : 'THE EXPERIENCE INCLUDES', W / 2, y, 1.3);
 
   y += 9;
 
-  const items = [
-    numPortate + ' courses of your choice from our menu',
-    'One dessert of your choice',
-    'One glass of wine · Water',
-    'After-dinner selection (coffee, amaro or liqueur)'
-  ];
+  const items = isLibero
+    ? [
+        'A value of \u20ac ' + (data.importoLibero || 0) + ' towards your bill',
+        'Valid on the entire menu'
+      ]
+    : [
+        numPortate + ' courses of your choice from our menu',
+        'One dessert of your choice',
+        'One glass of wine · Water',
+        'After-dinner selection (coffee, amaro or liqueur)'
+      ];
 
   doc.setFont('times', 'normal');
   doc.setFontSize(11);

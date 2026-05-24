@@ -207,7 +207,31 @@
 
   /* ── PRODOTTI ── */
   .prodotti { padding:72px 80px; background:var(--cream-light); }
-  .prodotti-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:900px; margin:0 auto; }
+  .prodotti-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1080px; margin:0 auto; }
+  @media(max-width:980px){ .prodotti-grid { grid-template-columns:1fr; max-width:460px; } }
+
+  /* Campo importo libero */
+  .importo-libero-wrap { margin-bottom:24px; }
+  .importo-libero-field {
+    display:flex; align-items:center; gap:0;
+    border:1px solid var(--border); background:var(--cream-light);
+    transition:border-color 0.2s;
+  }
+  .importo-libero-field:focus-within { border-color:var(--brown); }
+  .importo-libero-euro {
+    font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300;
+    color:var(--brown); padding:0 4px 0 16px;
+  }
+  .importo-libero-input {
+    flex:1; width:100%; border:none; background:transparent;
+    font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300;
+    color:var(--text); padding:10px 16px 10px 4px; outline:none;
+    -moz-appearance:textfield;
+  }
+  .importo-libero-input::-webkit-outer-spin-button,
+  .importo-libero-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+  .importo-libero-hint { font-family:'Cormorant Garamond',serif; font-size:13px; color:var(--text-light); margin-top:8px; font-style:italic; }
+  .importo-libero-err { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.08em; color:#b3402e; text-transform:uppercase; margin-top:8px; display:none; }
 
   .prodotto-card {
     border:1px solid var(--border);
@@ -645,6 +669,30 @@
       <div class="disponibile">Disponibile</div>
     </div>
 
+    <!-- PRODOTTO 3 — IMPORTO LIBERO -->
+    <div class="prodotto-card fade-in delay-2" id="card-libero" onclick="selezionaLibero()">
+      <span class="prodotto-badge">Buono regalo</span>
+      <div class="prodotto-nome">Importo libero</div>
+      <div class="prodotto-prezzo" style="margin-bottom:18px;">Tu decidi <span>l'importo</span></div>
+      <ul class="prodotto-include">
+        <li>Un valore da scalare sul conto</li>
+        <li>Valido su tutto il menu</li>
+        <li>Il regalo perfetto per ogni occasione</li>
+      </ul>
+      <div class="importo-libero-wrap">
+        <div class="importo-libero-field">
+          <span class="importo-libero-euro">€</span>
+          <input class="importo-libero-input" id="input-libero" type="number" inputmode="numeric"
+                 min="25" step="1" placeholder="25"
+                 onclick="event.stopPropagation()" oninput="onImportoLibero()"
+                 aria-label="Importo del buono regalo in euro">
+        </div>
+        <div class="importo-libero-hint">Importo minimo €25</div>
+        <div class="importo-libero-err" id="err-libero">Inserisci un importo di almeno €25</div>
+      </div>
+      <div class="disponibile">Disponibile</div>
+    </div>
+
   </div>
 </section>
 
@@ -805,7 +853,12 @@ const PRODOTTI = {
 let qty = { 'tre': 0, 'quattro': 0 };
 let paypalRendered = false;
 
-// ── SELEZIONE PRODOTTO ──
+// ── IMPORTO LIBERO ──
+const IMPORTO_LIBERO_MIN = 25;
+let liberoAttivo = false;   // card selezionata
+let importoLibero = 0;      // valore intero inserito (€), valido solo se >= MIN
+
+// ── SELEZIONE PRODOTTO (tagli fissi) ──
 function selezionaProdotto(id) {
   const card = document.getElementById('card-' + id);
   const qtyInput = document.getElementById('qty-' + id);
@@ -818,11 +871,60 @@ function selezionaProdotto(id) {
         document.getElementById('card-' + altroId).classList.remove('selezionato');
       }
     }
+    // Deseleziona anche il buono a importo libero
+    if (liberoAttivo) deselezionaLibero();
     qty[id] = parseInt(qtyInput.value) || 1;
     card.classList.add('selezionato');
   } else {
     qty[id] = 0;
     card.classList.remove('selezionato');
+  }
+  aggiornaCarrello();
+}
+
+// ── SELEZIONE BUONO A IMPORTO LIBERO ──
+function selezionaLibero() {
+  const card = document.getElementById('card-libero');
+  const input = document.getElementById('input-libero');
+  if (!liberoAttivo) {
+    // Deseleziona i tagli fissi
+    for (const altroId of Object.keys(qty)) {
+      if (qty[altroId] > 0) {
+        qty[altroId] = 0;
+        document.getElementById('card-' + altroId).classList.remove('selezionato');
+      }
+    }
+    liberoAttivo = true;
+    card.classList.add('selezionato');
+    input.focus();
+  } else {
+    deselezionaLibero();
+  }
+  aggiornaCarrello();
+}
+
+function deselezionaLibero() {
+  liberoAttivo = false;
+  importoLibero = 0;
+  document.getElementById('card-libero').classList.remove('selezionato');
+  document.getElementById('err-libero').style.display = 'none';
+}
+
+// ── INPUT IMPORTO LIBERO ──
+function onImportoLibero() {
+  const input = document.getElementById('input-libero');
+  const raw = parseInt(input.value, 10);
+  importoLibero = Number.isFinite(raw) ? raw : 0;
+  // Attiva la card automaticamente appena si digita
+  if (!liberoAttivo && input.value !== '') {
+    for (const altroId of Object.keys(qty)) {
+      if (qty[altroId] > 0) {
+        qty[altroId] = 0;
+        document.getElementById('card-' + altroId).classList.remove('selezionato');
+      }
+    }
+    liberoAttivo = true;
+    document.getElementById('card-libero').classList.add('selezionato');
   }
   aggiornaCarrello();
 }
@@ -870,6 +972,21 @@ function aggiornaCarrello() {
         <div class="carrello-item-prezzo">€${sub}</div>`;
       container.appendChild(row);
     }
+  }
+
+  // Ramo buono a importo libero
+  if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) {
+    haItems = true;
+    totale += importoLibero;
+    const row = document.createElement('div');
+    row.className = 'carrello-item';
+    row.innerHTML = `
+      <div>
+        <div class="carrello-item-nome">Buono regalo – Importo libero</div>
+        <div class="carrello-item-qty">Valore € ${importoLibero}</div>
+      </div>
+      <div class="carrello-item-prezzo">€${importoLibero}</div>`;
+    container.appendChild(row);
   }
 
   vuoto.style.display = haItems ? 'none' : 'block';
@@ -945,14 +1062,19 @@ function aggiornaPayPal(haItems, totale) {
 }
 
 function calcolaTotale() {
-  return Object.entries(qty).reduce((sum, [id, q]) => sum + (q > 0 ? PRODOTTI[id].prezzo * q : 0), 0);
+  let t = Object.entries(qty).reduce((sum, [id, q]) => sum + (q > 0 ? PRODOTTI[id].prezzo * q : 0), 0);
+  if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) t += importoLibero;
+  return t;
 }
 
 function descrizioneOrdine() {
-  return Object.entries(qty)
+  const parti = Object.entries(qty)
     .filter(([,q]) => q > 0)
-    .map(([id, q]) => `${PRODOTTI[id].nome} × ${q}`)
-    .join(' + ');
+    .map(([id, q]) => `${PRODOTTI[id].nome} × ${q}`);
+  if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) {
+    parti.push(`Buono regalo – Importo libero (€${importoLibero})`);
+  }
+  return parti.join(' + ');
 }
 
 // ── VALIDAZIONE FORM ──
@@ -989,6 +1111,19 @@ function validaForm() {
     const errDes = document.getElementById('err-emailDes');
     if (errDes) errDes.style.display = 'block';
     ok = false;
+  }
+
+  // Validazione importo libero (se la card libero è selezionata)
+  const errLibero = document.getElementById('err-libero');
+  if (liberoAttivo) {
+    if (!Number.isInteger(importoLibero) || importoLibero < IMPORTO_LIBERO_MIN) {
+      if (errLibero) errLibero.style.display = 'block';
+      const inp = document.getElementById('input-libero');
+      if (inp) inp.classList.add('campo-errore');
+      ok = false;
+    } else {
+      if (errLibero) errLibero.style.display = 'none';
+    }
   }
 
   if (!ok) {
@@ -1033,10 +1168,12 @@ async function mostraConferma(details) {
   const numPortate = getNumPortateTesto();
   const numPersone = getTotalPersone();
 
-  const prodDesc = Object.entries(qty)
-    .filter(([,q]) => q > 0)
-    .map(([id, q]) => `${PRODOTTI[id].nome}${q > 1 ? ' x ' + q : ''}`)
-    .join(' + ');
+  const prodDesc = liberoAttivo
+    ? `Buono regalo – Importo libero (€${importoLibero})`
+    : Object.entries(qty)
+        .filter(([,q]) => q > 0)
+        .map(([id, q]) => `${PRODOTTI[id].nome}${q > 1 ? ' x ' + q : ''}`)
+        .join(' + ');
 
   const scadenza = new Date();
   scadenza.setFullYear(scadenza.getFullYear() + 1);
@@ -1052,6 +1189,8 @@ async function mostraConferma(details) {
     importo:     totale,
     numPortate:  numPortate,
     numPersone:  numPersone,
+    tipo:          liberoAttivo ? 'libero' : 'fisso',
+    importoLibero: liberoAttivo ? importoLibero : 0,
     codiceVoucher: codice,
     scadenza:    scadStr,
     paypalOrderId: details.id
@@ -1194,6 +1333,7 @@ async function generateVoucherPDF(data) {
   doc.text('Buono Regalo', W / 2, 110, { align: 'center' });
 
   // === SUBTITLE — TIPOLOGIA ===
+  const isLibero = data.tipo === 'libero';
   const np = data.numPersone || 1;
   const numPortate = data.numPortate || 3;
   const personeStr = np === 1 ? 'una persona' : np + ' persone';
@@ -1202,8 +1342,13 @@ async function generateVoucherPDF(data) {
   doc.setFont('times', 'italic');
   doc.setFontSize(13);
   doc.setTextColor(...brown);
-  doc.text('Cena di ' + portateStr + '   ·   Per ' + personeStr,
-           W / 2, 121, { align: 'center' });
+  if (isLibero) {
+    doc.text('Un\u2019esperienza del valore di \u20ac ' + (data.importoLibero || 0),
+             W / 2, 121, { align: 'center' });
+  } else {
+    doc.text('Cena di ' + portateStr + '   \u00b7   Per ' + personeStr,
+             W / 2, 121, { align: 'center' });
+  }
 
   // === DESTINATARIO ===
   let y = 145;
@@ -1240,16 +1385,21 @@ async function generateVoucherPDF(data) {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
   doc.setTextColor(...brownPale);
-  textCenterSpaced("L'ESPERIENZA INCLUDE", W / 2, y, 1.3);
+  textCenterSpaced(isLibero ? "UN BUONO DA SPENDERE COME PREFERISCI" : "L'ESPERIENZA INCLUDE", W / 2, y, 1.3);
 
   y += 9;
 
-  const items = [
-    portateStr.charAt(0).toUpperCase() + portateStr.slice(1) + ' a scelta dal nostro menu',
-    'Un dolce a scelta dal menu',
-    'Un calice di vino · Acqua',
-    'Fine pasto (caffè, amaro o liquore)'
-  ];
+  const items = isLibero
+    ? [
+        'Un valore di \u20ac ' + (data.importoLibero || 0) + ' da scalare sul conto',
+        'Valido su tutto il menu'
+      ]
+    : [
+        portateStr.charAt(0).toUpperCase() + portateStr.slice(1) + ' a scelta dal nostro menu',
+        'Un dolce a scelta dal menu',
+        'Un calice di vino · Acqua',
+        'Fine pasto (caffè, amaro o liquore)'
+      ];
 
   doc.setFont('times', 'normal');
   doc.setFontSize(11);

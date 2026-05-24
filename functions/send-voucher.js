@@ -65,6 +65,12 @@ export async function onRequestOptions({ request }) {
 // quello effettivamente addebitato da PayPal.
 const PREZZI_VOUCHER = { 3: 50, 4: 65 };  // €/persona
 
+// === Buono a importo libero ===
+// Minimo di business €25; nessun tetto massimo lato business, ma una guardia
+// tecnica anti-abuso/overflow a 5000€ (importi superiori → contatto diretto).
+const IMPORTO_LIBERO_MIN = 25;
+const IMPORTO_LIBERO_MAX_TECNICO = 5000;
+
 function calcolaImportoAtteso(numPortate, numPersone) {
   const prezzoUnit = PREZZI_VOUCHER[numPortate];
   if (!prezzoUnit) return null;
@@ -148,7 +154,10 @@ function sanHeader(s, maxLen = 200) {
 
 // ── Versione text/plain delle email (anti-spam, accessibilità)
 function textAcquirente(d) {
-  const persone = d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`;
+  const isLibero = d.tipo === 'libero';
+  const validoPer = isLibero
+    ? `Valore: € ${d.importoLibero}`
+    : `Valido per: ${d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`}`;
   return [
     `Ciao ${d.nomeAcquirente},`,
     '',
@@ -157,7 +166,7 @@ function textAcquirente(d) {
     '',
     `Riepilogo:`,
     `  Prodotto: ${d.prodotto}`,
-    `  Valido per: ${persone}`,
+    `  ${validoPer}`,
     `  Codice: ${d.codiceVoucher}`,
     `  Scadenza: ${d.scadenza}`,
     `  Destinatario: ${d.nomeDestinatario}`,
@@ -177,7 +186,10 @@ function textAcquirente(d) {
 }
 
 function textDestinatario(d) {
-  const persone = d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`;
+  const isLibero = d.tipo === 'libero';
+  const rigaBuono = isLibero
+    ? `  Buono Regalo del valore di € ${d.importoLibero}`
+    : `  ${d.prodotto}\n  Valido per: ${d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`}`;
   return [
     `Ciao ${d.nomeDestinatario},`,
     '',
@@ -186,11 +198,11 @@ function textDestinatario(d) {
     '',
     d.messaggioPersonale ? `Il messaggio: "${d.messaggioPersonale}"\n` : '',
     `Il tuo Buono Regalo:`,
-    `  ${d.prodotto}`,
-    `  Valido per: ${persone}`,
+    rigaBuono,
     `  Codice: ${d.codiceVoucher}`,
     `  Scadenza: ${d.scadenza}`,
     '',
+    isLibero ? `Potrai utilizzarlo sul conto della tua cena, scegliendo liberamente dal nostro menu.\n` : '',
     `Per prenotare il tuo tavolo:`,
     `  WhatsApp: https://wa.me/390982428262`,
     `  Octotable: https://octotable.com/book/restaurant/561331/booking/home`,
@@ -240,11 +252,15 @@ export async function onRequestPost({ request, env, waitUntil }) {
   }
 
   // 3. Valida i campi obbligatori
-  const required = [
-    'nomeAcquirente', 'emailAcquirente', 'nomeDestinatario',
-    'prodotto', 'numPortate', 'numPersone', 'codiceVoucher', 'scadenza',
-    'paypalOrderId', 'pdfBase64',
-  ];
+  //    Per il buono a importo libero numPortate/numPersone non si applicano.
+  const isLibero = d.tipo === 'libero';
+  const required = isLibero
+    ? ['nomeAcquirente', 'emailAcquirente', 'nomeDestinatario',
+       'prodotto', 'importoLibero', 'codiceVoucher', 'scadenza',
+       'paypalOrderId', 'pdfBase64']
+    : ['nomeAcquirente', 'emailAcquirente', 'nomeDestinatario',
+       'prodotto', 'numPortate', 'numPersone', 'codiceVoucher', 'scadenza',
+       'paypalOrderId', 'pdfBase64'];
   for (const field of required) {
     if (!d[field] && d[field] !== 0) {
       return jsonResponse({ error: `Campo obbligatorio mancante: ${field}` }, 400, cors);
@@ -266,18 +282,28 @@ export async function onRequestPost({ request, env, waitUntil }) {
     return jsonResponse({ error: 'PDF troppo grande' }, 413, cors);
   }
 
-  // 4. Sanificazioni
-  d.numPersone = parseInt(d.numPersone, 10) || 1;
-  if (d.numPersone < 1 || d.numPersone > 200) d.numPersone = 1;
-  d.numPortate = parseInt(d.numPortate, 10);
-  if (![3, 4].includes(d.numPortate)) {
-    return jsonResponse({ error: 'numPortate non valido (atteso 3 o 4)' }, 400, cors);
-  }
-
-  // 4a. Calcolo importo atteso server-side (anti-frode: il prezzo NON viene preso dal client)
-  const expectedAmount = calcolaImportoAtteso(d.numPortate, d.numPersone);
-  if (expectedAmount == null) {
-    return jsonResponse({ error: 'Impossibile calcolare importo atteso' }, 400, cors);
+  // 4. Sanificazioni + calcolo importo atteso (anti-frode: l'importo NON è preso dal client come "verità di pagamento")
+  let expectedAmount;
+  if (isLibero) {
+    // Importo libero: intero, minimo €25. Guardia tecnica anti-abuso a 5000€ (non è un tetto di business).
+    const imp = parseInt(d.importoLibero, 10);
+    if (!Number.isInteger(imp) || imp < IMPORTO_LIBERO_MIN || imp > IMPORTO_LIBERO_MAX_TECNICO) {
+      return jsonResponse({ error: 'Importo libero non valido' }, 400, cors);
+    }
+    d.importoLibero = imp;
+    expectedAmount = imp;
+  } else {
+    d.numPersone = parseInt(d.numPersone, 10) || 1;
+    if (d.numPersone < 1 || d.numPersone > 200) d.numPersone = 1;
+    d.numPortate = parseInt(d.numPortate, 10);
+    if (![3, 4].includes(d.numPortate)) {
+      return jsonResponse({ error: 'numPortate non valido (atteso 3 o 4)' }, 400, cors);
+    }
+    // 4a. Calcolo importo atteso server-side (il prezzo NON viene preso dal client)
+    expectedAmount = calcolaImportoAtteso(d.numPortate, d.numPersone);
+    if (expectedAmount == null) {
+      return jsonResponse({ error: 'Impossibile calcolare importo atteso' }, 400, cors);
+    }
   }
 
   // Rimuovi eventuale prefisso data URI (safety net — il browser lo fa già)
@@ -440,7 +466,11 @@ export async function onRequestPost({ request, env, waitUntil }) {
 }
 
 function htmlAcquirente(d) {
+  const isLibero = d.tipo === 'libero';
   const persone = d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`;
+  // Etichetta "validità" condizionale: valore in € per il buono libero, persone per i tagli fissi
+  const validitaLabel = isLibero ? `un valore di <strong style="color:#fbf7ef;font-size:15px;">&euro; ${d.importoLibero}</strong>` : `Valido per <strong style="color:#fbf7ef;font-size:15px;">${persone}</strong>`;
+  const validitaFrase = isLibero ? `del valore di &euro; ${d.importoLibero}, da scalare sul conto,` : `valido per ${persone}`;
   const msgBlock = d.messaggioPersonale
     ? `<div style="border-left:3px solid #d9b988;padding:12px 18px;margin:24px 0;background:#fbf7ef;">
          <div style="font-family:Helvetica,Arial,sans-serif;font-size:8px;letter-spacing:2px;color:#8a5630;text-transform:uppercase;margin-bottom:8px;">Il tuo messaggio</div>
@@ -473,7 +503,7 @@ function htmlAcquirente(d) {
     <div style="background:#4a2612;padding:28px 32px;margin-bottom:28px;">
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:3px;color:#d9b988;text-transform:uppercase;margin-bottom:14px;">Riepilogo acquisto</div>
       <div style="font-family:Georgia,serif;font-size:17px;font-style:italic;color:#fbf7ef;margin-bottom:4px;">${esc(d.prodotto)}</div>
-      <div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;color:#d9b988;text-transform:uppercase;margin-bottom:18px;padding:8px 12px;background:rgba(255,255,255,0.08);">Valido per <strong style="color:#fbf7ef;font-size:15px;">${persone}</strong></div>
+      <div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;color:#d9b988;text-transform:uppercase;margin-bottom:18px;padding:8px 12px;background:rgba(255,255,255,0.08);">${validitaLabel}</div>
       <div style="border-top:1px dashed rgba(217,185,136,0.3);padding-top:18px;">
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:2.5px;color:#d9b988;text-transform:uppercase;margin-bottom:8px;">Codice voucher</div>
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:22px;font-weight:bold;color:#fbf7ef;letter-spacing:3px;">${d.codiceVoucher}</div>
@@ -494,7 +524,7 @@ function htmlAcquirente(d) {
         Per prenotare, il destinatario pu&ograve; scriverci su WhatsApp, chiamarci al 0982 428262 o prenotare direttamente online tramite Octotable. Al momento di presentarsi al ristorante, sar&agrave; sufficiente comunicare il codice voucher.
       </p>
       <p style="font-size:14px;color:#807068;line-height:1.7;margin:0;">
-        Il buono &egrave; valido per ${persone} per 12 mesi dall&rsquo;acquisto.
+        Il buono &egrave; ${validitaFrase} per 12 mesi dall&rsquo;acquisto.
       </p>
     </div>
 
@@ -538,7 +568,14 @@ function htmlAcquirente(d) {
 // Tono: sorpresa ed emozione. Introduce L'800 a chi (forse) non lo conosce.
 // =============================================================================
 function htmlDestinatario(d) {
+  const isLibero = d.tipo === 'libero';
   const persone = d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`;
+  // Per il buono libero il box mostra il valore in €; per i tagli fissi le persone
+  const prodottoLabel = isLibero ? 'Buono Regalo' : esc(d.prodotto);
+  const validitaLabel = isLibero ? `un valore di <strong style="color:#fbf7ef;font-size:15px;">&euro; ${d.importoLibero}</strong>` : `Valido per <strong style="color:#fbf7ef;font-size:15px;">${persone}</strong>`;
+  const usoFrase = isLibero
+    ? 'Potrai utilizzarlo sul conto della tua cena, scegliendo liberamente dal nostro menu.'
+    : '';
   const msgBlock = d.messaggioPersonale
     ? `<div style="border-left:3px solid #d9b988;padding:14px 20px;margin:24px 0;background:#fbf7ef;">
          <p style="font-family:Georgia,serif;font-size:17px;font-style:italic;color:#807068;margin:0 0 10px;line-height:1.75;">&ldquo;${esc(d.messaggioPersonale)}&rdquo;</p>
@@ -575,8 +612,8 @@ function htmlDestinatario(d) {
 
     <div style="background:#4a2612;padding:28px 32px;margin-bottom:28px;">
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:3px;color:#d9b988;text-transform:uppercase;margin-bottom:14px;">Il tuo Buono Regalo</div>
-      <div style="font-family:Georgia,serif;font-size:18px;font-style:italic;color:#fbf7ef;margin-bottom:4px;">${esc(d.prodotto)}</div>
-      <div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;color:#d9b988;text-transform:uppercase;margin-bottom:18px;padding:8px 12px;background:rgba(255,255,255,0.08);">Valido per <strong style="color:#fbf7ef;font-size:15px;">${persone}</strong></div>
+      <div style="font-family:Georgia,serif;font-size:18px;font-style:italic;color:#fbf7ef;margin-bottom:4px;">${prodottoLabel}</div>
+      <div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;color:#d9b988;text-transform:uppercase;margin-bottom:18px;padding:8px 12px;background:rgba(255,255,255,0.08);">${validitaLabel}</div>
       <div style="border-top:1px dashed rgba(217,185,136,0.3);padding-top:18px;">
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:7px;letter-spacing:2.5px;color:#d9b988;text-transform:uppercase;margin-bottom:8px;">Codice voucher</div>
         <div style="font-family:Helvetica,Arial,sans-serif;font-size:22px;font-weight:bold;color:#fbf7ef;letter-spacing:3px;">${d.codiceVoucher}</div>
@@ -585,7 +622,7 @@ function htmlDestinatario(d) {
     </div>
 
     <p style="font-size:14px;color:#807068;line-height:1.8;margin:0 0 18px;">
-      Presenta il codice al momento del pagamento.
+      ${usoFrase ? usoFrase + ' ' : ''}Presenta il codice al momento del pagamento.
     </p>
 
     <!-- CTA PRINCIPALE -->
