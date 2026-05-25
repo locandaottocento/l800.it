@@ -1,4 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /dashboard.html
+Disallow: /dashboard-api
+Disallow: /send-voucher
 
 Sitemap: https://www.l800.it/sitemap.xml

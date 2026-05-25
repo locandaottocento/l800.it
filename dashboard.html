@@ -402,7 +402,28 @@ function toast(msg,t){
   el.style.display='block'; setTimeout(()=>el.style.display='none',3200);
 }
 
+// Helper ornamento PDF
+function disegnaOrnamento(doc, cx, cy, color) {
+  doc.setDrawColor(...color);
+  doc.setLineWidth(0.3);
+  doc.line(cx - 30, cy, cx - 4, cy);
+  doc.line(cx + 4, cy, cx + 30, cy);
+  doc.setFillColor(...color);
+  doc.triangle(cx, cy - 1.5, cx - 1.5, cy, cx, cy + 1.5, 'F');
+  doc.triangle(cx, cy - 1.5, cx + 1.5, cy, cx, cy + 1.5, 'F');
+}
+
 // PDF
+function disegnaOrnamento(doc, cx, cy, color) {
+  doc.setDrawColor(...color);
+  doc.setLineWidth(0.3);
+  doc.line(cx - 30, cy, cx - 4, cy);
+  doc.line(cx + 4, cy, cx + 30, cy);
+  doc.setFillColor(...color);
+  doc.triangle(cx, cy - 1.5, cx - 1.5, cy, cx, cy + 1.5, 'F');
+  doc.triangle(cx, cy - 1.5, cx + 1.5, cy, cx, cy + 1.5, 'F');
+}
+
 async function generaVoucherPDF(data) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
