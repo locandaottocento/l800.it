@@ -405,6 +405,34 @@ export async function onRequestPost({ request, env, waitUntil }) {
     inviato_destinatario: emailDestValida,
   }));
 
+  // 8c. Salvataggio nel KV VOUCHERS per la dashboard
+  if (env.VOUCHERS) {
+    const record = {
+      codice:            d.codiceVoucher,
+      tipo:              isLibero ? 'libero' : 'fisso',
+      numPortate:        isLibero ? null : d.numPortate,
+      numPersone:        isLibero ? null : d.numPersone,
+      importoLibero:     isLibero ? d.importoLibero : 0,
+      importoPagato:     expectedAmount,
+      origine:           'online',
+      nomeAcquirente:    d.nomeAcquirente,
+      emailAcquirente:   d.emailAcquirente,
+      nomeDestinatario:  d.nomeDestinatario,
+      emailDestinatario: d.emailDestinatario || '',
+      messaggioPersonale:d.messaggioPersonale || '',
+      prodotto:          d.prodotto,
+      dataAcquisto:      new Date().toISOString().split('T')[0],
+      scadenza:          d.scadenza,
+      stato:             'attivo',
+      dataUtilizzo:      null,
+      paypalOrderId:     d.paypalOrderId,
+    };
+    waitUntil(
+      env.VOUCHERS.put(`voucher:${d.codiceVoucher}`, JSON.stringify(record))
+        .catch(err => console.error('KV write error:', err.message))
+    );
+  }
+
   // 8c. Meta Conversions API — evento Purchase server-side
   // Più affidabile del Pixel client-side su iOS e con ad blocker.
   // Richiede: env.META_CAPI_TOKEN (System User Access Token da Meta Business Suite)
