@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dashboard Buoni · L\u2019800</title>
+<title>Dashboard Buoni · L'800</title>
 <meta name="robots" content="noindex,nofollow">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -82,11 +82,11 @@ tr.used td{opacity:.55}
 
 <div id="view-login">
   <div class="login-box">
-    <div class="login-logo">L\u2019800</div>
+    <div class="login-logo">L'800</div>
     <div class="login-sub">Dashboard Buoni</div>
     <form onsubmit="doLogin(event)">
       <label>Password</label>
-      <input id="pwd" type="password" placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" autocomplete="current-password" required>
+      <input id="pwd" type="password" placeholder="••••••••" autocomplete="current-password" required>
       <button type="submit">Accedi</button>
     </form>
     <div id="lerr" class="err">Password non corretta.</div>
@@ -95,7 +95,7 @@ tr.used td{opacity:.55}
 
 <div id="view-main">
   <div class="topbar">
-    <div class="tlogo">L\u2019800</div>
+    <div class="tlogo">L'800</div>
     <div class="tsub">Buoni Regalo</div>
     <div class="tsp"></div>
     <button onclick="showCreate()">+ Crea buono</button>
@@ -108,7 +108,7 @@ tr.used td{opacity:.55}
       <select id="fs" onchange="renderTable()"><option value="">Tutti gli stati</option><option value="attivo">Attivi</option><option value="utilizzato">Utilizzati</option></select>
       <select id="ft" onchange="renderTable()"><option value="">Tutte le tipologie</option><option value="fisso">Tagli fissi</option><option value="libero">Importo libero</option></select>
       <select id="fo" onchange="renderTable()"><option value="">Tutte le origini</option><option value="online">Online</option><option value="cassa">Cassa</option></select>
-      <input type="text" id="fc" placeholder="Cerca codice o nome\u2026" oninput="renderTable()">
+      <input type="text" id="fc" placeholder="Cerca codice o nome…" oninput="renderTable()">
       <div class="tsp2"></div>
     </div>
     <div class="tw">
@@ -129,24 +129,24 @@ tr.used td{opacity:.55}
 <div id="view-create">
   <div class="create-content">
     <div class="back-bar">
-      <button class="sec" onclick="showMain()">\u2190 Torna alla lista</button>
+      <button class="sec" onclick="showMain()">← Torna alla lista</button>
       <h2>Crea buono manuale</h2>
     </div>
     <div class="fcard">
       <div class="fst">Tipologia</div>
       <div class="tgrid">
-        <div class="tc sel" id="tc3" onclick="selT('3')"><div class="tn">3 portate</div><div class="td2">\u20ac50 / pers.</div></div>
-        <div class="tc" id="tc4" onclick="selT('4')"><div class="tn">4 portate</div><div class="td2">\u20ac65 / pers.</div></div>
+        <div class="tc sel" id="tc3" onclick="selT('3')"><div class="tn">3 portate</div><div class="td2">€50 / pers.</div></div>
+        <div class="tc" id="tc4" onclick="selT('4')"><div class="tn">4 portate</div><div class="td2">€65 / pers.</div></div>
         <div class="tc" id="tcL" onclick="selT('L')"><div class="tn">Importo libero</div><div class="td2">scegli tu</div></div>
       </div>
       <div id="fopts" class="frow">
-        <div class="ff"><label>N\u00b0 persone</label><input id="iper" type="number" value="1" min="1" max="50" oninput="aggPagato()"></div>
-        <div class="ff"><label>Importo pagato (\u20ac)</label><input id="ipag" type="number" value="50" min="0"></div>
+        <div class="ff"><label>N° persone</label><input id="iper" type="number" value="1" min="1" max="50" oninput="aggPagato()"></div>
+        <div class="ff"><label>Importo pagato (€)</label><input id="ipag" type="number" value="50" min="0"></div>
       </div>
       <div id="lopts" style="display:none">
         <div class="frow">
-          <div class="ff"><label>Valore buono (\u20ac, min.25)</label><input id="ival" type="number" min="25" step="1" placeholder="80" oninput="aggiornaPagLibero()"></div>
-          <div class="ff"><label>Importo pagato (\u20ac)</label><input id="ipagl" type="number" min="0" placeholder="80"></div>
+          <div class="ff"><label>Valore buono (€, min.25)</label><input id="ival" type="number" min="25" step="1" placeholder="80" oninput="aggiornaPagLibero()"></div>
+          <div class="ff"><label>Importo pagato (€)</label><input id="ipagl" type="number" min="0" placeholder="80"></div>
         </div>
       </div>
       <div class="fsec">
@@ -162,7 +162,7 @@ tr.used td{opacity:.55}
           <div class="ff"><label>Nome *</label><input id="idn" type="text" placeholder="Anna Bianchi"></div>
           <div class="ff"><label>Email (buono)</label><input id="ide" type="email" placeholder="anna@email.it"></div>
         </div>
-        <div class="ff"><label>Messaggio personale</label><textarea id="imsg" rows="2" placeholder="Un pensiero\u2026"></textarea></div>
+        <div class="ff"><label>Messaggio personale</label><textarea id="imsg" rows="2" placeholder="Un pensiero…"></textarea></div>
       </div>
       <div class="fsec">
         <div class="frow">
@@ -307,10 +307,20 @@ async function dlPdf(codice) {
   const v=ALL.find(x=>x.codice===codice);
   if(!v) return;
   try {
-    await generaVoucherPDF({tipo:v.tipo,numPortate:v.numPortate,numPersone:v.numPersone,
-      importoLibero:v.importoLibero,nomeDestinatario:v.nomeDestinatario,
-      codiceVoucher:v.codice,scadenza:v.scadenza,messaggioPersonale:v.messaggioPersonale||''});
-  } catch(e){toast('Errore PDF','ko');}
+    const uri = await generaVoucherPDF({
+      tipo:v.tipo, numPortate:v.numPortate, numPersone:v.numPersone,
+      importoLibero:v.importoLibero, nomeDestinatario:v.nomeDestinatario,
+      codiceVoucher:v.codice, scadenza:v.scadenza,
+      messaggioPersonale:v.messaggioPersonale||''
+    });
+    // Scarica il PDF
+    const a = document.createElement('a');
+    a.href = uri;
+    a.download = 'Buono-Regalo-L800-' + v.codice + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  } catch(e){ toast('Errore PDF: '+e.message,'ko'); }
 }
 
 // CSV
@@ -384,9 +394,19 @@ async function creaVoucher() {
       scadenza:scaFmt});
     if(!res.ok) throw new Error(res.error||'Errore');
     const v=res.voucher;
-    await generaVoucherPDF({tipo:v.tipo,numPortate:v.numPortate,numPersone:v.numPersone,
-      importoLibero:v.importoLibero,nomeDestinatario:v.nomeDestinatario,
-      codiceVoucher:v.codice,scadenza:v.scadenza,messaggioPersonale:v.messaggioPersonale||''});
+    // Genera e scarica il PDF con il codice reale
+    const uri = await generaVoucherPDF({
+      tipo:v.tipo, numPortate:v.numPortate, numPersone:v.numPersone,
+      importoLibero:v.importoLibero, nomeDestinatario:v.nomeDestinatario,
+      codiceVoucher:v.codice, scadenza:v.scadenza,
+      messaggioPersonale:v.messaggioPersonale||''
+    });
+    const a = document.createElement('a');
+    a.href = uri;
+    a.download = 'Buono-Regalo-L800-' + v.codice + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
     ALL.unshift(v);
     renderStats();
     toast(`Buono ${v.codice} creato!`,'ok');
