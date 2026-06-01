@@ -287,6 +287,62 @@
   .info-sotto-form { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
   @media(max-width:768px){ .info-sotto-form { grid-template-columns:1fr; } }
 
+  /* ── STRIP SOCIAL PROOF ── */
+  .social-strip {
+    background:var(--brown-dark); padding:14px 48px;
+    display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap;
+  }
+  .social-strip-item {
+    display:flex; align-items:center; gap:8px;
+    font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em;
+    color:rgba(251,247,239,0.75); text-transform:uppercase; white-space:nowrap;
+  }
+  .social-strip-score {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:18px; color:var(--cream-light); line-height:1;
+  }
+  .social-strip-sep { color:rgba(251,247,239,0.25); font-size:18px; }
+  @media(max-width:768px){
+    .social-strip { padding:12px 20px; gap:16px; }
+    .social-strip-sep { display:none; }
+  }
+
+  /* ── METODI PRENOTAZIONE ── */
+  .metodi-wrap {
+    max-width:1200px; margin:0 auto; padding:56px 48px 0;
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  }
+  .metodo-card {
+    border:1px solid var(--border); padding:32px 28px;
+    display:flex; flex-direction:column; gap:12px;
+    transition:border-color 0.2s;
+  }
+  .metodo-card:hover { border-color:var(--brown); }
+  .metodo-card.metodo-primary { background:var(--cream); }
+  .metodo-card.metodo-secondary { background:var(--cream-light); }
+  .metodo-eyebrow {
+    font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.28em;
+    color:var(--brown-light); text-transform:uppercase;
+  }
+  .metodo-title {
+    font-family:'Cormorant Garamond',serif; font-size:22px;
+    font-weight:300; color:var(--text); line-height:1.2;
+  }
+  .metodo-title em { font-style:italic; color:var(--brown); }
+  .metodo-desc {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:15px; color:var(--text-light); line-height:1.6; flex:1;
+  }
+  .metodo-badge {
+    display:inline-block; font-family:'Cormorant SC',serif;
+    font-size:8px; letter-spacing:0.16em; text-transform:uppercase;
+    padding:4px 10px; background:var(--cream-dark); color:var(--brown);
+    border:1px solid var(--border); width:fit-content;
+  }
+  @media(max-width:768px){
+    .metodi-wrap { grid-template-columns:1fr; padding:36px 20px 0; gap:14px; }
+  }
+
   /* ── SKIP LINK ACCESSIBILITÀ ── */
   .skip-link {
     position:absolute; top:-100px; left:0;
@@ -435,20 +491,55 @@
     <span class="hero-eyebrow">Amantea · Via Calavecchia 53 · Calabria</span>
     <h1 class="hero-title">Prenota il tuo<br><em>tavolo</em></h1>
     <p class="hero-sub">
-      Componi la tua richiesta in pochi secondi e inviala via WhatsApp. Ti risponderemo entro brevissimo tempo per confermare la disponibilità.
+      Scegli come preferisci: un messaggio su WhatsApp o la prenotazione online diretta. In entrambi i casi ci vogliono meno di un minuto.
     </p>
   </div>
 </section>
+
+<!-- STRIP SOCIAL PROOF -->
+<div class="social-strip">
+  <div class="social-strip-item">
+    <span class="social-strip-score">4.8</span>
+    <span>TripAdvisor · 540+ recensioni</span>
+  </div>
+  <span class="social-strip-sep">·</span>
+  <div class="social-strip-item">
+    <span class="social-strip-score">9,3</span>
+    <span>TheFork</span>
+  </div>
+  <span class="social-strip-sep">·</span>
+  <div class="social-strip-item">
+    <span>Travellers' Choice 2022</span>
+  </div>
+</div>
+
+<!-- SCEGLI COME PRENOTARE -->
+<div class="metodi-wrap">
+  <div class="metodo-card metodo-primary fade-in">
+    <span class="metodo-eyebrow">Opzione 1</span>
+    <div class="metodo-title">Scrivi su <em>WhatsApp</em></div>
+    <p class="metodo-desc">Compila il modulo qui sotto per preparare la richiesta, oppure scrivici liberamente. Ti confermiamo la disponibilità entro pochi minuti.</p>
+    <span class="metodo-badge">⟱ Usa il modulo in basso</span>
+  </div>
+  <div class="metodo-card metodo-secondary fade-in delay-1">
+    <span class="metodo-eyebrow">Opzione 2</span>
+    <div class="metodo-title">Prenota <em>direttamente online</em></div>
+    <p class="metodo-desc">Verifica la disponibilità in tempo reale e ottieni conferma immediata. Nessuna attesa, nessuno scambio di messaggi.</p>
+    <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener" class="btn-octotable" style="margin-top:4px;">
+      Verifica disponibilità →
+    </a>
+  </div>
+</div>
 
 <!-- MAIN: FORM + SIDEBAR -->
 <div class="prenota-main">
 
   <!-- FORM -->
   <div class="form-section fade-in">
-    <span class="section-label">Richiesta di prenotazione</span>
-    <h2 class="section-title">Componi la tua<br><em>richiesta</em></h2>
+    <span class="section-label">Opzione 1 — WhatsApp</span>
+    <h2 class="section-title">Componi il tuo<br><em>messaggio</em></h2>
     <p class="section-sub">
-      Prenota il tuo tavolo online, scrivendoci su WhatsApp o telefonandoci. Scegli il metodo che preferisci.
+      Seleziona data, orario e ospiti — ti prepariamo il messaggio pronto da inviare. Puoi anche cliccare direttamente e scrivere quello che vuoi.
     </p>
     <div class="ornament"></div>
 
@@ -510,9 +601,9 @@
       </div>
 
       <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa">
-        📱 Invia richiesta via WhatsApp
+        Invia su WhatsApp →
       </a>
-      <p class="nota">Risposta solitamente entro pochi minuti · Aperto mar–dom</p>
+      <p class="nota">Di solito rispondiamo entro pochi minuti · Aperto tutti i giorni tranne mercoledì</p>
     </div>
 
     <!-- ORARI + CONTATTI sotto il form -->
@@ -556,42 +647,25 @@
 
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <!-- Octotable -->
+    <!-- Info prenotazione -->
     <div class="info-card fade-in delay-2">
-      <span class="info-card-title">Prenota online</span>
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--text-light);line-height:1.6;margin-bottom:16px;">Preferisci prenotare direttamente online senza passare per WhatsApp? Usa il nostro sistema di prenotazione.</p>
-      <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener" class="btn-octotable">
-        Prenota con Octotable →
-      </a>
+      <span class="info-card-title">Buono a sapersi</span>
+      <div class="info-row">
+        <span class="info-icon">✓</span>
+        <span class="info-text">La prenotazione non è obbligatoria, ma consigliata nei fine settimana e in alta stagione.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">✓</span>
+        <span class="info-text">Per gruppi di oltre 8 persone o occasioni speciali, scrivici direttamente — troveremo la soluzione migliore.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">✓</span>
+        <span class="info-text">Il ristorante è aperto a pranzo e a cena, tutti i giorni tranne il mercoledì.</span>
+      </div>
     </div>
   </div>
 
 </div>
-
-<!-- CONTESTO SEO -->
-<section class="context-section">
-  <div style="text-align:center;" class="fade-in">
-    <span class="section-label">Perché sceglierci</span>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--text);">Il ristorante di pesce <em style="font-style:italic;color:var(--brown);">di riferimento ad Amantea</em></h2>
-  </div>
-  <div class="context-grid">
-    <div class="context-item fade-in">
-      <span class="context-num">4.8</span>
-      <span class="context-label">Su TripAdvisor</span>
-      <p class="context-text">Oltre 540 recensioni, Travellers' Choice 2022. La qualità confermata da chi ha scelto di raccontarla.</p>
-    </div>
-    <div class="context-item fade-in delay-1">
-      <span class="context-num">9,3</span>
-      <span class="context-label">Su TheFork</span>
-      <p class="context-text">Una delle valutazioni più alte della zona per un ristorante di pesce in Calabria.</p>
-    </div>
-    <div class="context-item fade-in delay-2">
-      <span class="context-num">1800</span>
-      <span class="context-label">Il palazzo storico</span>
-      <p class="context-text">Un palazzo dell'Ottocento nel cuore di Amantea. Un'esperienza che va oltre il pasto.</p>
-    </div>
-  </div>
-</section>
 
 <!-- MAPPA -->
 <div class="mappa-section">

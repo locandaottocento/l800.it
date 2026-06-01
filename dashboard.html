@@ -6,6 +6,7 @@
 <title>Dashboard Buoni · L'800</title>
 <meta name="robots" content="noindex,nofollow">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;background:#f5f0e8;color:#2a1a10;min-height:100vh}
@@ -99,7 +100,7 @@ tr.used td{opacity:.55}
     <div class="tsub">Buoni Regalo</div>
     <div class="tsp"></div>
     <button onclick="showCreate()">+ Crea buono</button>
-    <button onclick="exportCsv()">CSV</button>
+    <button onclick="exportXlsx()">↓ Excel</button>
     <button onclick="doLogout()">Esci</button>
   </div>
   <div class="content">
@@ -323,20 +324,47 @@ async function dlPdf(codice) {
   } catch(e){ toast('Errore PDF: '+e.message,'ko'); }
 }
 
-// CSV
-function exportCsv() {
-  const cols=['Codice','Origine','Tipo','NumPortate','NumPersone','ImportoLibero','ImportoPagato',
-    'Acquirente','EmailAcquirente','Destinatario','EmailDestinatario',
-    'DataAcquisto','Scadenza','Stato','DataUtilizzo','PayPalID'];
-  const rows=ALL.map(v=>[v.codice,v.origine,v.tipo,v.numPortate||'',v.numPersone||'',
-    v.importoLibero||'',v.importoPagato||'',v.nomeAcquirente,v.emailAcquirente,
-    v.nomeDestinatario,v.emailDestinatario,v.dataAcquisto,v.scadenza,v.stato,
-    v.dataUtilizzo||'',v.paypalOrderId||''].map(c=>`"${String(c||'').replace(/"/g,'""')}"`).join(','));
-  const csv=[cols.join(','),...rows].join('\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
-  a.download=`buoni-l800-${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
+// EXPORT XLSX
+function exportXlsx() {
+  const cols = ['Codice','Origine','Tipo','Portate','Persone','Importo Libero (€)',
+    'Importo Pagato (€)','Acquirente','Email Acquirente','Destinatario','Email Destinatario',
+    'Data Acquisto','Scadenza','Stato','Data Utilizzo','ID PayPal'];
+
+  const rows = ALL.map(v => [
+    v.codice, v.origine, v.tipo,
+    v.numPortate || '', v.numPersone || '',
+    v.importoLibero || '', v.importoPagato || '',
+    v.nomeAcquirente, v.emailAcquirente || '',
+    v.nomeDestinatario, v.emailDestinatario || '',
+    v.dataAcquisto, v.scadenza, v.stato,
+    v.dataUtilizzo || '', v.paypalOrderId || ''
+  ]);
+
+  // Crea il foglio con header in grassetto
+  const ws = XLSX.utils.aoa_to_sheet([cols, ...rows]);
+
+  // Formatta le colonne numeriche come numeri (non testo)
+  const numCols = [5, 6]; // Importo Libero, Importo Pagato (indice 0-based)
+  rows.forEach((row, ri) => {
+    numCols.forEach(ci => {
+      const cell = ws[XLSX.utils.encode_cell({r: ri + 1, c: ci})];
+      if (cell && cell.v !== '') {
+        cell.t = 'n';
+        cell.v = parseFloat(cell.v) || 0;
+        cell.z = '#,##0.00 "€"';
+      }
+    });
+  });
+
+  // Larghezza colonne automatica
+  ws['!cols'] = cols.map((h, i) => {
+    const maxLen = Math.max(h.length, ...rows.map(r => String(r[i] || '').length));
+    return { wch: Math.min(maxLen + 2, 40) };
+  });
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Buoni Regalo');
+  XLSX.writeFile(wb, `buoni-l800-${new Date().toISOString().split('T')[0]}.xlsx`);
 }
 
 // CREATE FORM

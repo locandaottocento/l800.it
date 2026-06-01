@@ -289,6 +289,21 @@
 
   .info-sotto-form { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
   @media(max-width:768px){ .info-sotto-form { grid-template-columns:1fr; } }
+  .social-strip { background:var(--brown-dark); padding:14px 48px; display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap; }
+  .social-strip-item { display:flex; align-items:center; gap:8px; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em; color:rgba(251,247,239,0.75); text-transform:uppercase; white-space:nowrap; }
+  .social-strip-score { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:var(--cream-light); line-height:1; }
+  .social-strip-sep { color:rgba(251,247,239,0.25); font-size:18px; }
+  .metodi-wrap { max-width:1200px; margin:0 auto; padding:56px 48px 0; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .metodo-card { border:1px solid var(--border); padding:32px 28px; display:flex; flex-direction:column; gap:12px; transition:border-color 0.2s; }
+  .metodo-card:hover { border-color:var(--brown); }
+  .metodo-card.metodo-primary { background:var(--cream); }
+  .metodo-card.metodo-secondary { background:var(--cream-light); }
+  .metodo-eyebrow { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.28em; color:var(--brown-light); text-transform:uppercase; }
+  .metodo-title { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--text); line-height:1.2; }
+  .metodo-title em { font-style:italic; color:var(--brown); }
+  .metodo-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--text-light); line-height:1.6; flex:1; }
+  .metodo-badge { display:inline-block; font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; text-transform:uppercase; padding:4px 10px; background:var(--cream-dark); color:var(--brown); border:1px solid var(--border); width:fit-content; }
+  @media(max-width:768px){ .social-strip { padding:12px 20px; gap:16px; } .social-strip-sep { display:none; } .metodi-wrap { grid-template-columns:1fr; padding:36px 20px 0; gap:14px; } }
 
   /* ── SKIP LINK ACCESSIBILITÀ ── */
   .skip-link {
@@ -438,20 +453,55 @@
     <span class="hero-eyebrow">Amantea · Via Calavecchia 53 · Calabria</span>
     <h1 class="hero-title">Book your<br><em>table</em></h1>
     <p class="hero-sub">
-      Build your booking request in seconds and send it via WhatsApp. We'll get back to you shortly to confirm availability.
+      Choose how you prefer: a WhatsApp message or an instant online booking. Either way, it takes less than a minute.
     </p>
   </div>
 </section>
+
+<!-- STRIP SOCIAL PROOF -->
+<div class="social-strip">
+  <div class="social-strip-item">
+    <span class="social-strip-score">4.8</span>
+    <span>TripAdvisor · 540+ reviews</span>
+  </div>
+  <span class="social-strip-sep">·</span>
+  <div class="social-strip-item">
+    <span class="social-strip-score">9.3</span>
+    <span>TheFork</span>
+  </div>
+  <span class="social-strip-sep">·</span>
+  <div class="social-strip-item">
+    <span>Travellers' Choice 2022</span>
+  </div>
+</div>
+
+<!-- HOW TO BOOK -->
+<div class="metodi-wrap">
+  <div class="metodo-card metodo-primary fade-in">
+    <span class="metodo-eyebrow">Option 1</span>
+    <div class="metodo-title">Message us on <em>WhatsApp</em></div>
+    <p class="metodo-desc">Fill in the form below to prepare your request, or write to us freely. We usually reply within a few minutes.</p>
+    <span class="metodo-badge">⟱ Use the form below</span>
+  </div>
+  <div class="metodo-card metodo-secondary fade-in delay-1">
+    <span class="metodo-eyebrow">Option 2</span>
+    <div class="metodo-title">Book <em>directly online</em></div>
+    <p class="metodo-desc">Check real-time availability and get instant confirmation. No waiting, no back-and-forth messages.</p>
+    <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener" class="btn-octotable" style="margin-top:4px;">
+      Check availability →
+    </a>
+  </div>
+</div>
 
 <!-- MAIN: FORM + SIDEBAR -->
 <div class="prenota-main">
 
   <!-- FORM -->
   <div class="form-section fade-in">
-    <span class="section-label">Booking request</span>
-    <h2 class="section-title">Build your<br><em>request</em></h2>
+    <span class="section-label">Option 1 — WhatsApp</span>
+    <h2 class="section-title">Compose your<br><em>message</em></h2>
     <p class="section-sub">
-      Book online, message us on WhatsApp, or call us directly. Pick the method that works best for you.
+      Select date, time and guests — we'll prepare the message for you. Or just click the button and write whatever you like.
     </p>
     <div class="ornament"></div>
 
@@ -513,9 +563,9 @@
       </div>
 
       <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa">
-        📱 Send request via WhatsApp
+        Send on WhatsApp →
       </a>
-      <p class="nota">Usually answered within a few minutes · Open Tue–Sun</p>
+      <p class="nota">We usually reply within a few minutes · Open every day except Wednesday</p>
     </div>
 
     <!-- ORARI + CONTATTI sotto il form -->
@@ -559,42 +609,24 @@
 
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <!-- Octotable -->
     <div class="info-card fade-in delay-2">
-      <span class="info-card-title">Book online</span>
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--text-light);line-height:1.6;margin-bottom:16px;">Prefer to book online directly without going through WhatsApp? Use our reservation system.</p>
-      <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener" class="btn-octotable">
-        Book with Octotable →
-      </a>
+      <span class="info-card-title">Good to know</span>
+      <div class="info-row">
+        <span class="info-icon">✓</span>
+        <span class="info-text">A reservation isn't required, but recommended on weekends and during high season.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">✓</span>
+        <span class="info-text">For groups of more than 8 or special occasions, write to us directly — we'll find the best solution.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">✓</span>
+        <span class="info-text">We're open for lunch and dinner every day except Wednesday.</span>
+      </div>
     </div>
   </div>
 
 </div>
-
-<!-- CONTESTO SEO -->
-<section class="context-section">
-  <div style="text-align:center;" class="fade-in">
-    <span class="section-label">Why choose us</span>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--text);">The reference <em style="font-style:italic;color:var(--brown);">fish restaurant in Amantea</em></h2>
-  </div>
-  <div class="context-grid">
-    <div class="context-item fade-in">
-      <span class="context-num">4.8</span>
-      <span class="context-label">On TripAdvisor</span>
-      <p class="context-text">Over 540 reviews, Travellers' Choice 2022. Quality confirmed by those who chose to share their experience.</p>
-    </div>
-    <div class="context-item fade-in delay-1">
-      <span class="context-num">9.3</span>
-      <span class="context-label">On TheFork</span>
-      <p class="context-text">One of the highest ratings in the area for a fish restaurant in Calabria.</p>
-    </div>
-    <div class="context-item fade-in delay-2">
-      <span class="context-num">1800</span>
-      <span class="context-label">The historic palazzo</span>
-      <p class="context-text">A nineteenth-century palazzo in the heart of Amantea. An experience that goes beyond the meal.</p>
-    </div>
-  </div>
-</section>
 
 <!-- MAPPA -->
 <div class="mappa-section">
