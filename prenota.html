@@ -14,6 +14,7 @@
   })();
 </script>
 <meta charset="UTF-8">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Performance: preconnect resorse esterne -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -385,6 +386,12 @@
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
   }
+
+  /* ── NAV MOBILE (inner pages) ── */
+  @media (max-width: 768px) {
+    .nav-back { display: none; }
+    .lang-switcher { margin-left: auto; }
+  }
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
@@ -519,7 +526,11 @@
     <span class="metodo-eyebrow">Opzione 1</span>
     <div class="metodo-title">Scrivi su <em>WhatsApp</em></div>
     <p class="metodo-desc">Compila il modulo qui sotto per preparare la richiesta, oppure scrivici liberamente. Ti confermiamo la disponibilità entro pochi minuti.</p>
-    <span class="metodo-badge">⟱ Usa il modulo in basso</span>
+    <a href="https://wa.me/390982428262" target="_blank" rel="noopener"
+       onclick="if(typeof gtag!=='undefined'){gtag('event','click_whatsapp_direct',{event_category:'prenota',event_label:'card_metodo'});}"
+       class="btn-wa" style="margin-top:4px;">
+      Scrivici su WhatsApp →
+    </a>
   </div>
   <div class="metodo-card metodo-secondary fade-in delay-1">
     <span class="metodo-eyebrow">Opzione 2</span>

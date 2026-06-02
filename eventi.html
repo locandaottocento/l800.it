@@ -14,6 +14,7 @@
   })();
 </script>
 <meta charset="UTF-8">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Performance: preconnect resorse esterne -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -273,6 +274,12 @@
   @media (max-width:768px) {
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
+  }
+
+  /* ── NAV MOBILE (inner pages) ── */
+  @media (max-width: 768px) {
+    .nav-back { display: none; }
+    .lang-switcher { margin-left: auto; }
   }
 </style>
 

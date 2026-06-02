@@ -14,6 +14,7 @@
   })();
 </script>
 <meta charset="UTF-8">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Performance: preconnect resorse esterne -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -158,7 +159,13 @@
   .doc-table-wrap table{margin:0;border:none;}
   
   .footer-brand { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; color: var(--cream-light); }
-  </style>
+  
+  /* ── NAV MOBILE (inner pages) ── */
+  @media (max-width: 768px) {
+    .nav-back { display: none; }
+    .lang-switcher { margin-left: auto; }
+  }
+</style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
   <script>

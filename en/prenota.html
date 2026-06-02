@@ -14,6 +14,7 @@
   })();
 </script>
 <meta charset="UTF-8">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Performance: preconnect resorse esterne -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -347,6 +348,12 @@
     .lang-switcher { margin-left:8px; }
     .lang-switcher a { font-size:9px; padding:3px 6px; }
   }
+
+  /* ── NAV MOBILE (inner pages) ── */
+  @media (max-width: 768px) {
+    .nav-back { display: none; }
+    .lang-switcher { margin-left: auto; }
+  }
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
@@ -481,7 +488,11 @@
     <span class="metodo-eyebrow">Option 1</span>
     <div class="metodo-title">Message us on <em>WhatsApp</em></div>
     <p class="metodo-desc">Fill in the form below to prepare your request, or write to us freely. We usually reply within a few minutes.</p>
-    <span class="metodo-badge">⟱ Use the form below</span>
+    <a href="https://wa.me/390982428262" target="_blank" rel="noopener"
+       onclick="if(typeof gtag!=='undefined'){gtag('event','click_whatsapp_direct',{event_category:'prenota',event_label:'card_metodo'});}"
+       class="btn-wa" style="margin-top:4px;">
+      Write to us on WhatsApp →
+    </a>
   </div>
   <div class="metodo-card metodo-secondary fade-in delay-1">
     <span class="metodo-eyebrow">Option 2</span>

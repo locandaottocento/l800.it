@@ -14,6 +14,7 @@
   })();
 </script>
 <meta charset="UTF-8">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Performance: preconnect resorse esterne -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -472,8 +473,9 @@
 
     /* NAV MOBILE */
     nav { padding: 14px 20px; }
+    .nav-logo { margin-right: auto; } /* spinge tutto a destra */
     .nav-links { display: none; }
-    .nav-cta { display: none; }
+    .nav-cta { display: none !important; } /* nascosta sempre su mobile */
     .nav-mobile-toggle {
       display: flex;
       flex-direction: column;
@@ -482,6 +484,7 @@
       padding: 4px;
       background: none;
       border: none;
+      order: 3; /* sempre a destra di tutto */
     }
     .nav-mobile-toggle span {
       display: block;
@@ -507,13 +510,11 @@
     .nav-mobile-open .nav-links li { border-bottom: 1px dotted var(--border); }
     .nav-mobile-open .nav-links li:last-child { border-bottom: none; }
     .nav-mobile-open .nav-links a { font-size: 13px; letter-spacing: 0.15em; display: block; padding: 14px 0; }
-    .nav-mobile-open .nav-cta {
-      display: block;
-      margin: 8px 0 0;
-      text-align: center;
-      font-size: 12px;
-      padding: 14px;
-      position: static;
+    /* Prenota è ora dentro nav-links come ultimo li, stile CTA */
+    .nav-links .nav-cta-inline { display: block !important; }
+    .nav-links .nav-cta-inline a {
+      color: var(--brown);
+      font-weight: 600;
     }
 
     /* HERO */
@@ -777,6 +778,7 @@
     <li><a href="#occasioni">Occasioni speciali</a></li>
     <li><a href="#buoni">Buoni regalo</a></li>
     <li><a href="#dove">Contatti</a></li>
+    <li class="nav-cta-inline" style="display:none"><a href="prenota.html">Prenota il tuo tavolo</a></li>
   </ul>
   <a href="prenota.html" class="nav-cta">Prenota il tuo tavolo</a>
   <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
