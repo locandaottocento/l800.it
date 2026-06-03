@@ -1,3 +1,7 @@
+# HTTP → HTTPS (forzatura per SEO e sicurezza)
+http://l800.it/*     https://www.l800.it/:splat  301!
+http://www.l800.it/* https://www.l800.it/:splat  301!
+
 # Vecchio percorso /en-US/ → /en/
 /en-US/          /en/          301!
 /en-US/:splat    /en/:splat    301!
