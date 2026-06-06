@@ -60,7 +60,7 @@
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream-light);color:var(--text);}
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(250,246,239,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(250,246,239,0.96);border-bottom:1px solid var(--border);}
   .nav-logo{text-decoration:none;display:flex;flex-direction:column;line-height:1;}
   .nav-logo-main{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--brown);}
   .nav-logo-sub{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.25em;color:var(--brown-light);text-transform:uppercase;}
@@ -120,7 +120,7 @@
   @media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.hero{padding:88px 24px 48px;}.menu-nav{padding:0 20px;}.menu-body{padding:40px 20px 64px;}footer{padding:20px;}.footer-top{flex-direction:column;text-align:center;}}
 
   /* ── COOKIE BANNER ── */
-  #cookie-banner { position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(30,18,6,0.96); backdrop-filter:blur(8px); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; border-top:1px solid rgba(196,168,130,0.3); transform:translateY(100%); transition:transform 0.4s ease; }
+  #cookie-banner { position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(30,18,6,0.96); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; border-top:1px solid rgba(196,168,130,0.3); transform:translateY(100%); transition:transform 0.4s ease; }
   #cookie-banner.visible { transform:translateY(0); }
   #cookie-banner p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(251,247,239,0.8); line-height:1.6; flex:1; min-width:260px; }
   #cookie-banner a { color:var(--brown-pale); text-decoration:underline; }
@@ -199,7 +199,9 @@
   .menu-nav-item{font-size:12px !important;color:var(--brown) !important;padding:18px 22px !important;font-weight:500;}
   .menu-nav-item:hover{color:var(--brown-dark) !important;background:var(--cream-dark);}
   .menu-nav-item.active{color:var(--brown-dark) !important;border-bottom-color:var(--brown) !important;border-bottom-width:2px;font-weight:600;}
-  </style>
+  
+  @media (min-width: 769px) { nav { backdrop-filter: blur(12px); } }
+</style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
   <script>

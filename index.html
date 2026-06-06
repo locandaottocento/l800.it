@@ -154,10 +154,11 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 48px;
-    background: rgba(250, 246, 239, 0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(250, 246, 239, 0.99);
+      border-bottom: 1px solid var(--border);
   }
+
+  @media (min-width: 769px) { nav { backdrop-filter: blur(12px); } }
   .nav-logo { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
   .nav-logo-main { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 26px; font-weight: 400; color: var(--brown); }
   .nav-logo-sub { font-family: 'Cormorant SC', serif; font-size: 8px; font-weight: 300; letter-spacing: 0.25em; color: var(--brown-light); text-transform: uppercase; }
@@ -167,6 +168,29 @@
   .nav-cta { font-family: 'Cormorant SC', serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-light); background: var(--brown); border: none; padding: 11px 24px; cursor: pointer; text-decoration: none; transition: background 0.3s; display: inline-block; }
   .nav-cta:hover { background: var(--brown-dark); }
   .nav-mobile-toggle { display: none; }
+  .nav-mobile-menu { display: none; }
+
+
+  /* ── NAV MOBILE DROPDOWN (fuori dal nav, no backdrop-filter issues) ── */
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 52px; left: 0; right: 0;
+    background: rgba(250,246,239,0.99);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px 16px;
+    z-index: 99;
+    box-shadow: 0 8px 24px rgba(61,40,16,0.12);
+    max-height: calc(100vh - 52px);
+    overflow-y: auto;
+  }
+  .nav-mobile-menu ul { list-style: none; display: flex; flex-direction: column; }
+  .nav-mobile-menu li { border-bottom: 1px dotted var(--border); }
+  .nav-mobile-menu li:last-child { border-bottom: none; }
+  .nav-mobile-menu a { font-family: 'Cormorant SC', serif; font-size: 13px; letter-spacing: 0.15em; display: block; padding: 14px 0; color: var(--text-light); text-decoration: none; text-transform: uppercase; }
+  .nav-mobile-menu a:hover { color: var(--brown); }
+  .nav-mobile-menu .nav-cta-inline a { color: var(--brown); font-weight: 600; }
+  .nav-mobile-menu.open { display: block; }
 
   /* ── HERO ── */
   .hero { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding-top: 72px; background: var(--cream-light); overflow: hidden; }
@@ -474,7 +498,7 @@
     /* NAV MOBILE */
     nav { padding: 14px 20px; }
     .nav-logo { margin-right: auto; } /* spinge tutto a destra */
-    .nav-links { display: none; }
+    .nav-links { display: none !important; }
     .nav-cta { display: none !important; } /* nascosta sempre su mobile */
     .nav-mobile-toggle {
       display: flex;
@@ -493,7 +517,7 @@
       background: var(--brown);
       transition: all 0.3s;
     }
-    .nav-mobile-open .nav-links {
+    .nav-mobile-menu.open {
       display: flex;
       flex-direction: column;
       position: fixed;
@@ -507,15 +531,9 @@
       max-height: calc(100vh - 54px);
       overflow-y: auto;
     }
-    .nav-mobile-open .nav-links li { border-bottom: 1px dotted var(--border); }
-    .nav-mobile-open .nav-links li:last-child { border-bottom: none; }
-    .nav-mobile-open .nav-links a { font-size: 13px; letter-spacing: 0.15em; display: block; padding: 14px 0; }
-    /* Prenota è ora dentro nav-links come ultimo li, stile CTA */
-    .nav-links .nav-cta-inline { display: block !important; }
-    .nav-links .nav-cta-inline a {
-      color: var(--brown);
-      font-weight: 600;
-    }
+    .nav-mobile-menu.open li { border-bottom: 1px dotted var(--border); }
+    .nav-mobile-menu.open li:last-child { border-bottom: none; }
+    .nav-mobile-menu.open a { font-size: 13px; letter-spacing: 0.15em; display: block; padding: 14px 0; }
 
     /* HERO */
     .hero { grid-template-columns: 1fr; padding-top: 56px; }
@@ -630,7 +648,7 @@
   /* ── COOKIE BANNER ── */
   #cookie-banner {
     position:fixed; bottom:0; left:0; right:0; z-index:9999;
-    background:rgba(30,18,6,0.96); backdrop-filter:blur(8px);
+    background:rgba(30,18,6,0.96);
     padding:20px 32px; display:flex; align-items:center;
     justify-content:space-between; gap:20px; flex-wrap:wrap;
     border-top:1px solid rgba(196,168,130,0.3);
@@ -776,6 +794,17 @@
     <a href="/en/" hreflang="en" aria-label="English" title="Switch to English">EN</a>
   </div>
 </nav>
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul>
+    <li><a href="#storia" title="La nostra storia">La nostra storia</a></li>
+    <li><a href="#cucina" title="Il menu del ristorante">Menu</a></li>
+    <li><a href="#vini" title="La carta dei vini">Vini</a></li>
+    <li><a href="#occasioni" title="Occasioni speciali">Occasioni speciali</a></li>
+    <li><a href="#buoni" title="Buoni regalo">Buoni regalo</a></li>
+    <li><a href="#dove" title="Dove siamo – Contatti">Contatti</a></li>
+    <li class="nav-cta-inline"><a href="prenota.html" title="Prenota il tuo tavolo al L'800">Prenota il tuo tavolo</a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
 <section id="main-content" class="hero">
@@ -1232,13 +1261,19 @@
 
   // Mobile nav toggle
   const navToggle = document.getElementById('navToggle');
-  const navEl = document.querySelector('nav');
+  const navMenu  = document.getElementById('navMobileMenu');
   navToggle.addEventListener('click', () => {
-    navEl.classList.toggle('nav-mobile-open');
+    const isOpen = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
   });
-  // Close menu on link click
-  document.querySelectorAll('.nav-links a, .nav-cta').forEach(link => {
-    link.addEventListener('click', () => navEl.classList.remove('nav-mobile-open'));
+  // Close menu on link click or outside click
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => { navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav') && !e.target.closest('#navMobileMenu')) {
+      navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false');
+    }
   });
 
   // ── FORM PRENOTAZIONE → WHATSAPP PRECOMPILATO ──
