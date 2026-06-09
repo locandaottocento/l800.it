@@ -198,6 +198,13 @@
     font-family:'Cormorant Garamond',serif; font-style:italic;
     font-size:18px; color:var(--text-light); line-height:1.6; max-width:460px;
   }
+  .capitolo-foto { margin:32px 0 0; padding:0; }
+  .capitolo-foto img { width:100%; height:auto; display:block; border:1px solid var(--border); }
+  .capitolo-foto figcaption {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:13px; color:var(--text-light); text-align:center;
+    padding:10px 0 0; letter-spacing:0.02em;
+  }
 
   /* ── HIGHLIGHT BOX ── */
   .highlight {
@@ -543,6 +550,18 @@
           For twenty-four years, Locanda di Mare is a landmark for those who live in Amantea and those just passing through. Loyal regulars who return summer after summer, bringing friends and family — remembering flavours the way you remember people.
         </p>
       </div>
+
+      <!-- FOTO LOCANDA DI MARE -->
+      <figure class="capitolo-foto fade-in delay-1">
+        <img
+          src="/locanda-di-mare.webp"
+          srcset="/locanda-di-mare-sm.webp 600w, /locanda-di-mare.webp 1200w"
+          sizes="(max-width: 768px) 100vw, 1200px"
+          width="1200" height="569"
+          alt="The dining room of Locanda di Mare in Amantea — the family restaurant from 1998 to 2022"
+          loading="lazy" decoding="async">
+        <figcaption>Locanda di Mare dining room, Via Stromboli — Amantea, 1998–2022</figcaption>
+      </figure>
 
       <!-- HIGHLIGHT RECENSIONI -->
       <div class="highlight fade-in delay-1">

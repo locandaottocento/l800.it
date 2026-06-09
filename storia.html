@@ -196,6 +196,15 @@
     font-size:18px; color:var(--text-light); line-height:1.6; max-width:460px;
   }
 
+  /* ── FOTO CAPITOLO ── */
+  .capitolo-foto { margin:32px 0 0; padding:0; }
+  .capitolo-foto img { width:100%; height:auto; display:block; border:1px solid var(--border); }
+  .capitolo-foto figcaption {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:13px; color:var(--text-light); text-align:center;
+    padding:10px 0 0; letter-spacing:0.02em;
+  }
+
   /* ── HIGHLIGHT BOX ── */
   .highlight {
     background:var(--brown); padding:36px 40px; margin:36px 0;
@@ -540,6 +549,18 @@
           Per ventiquattro anni, la Locanda di Mare è punto di riferimento per chi abita Amantea e per chi vi passa. Una clientela fidelizzata, che torna estate dopo estate, che porta amici e parenti, che ricorda i sapori come si ricordano le persone.
         </p>
       </div>
+
+      <!-- FOTO LOCANDA DI MARE -->
+      <figure class="capitolo-foto fade-in delay-1">
+        <img
+          src="locanda-di-mare.webp"
+          srcset="locanda-di-mare-sm.webp 600w, locanda-di-mare.webp 1200w"
+          sizes="(max-width: 768px) 100vw, 1200px"
+          width="1200" height="569"
+          alt="La sala interna della Locanda di Mare ad Amantea — il ristorante di famiglia dal 1998 al 2022"
+          loading="lazy" decoding="async">
+        <figcaption>La sala della Locanda di Mare, Via Stromboli — Amantea, 1998–2022</figcaption>
+      </figure>
 
       <!-- HIGHLIGHT RECENSIONI -->
       <div class="highlight fade-in delay-1">
