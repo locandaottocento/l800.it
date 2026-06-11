@@ -171,6 +171,37 @@
   .nav-mobile-menu { display: none; }
 
 
+
+  /* ── NEWSLETTER ── */
+  .newsletter-section { background:var(--cream-dark); padding:72px 48px; border-top:1px solid var(--border); }
+  .newsletter-inner { max-width:560px; margin:0 auto; text-align:center; }
+  .newsletter-title { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,3.5vw,38px); font-weight:300; color:var(--text); margin:10px 0 12px; line-height:1.15; }
+  .newsletter-title em { font-style:italic; color:var(--brown); }
+  .newsletter-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--text-light); line-height:1.65; margin-bottom:26px; }
+  .newsletter-form { display:flex; gap:10px; max-width:440px; margin:0 auto; position:relative; }
+  .newsletter-form input[type=email] {
+    flex:1; font-family:'Cormorant Garamond',serif; font-size:16px;
+    padding:13px 16px; border:1px solid var(--border); background:var(--cream-light);
+    color:var(--text); outline:none; border-radius:0; min-width:0;
+  }
+  .newsletter-form input[type=email]:focus { border-color:var(--brown); }
+  .newsletter-form button {
+    font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--cream-light); background:var(--brown); border:none; padding:13px 28px;
+    cursor:pointer; transition:background 0.3s; white-space:nowrap;
+  }
+  .newsletter-form button:hover { background:var(--brown-dark); }
+  .newsletter-form button:disabled { opacity:0.6; cursor:wait; }
+  .nl-esito { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; margin-top:14px; min-height:20px; color:var(--brown); }
+  .nl-esito.err { color:#a4321f; }
+  .nl-privacy { font-family:'Cormorant Garamond',serif; font-size:12.5px; color:var(--text-light); margin-top:10px; font-style:italic; }
+  .nl-privacy a { color:var(--brown); }
+  @media (max-width:520px) {
+    .newsletter-section { padding:56px 20px; }
+    .newsletter-form { flex-direction:column; }
+    .newsletter-form button { padding:14px; }
+  }
+
   /* ── NAV MOBILE DROPDOWN (fuori dal nav, no backdrop-filter issues) ── */
   .nav-mobile-menu {
     display: none;
@@ -1246,6 +1277,22 @@
   <a href="https://wa.me/390982428262" class="btn-whatsapp" title="Scrivici su WhatsApp">Scrivici su WhatsApp</a>
 </div>
 
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="newsletter-inner fade-in">
+    <span class="section-label" style="color:var(--brown-light);">Restiamo in contatto</span>
+    <h2 class="newsletter-title">Le serate speciali, <em>prima degli altri</em></h2>
+    <p class="newsletter-sub">Lasciaci la tua email: ti avvisiamo quando apriamo le prenotazioni estive e per le serate a menu speciale. Niente spam, solo le occasioni che contano.</p>
+    <form id="formNewsletter" class="newsletter-form" onsubmit="iscriviNewsletter(event)">
+      <input type="email" id="nlEmail" required maxlength="120" placeholder="La tua email" aria-label="La tua email">
+      <input type="text" id="nlWebsite" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <button type="submit" id="nlSubmit">Iscriviti</button>
+    </form>
+    <p id="nlEsito" class="nl-esito" role="status"></p>
+    <p class="nl-privacy">Iscrivendoti accetti la nostra <a href="privacy-policy.html" title="Privacy Policy">privacy policy</a>. Puoi cancellarti quando vuoi.</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -1518,5 +1565,44 @@
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+
+<script>
+async function iscriviNewsletter(event) {
+  event.preventDefault();
+  var btn = document.getElementById('nlSubmit');
+  var esito = document.getElementById('nlEsito');
+  esito.textContent = '';
+  esito.classList.remove('err');
+  btn.disabled = true;
+
+  try {
+    var res = await fetch('/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('nlEmail').value.trim(),
+        website: document.getElementById('nlWebsite').value,
+        lang: 'it'
+      })
+    });
+    var data = await res.json();
+    if (res.ok && data.ok) {
+      esito.textContent = data.already ? 'Sei già dei nostri!' : 'Iscrizione completata. A presto!';
+      document.getElementById('formNewsletter').reset();
+      if (typeof gtag !== 'undefined' && !data.already) {
+        gtag('event', 'newsletter_signup', { event_category: 'newsletter' });
+      }
+    } else {
+      throw new Error(data.error || 'Errore di iscrizione');
+    }
+  } catch (err) {
+    esito.textContent = err.message || 'Errore di iscrizione, riprova.';
+    esito.classList.add('err');
+  } finally {
+    btn.disabled = false;
+  }
+}
+</script>
+
 </body>
 </html>

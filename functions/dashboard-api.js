@@ -71,6 +71,22 @@ async function putVoucher(env, record) {
   await env.VOUCHERS.put(`voucher:${record.codice}`, JSON.stringify(record));
 }
 
+async function listNewsletter(env) {
+  const list = await env.VOUCHERS.list({ prefix: 'newsletter:' });
+  const keys = list.keys.map(k => k.name);
+  const records = await Promise.all(
+    keys.map(k => env.VOUCHERS.get(k).then(v => v ? JSON.parse(v) : null))
+  );
+  return records
+    .filter(Boolean)
+    .sort((a, b) => (b.data || '').localeCompare(a.data || ''));
+}
+
+async function deleteNewsletter(env, email) {
+  const key = `newsletter:${String(email || '').trim().toLowerCase()}`;
+  await env.VOUCHERS.delete(key);
+}
+
 // ── Email templates (semplificati ma completi) ───────────────────────────────
 
 function buildSubjectAcquirente(d) {
@@ -236,6 +252,19 @@ export async function onRequestPost({ request, env }) {
   if (action === 'list') {
     const vouchers = await listVouchers(env);
     return json({ ok: true, vouchers });
+  }
+
+  // ── NEWSLETTER LIST ───────────────────────────────────────────────────────
+  if (action === 'newsletter-list') {
+    const subscribers = await listNewsletter(env);
+    return json({ ok: true, subscribers });
+  }
+
+  // ── NEWSLETTER DELETE (disiscrizione manuale) ────────────────────────────
+  if (action === 'newsletter-delete') {
+    if (!body.email) return json({ error: 'Email mancante' }, 400);
+    await deleteNewsletter(env, body.email);
+    return json({ ok: true });
   }
 
   // ── GET ─────────────────────────────────────────────────────────────────

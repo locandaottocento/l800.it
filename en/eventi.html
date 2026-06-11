@@ -154,6 +154,26 @@
   .btn-wa { font-family:'Cormorant SC',serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; background:#2e7d32; border:none; padding:14px 32px; cursor:pointer; text-decoration:none; transition:all 0.3s; display:inline-block; margin-left:14px; }
   .btn-wa:hover { background:#1b5e20; }
 
+  /* ── FORM EVENTO ── */
+  .evento-form { max-width:560px; margin:0 auto; text-align:left; display:flex; flex-direction:column; gap:16px; position:relative; }
+  .ef-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .ef-field { display:flex; flex-direction:column; gap:5px; }
+  .ef-field label { font-family:'Cormorant SC',serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(251,247,239,0.85); }
+  .ef-field input, .ef-field select, .ef-field textarea {
+    font-family:'Cormorant Garamond',serif; font-size:16px;
+    padding:11px 14px; border:1px solid rgba(251,247,239,0.3);
+    background:rgba(251,247,239,0.96); color:#2a1a10;
+    border-radius:0; outline:none; width:100%;
+  }
+  .ef-field input:focus, .ef-field select:focus, .ef-field textarea:focus { border-color:var(--cream-light); }
+  .ef-field textarea { resize:vertical; }
+  .evento-form button[type=submit] { margin:8px auto 0; display:block; }
+  .evento-form button[type=submit]:disabled { opacity:0.6; cursor:wait; }
+  .ef-esito { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; margin-top:10px; text-align:center; min-height:22px; color:var(--cream-light); }
+  .ef-esito.err { color:#ffb4a2; }
+  @media (max-width:600px) { .ef-row { grid-template-columns:1fr; } }
+
+
   /* FOOTER */
   footer { background:var(--brown-dark); padding:28px 48px; display:flex; flex-direction:column; gap:10px; }
   .footer-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
@@ -480,6 +500,25 @@
   </div>
 </section>
 
+<!-- WEDDINGS -->
+<section class="eventi-section">
+  <div class="eventi-header fade-in">
+    <span class="section-label">Weddings</span>
+    <h2 class="section-title">Your day, <em>in our garden</em></h2>
+  </div>
+  <div class="matrimoni-blocco fade-in">
+    <p class="section-text" style="max-width:680px;margin:0 auto 16px;text-align:center;">
+      Not a banquet hall: a nineteenth-century palazzo with an intimate garden, for weddings of up to 70 guests. Choosing L'800 means choosing intimacy — a reception where every table is close to the couple, a menu built together with the chef around the day's catch and the season, and the lantern-lit garden framing the evening.
+    </p>
+    <p class="section-text" style="max-width:680px;margin:0 auto 28px;text-align:center;">
+      The garden is available from May to September; the palazzo's interior rooms host receptions all year round. Every wedding includes a personalised tasting menu, refined through a dedicated menu trial with the couple.
+    </p>
+    <div style="text-align:center;">
+      <a href="#richiesta" class="btn-wa" style="background:var(--brown);" title="Request a proposal for your wedding">Request a proposal →</a>
+    </div>
+  </div>
+</section>
+
 <!-- EVENTS GRID -->
 <section class="eventi-section">
   <div class="eventi-header fade-in">
@@ -561,15 +600,65 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
+<!-- QUOTE REQUEST FORM -->
+<section class="cta-section" id="richiesta">
   <div class="cta-inner fade-in">
     <h2 class="cta-title">Tell us about <em>your occasion</em></h2>
     <p class="cta-sub">
-      Every event is a different story. Reach us on WhatsApp or by email: we'll reply within 24 hours with a tailor-made proposal.
+      Fill in the request: we'll reply within 24 hours with a tailor-made proposal. No commitment.
     </p>
-    <a href="https://wa.me/390982428262?text=Hello%2C%20I%27d%20like%20information%20on%20organizing%20a%20private%20event%20at%20L%27800." target="_blank" rel="noopener" class="btn-wa" title="Message us on WhatsApp">📱 Message us on WhatsApp</a>
-    <a href="mailto:info@l800.it" class="btn-light" title="Email us">or via email</a>
+
+    <form id="formEvento" class="evento-form" onsubmit="inviaRichiestaEvento(event)">
+      <div class="ef-row">
+        <div class="ef-field">
+          <label for="efTipo">Type of event *</label>
+          <select id="efTipo" required>
+            <option value="">Choose…</option>
+            <option value="Wedding">Wedding</option>
+            <option value="First Communion">First Communion</option>
+            <option value="Confirmation">Confirmation</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            <option value="Business lunch">Business lunch</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="ef-field">
+          <label for="efData">Preferred date</label>
+          <input id="efData" type="date">
+        </div>
+      </div>
+      <div class="ef-row">
+        <div class="ef-field">
+          <label for="efOspiti">Number of guests (approx.)</label>
+          <input id="efOspiti" type="number" min="2" max="70" placeholder="e.g. 40">
+        </div>
+        <div class="ef-field">
+          <label for="efNome">Your name *</label>
+          <input id="efNome" type="text" required maxlength="100" placeholder="First and last name">
+        </div>
+      </div>
+      <div class="ef-field">
+        <label for="efContatto">Email or phone *</label>
+        <input id="efContatto" type="text" required maxlength="100" placeholder="where we can reach you">
+      </div>
+      <div class="ef-field">
+        <label for="efMsg">Tell us a bit more (optional)</label>
+        <textarea id="efMsg" rows="3" maxlength="2000" placeholder="Special requirements, timing, ideas…"></textarea>
+      </div>
+      <!-- honeypot anti-spam: hidden from users -->
+      <input type="text" id="efWebsite" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;" aria-hidden="true">
+
+      <button type="submit" id="efSubmit" class="btn-wa" style="background:var(--brown);border:none;cursor:pointer;width:100%;max-width:380px;">
+        Send request →
+      </button>
+      <p id="efEsito" class="ef-esito" role="status"></p>
+    </form>
+
+    <p class="cta-sub" style="margin-top:28px;font-size:14px;">
+      Prefer to talk it through?
+      <a href="https://wa.me/390982428262?text=Hello%2C%20I%27d%20like%20information%20on%20organizing%20a%20private%20event%20at%20L%27800." target="_blank" rel="noopener" style="color:var(--cream-light);text-decoration:underline;" title="Message us on WhatsApp">Message us on WhatsApp</a>
+    </p>
   </div>
 </section>
 
@@ -731,5 +820,51 @@
 })();
 </script>
 
+<script>
+async function inviaRichiestaEvento(event) {
+  event.preventDefault();
+  var btn = document.getElementById('efSubmit');
+  var esito = document.getElementById('efEsito');
+  esito.textContent = '';
+  esito.classList.remove('err');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  var payload = {
+    tipoEvento: document.getElementById('efTipo').value,
+    dataEvento: document.getElementById('efData').value,
+    numOspiti: document.getElementById('efOspiti').value,
+    nome: document.getElementById('efNome').value.trim(),
+    contatto: document.getElementById('efContatto').value.trim(),
+    messaggio: document.getElementById('efMsg').value.trim(),
+    website: document.getElementById('efWebsite').value, // honeypot
+    lang: 'en'
+  };
+
+  try {
+    var res = await fetch('/richiesta-evento', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (res.ok && data.ok) {
+      esito.textContent = 'Request sent! We will reply within 24 hours.';
+      document.getElementById('formEvento').reset();
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'lead_evento', { event_category: 'eventi', event_label: payload.tipoEvento });
+      }
+      btn.textContent = 'Request sent ✓';
+    } else {
+      throw new Error(data.error || 'Sending error');
+    }
+  } catch (err) {
+    esito.textContent = (err.message || 'Sending error') + ' — please try again or message us on WhatsApp.';
+    esito.classList.add('err');
+    btn.disabled = false;
+    btn.textContent = 'Send request →';
+  }
+}
+</script>
 </body>
 </html>

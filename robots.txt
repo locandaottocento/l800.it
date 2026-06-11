@@ -3,5 +3,7 @@ Allow: /
 Disallow: /dashboard.html
 Disallow: /dashboard-api
 Disallow: /send-voucher
+Disallow: /richiesta-evento
+Disallow: /newsletter
 
 Sitemap: https://www.l800.it/sitemap.xml
