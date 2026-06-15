@@ -455,12 +455,12 @@
     <!-- FOOD MENU -->
     <div class="menu-card fade-in">
       <div class="card-preview">
-        <iframe src="menu-en.pdf#view=FitH&toolbar=0"
-                title="L'800 menu preview"
-                loading="lazy"
-                onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍽</span><span class=\'placeholder-label\'>Food menu</span></div>'">
-        </iframe>
-        
+        <canvas id="thumb-menu" class="pdf-thumb-canvas" aria-label="PDF preview"></canvas>
+        <div class="card-preview-overlay" aria-hidden="true"></div>
+        <div class="card-preview-placeholder pdf-loading" id="thumb-menu-ph">
+          <span class="placeholder-icon">🍽</span>
+          <span class="placeholder-label">Food menu</span>
+        </div>
       </div>
       <div class="card-body">
         <span class="card-tag">Fish cuisine</span>
@@ -482,12 +482,12 @@
     <!-- WINE LIST -->
     <div class="menu-card fade-in delay-1">
       <div class="card-preview">
-        <iframe src="carta-dei-vini.pdf#view=FitH&toolbar=0"
-                title="L'800 wine list preview"
-                loading="lazy"
-                onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍷</span><span class=\'placeholder-label\'>Wine list</span></div>'">
-        </iframe>
-        
+        <canvas id="thumb-vini" class="pdf-thumb-canvas" aria-label="PDF preview"></canvas>
+        <div class="card-preview-overlay" aria-hidden="true"></div>
+        <div class="card-preview-placeholder pdf-loading" id="thumb-vini-ph">
+          <span class="placeholder-icon">🍷</span>
+          <span class="placeholder-label">Wine list</span>
+        </div>
       </div>
       <div class="card-body">
         <span class="card-tag">Wines &amp; drinks</span>
@@ -509,12 +509,12 @@
     <!-- DESSERTS MENU -->
     <div class="menu-card fade-in delay-2">
       <div class="card-preview">
-        <iframe src="menu-dolci-en.pdf#view=FitH&toolbar=0"
-                title="L'800 desserts menu preview"
-                loading="lazy"
-                onerror="this.parentElement.innerHTML='<div class=\'card-preview-placeholder\'><span class=\'placeholder-icon\'>🍰</span><span class=\'placeholder-label\'>Desserts menu</span></div>'">
-        </iframe>
-        
+        <canvas id="thumb-dolci" class="pdf-thumb-canvas" aria-label="PDF preview"></canvas>
+        <div class="card-preview-overlay" aria-hidden="true"></div>
+        <div class="card-preview-placeholder pdf-loading" id="thumb-dolci-ph">
+          <span class="placeholder-icon">🍰</span>
+          <span class="placeholder-label">Desserts menu</span>
+        </div>
       </div>
       <div class="card-body">
         <span class="card-tag">Desserts &amp; after dinner</span>
@@ -725,6 +725,46 @@
       menu.classList.remove('open');
       btn.setAttribute('aria-expanded','false');
     }
+  });
+})();
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function() {
+  if (typeof pdfjsLib === 'undefined') return;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  var thumbs = [
+    { id: 'thumb-menu',   url: 'menu-en.pdf' },
+    { id: 'thumb-vini',   url: 'carta-dei-vini.pdf' },
+    { id: 'thumb-dolci',  url: 'menu-dolci-en.pdf' },
+  ];
+
+  thumbs.forEach(function(t) {
+    var canvas = document.getElementById(t.id);
+    if (!canvas) return;
+    var ph = document.getElementById(t.id + '-ph');
+
+    pdfjsLib.getDocument(t.url).promise.then(function(pdf) {
+      return pdf.getPage(1);
+    }).then(function(page) {
+      var containerW = canvas.parentElement.offsetWidth || 400;
+      var viewport = page.getViewport({ scale: 1 });
+      var scale = containerW / viewport.width;
+      var scaled = page.getViewport({ scale: scale });
+
+      canvas.width  = scaled.width;
+      canvas.height = scaled.height;
+
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: scaled }).promise.then(function() {
+        canvas.classList.add('loaded');
+        if (ph) ph.classList.add('hidden');
+      });
+    }).catch(function() {
+      // fallback: rimane il placeholder
+    });
   });
 })();
 </script>
