@@ -1,26 +1,37 @@
-# HTTP → HTTPS (forzatura per SEO e sicurezza)
+# HTTP → HTTPS (serve anche Always Use HTTPS su Cloudflare dashboard)
 http://l800.it/*     https://www.l800.it/:splat  301!
 http://www.l800.it/* https://www.l800.it/:splat  301!
 
-# Vecchio percorso /en-US/ → /en/
+# IT — .html → clean URL (canonicalizza senza estensione)
+/menu.html                /menu                301!
+/menu-cibo.html           /menu-cibo           301!
+/menu-vini.html           /menu-vini           301!
+/menu-dolci.html          /menu-dolci          301!
+/eventi.html              /eventi              301!
+/prenota.html             /prenota             301!
+/storia.html              /storia              301!
+/buoni.html               /buoni               301!
+/privacy-policy.html      /privacy-policy      301!
+/cookie-policy.html       /cookie-policy       301!
+/termini-condizioni.html  /termini-condizioni  301!
+
+# EN — .html → clean URL
+/en/menu.html             /en/menu             301!
+/en/menu-cibo.html        /en/menu-cibo        301!
+/en/menu-vini.html        /en/menu-vini        301!
+/en/menu-dolci.html       /en/menu-dolci       301!
+/en/eventi.html           /en/eventi           301!
+/en/prenota.html          /en/prenota          301!
+/en/storia.html           /en/storia           301!
+/en/buoni.html            /en/buoni            301!
+/en/privacy-policy.html   /en/privacy-policy   301!
+/en/cookie-policy.html    /en/cookie-policy    301!
+/en/termini-condizioni.html /en/termini-condizioni 301!
+
+# Vecchie URL
 /en-US/          /en/          301!
 /en-US/:splat    /en/:splat    301!
-
-# Vecchio percorso /it/
 /it/             /             301!
 /it/:splat       /:splat       301!
-
-# Vecchie URL /home
 /home            /             301!
 /it/home         /             301!
-
-# EN pretty URLs → versioni .html (elimina duplicati Netlify)
-/en/             /en/          200
-/en/menu         /en/menu.html          301!
-/en/menu-cibo    /en/menu-cibo.html     301!
-/en/menu-vini    /en/menu-vini.html     301!
-/en/menu-dolci   /en/menu-dolci.html    301!
-/en/prenota      /en/prenota.html       301!
-/en/storia       /en/storia.html        301!
-/en/eventi       /en/eventi.html        301!
-/en/buoni        /en/buoni.html         301!
