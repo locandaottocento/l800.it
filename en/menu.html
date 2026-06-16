@@ -103,16 +103,11 @@
     position:relative; background:var(--cream-dark);
     border-bottom:1px solid var(--border);
     overflow:hidden; height:360px;
-    display:flex; align-items:center; justify-content:center;
   }
   .card-preview iframe {
-    width:100%; height:100%; border:none;
-    pointer-events:none; /* impedisce scroll nel preview */
-  }
-  .card-preview-overlay {
-    position:absolute; inset:0;
-    background:transparent;
-    cursor:default;
+    position:absolute; top:0; left:0;
+    width:calc(100% + 17px);
+    height:100%; border:none;
   }
   .card-preview-placeholder {
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -298,7 +293,6 @@
     .nav-inner-toggle { display: flex; }
   }
 
-
   /* ── FOOTER LEGAL ── */
   .footer-legal { display:flex; gap:20px; flex-wrap:wrap; }
   .footer-legal a { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.15em; color:rgba(251,247,239,0.75); text-decoration:none; text-transform:uppercase; }
@@ -405,8 +399,6 @@
   <!-- End Google Tag Manager (noscript) -->
 <a href="#main-content" class="skip-link" title="Skip to main content">Skip to content</a>
 
-
-
 <!-- NAV -->
 <div id="cookie-banner" role="dialog" aria-label="Cookie preferences">
   <p>We use necessary technical cookies and, with your consent, third-party cookies (Google Fonts) to improve your browsing experience. Read our <a href="cookie-policy.html" title="Cookie Policy">Cookie Policy</a> and the <a href="privacy-policy.html" title="Privacy Policy">Privacy Policy</a>.</p>
@@ -455,12 +447,7 @@
     <!-- FOOD MENU -->
     <div class="menu-card fade-in">
       <div class="card-preview">
-        <canvas id="thumb-menu" class="pdf-thumb-canvas" aria-label="PDF preview"></canvas>
-        <div class="card-preview-overlay" aria-hidden="true"></div>
-        <div class="card-preview-placeholder pdf-loading" id="thumb-menu-ph">
-          <span class="placeholder-icon">🍽</span>
-          <span class="placeholder-label">Food menu</span>
-        </div>
+        <iframe src="menu.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Restaurant menu preview" loading="lazy"></iframe>
       </div>
       <div class="card-body">
         <span class="card-tag">Fish cuisine</span>
@@ -469,10 +456,10 @@
           Appetizers, raw seafood, first courses, mains and sides. Fresh catch from the Tyrrhenian Sea, authentic Calabrian cuisine with a touch of contemporary refinement.
         </p>
         <div class="card-actions">
-          <a href="menu-en.pdf" download="menu-l800-en.pdf" class="btn-download" title="Visita pagina">
+          <a href="menu.pdf" download="menu-l800-en.pdf" class="btn-download" title="Visita pagina">
             ↓ Download the menu (PDF)
           </a>
-          <button class="btn-view" onclick="apriModale('menu-en.pdf', 'Restaurant menu')">
+          <button class="btn-view" onclick="apriModale('menu.pdf', 'Restaurant menu')">
             ↗ View full screen
           </button>
         </div>
@@ -482,12 +469,7 @@
     <!-- WINE LIST -->
     <div class="menu-card fade-in delay-1">
       <div class="card-preview">
-        <canvas id="thumb-vini" class="pdf-thumb-canvas" aria-label="PDF preview"></canvas>
-        <div class="card-preview-overlay" aria-hidden="true"></div>
-        <div class="card-preview-placeholder pdf-loading" id="thumb-vini-ph">
-          <span class="placeholder-icon">🍷</span>
-          <span class="placeholder-label">Wine list</span>
-        </div>
+        <iframe src="carta-dei-vini.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Wine list preview" loading="lazy"></iframe>
       </div>
       <div class="card-body">
         <span class="card-tag">Wines &amp; drinks</span>
@@ -509,12 +491,7 @@
     <!-- DESSERTS MENU -->
     <div class="menu-card fade-in delay-2">
       <div class="card-preview">
-        <canvas id="thumb-dolci" class="pdf-thumb-canvas" aria-label="PDF preview"></canvas>
-        <div class="card-preview-overlay" aria-hidden="true"></div>
-        <div class="card-preview-placeholder pdf-loading" id="thumb-dolci-ph">
-          <span class="placeholder-icon">🍰</span>
-          <span class="placeholder-label">Desserts menu</span>
-        </div>
+        <iframe src="menu-dolci.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Desserts menu preview" loading="lazy"></iframe>
       </div>
       <div class="card-body">
         <span class="card-tag">Desserts &amp; after dinner</span>
@@ -523,10 +500,10 @@
           Amantea's bocconotto from Panificio Ferro, mascarpone millefeuille, deconstructed tiramisù, artisan tartufi from Pizzo Calabro. Paired with Moscato al governo di Saracena.
         </p>
         <div class="card-actions">
-          <a href="menu-dolci-en.pdf" download="desserts-menu-l800-en.pdf" class="btn-download" title="Visita pagina">
+          <a href="menu-dolci.pdf" download="desserts-menu-l800-en.pdf" class="btn-download" title="Visita pagina">
             ↓ Download the menu (PDF)
           </a>
-          <button class="btn-view" onclick="apriModale('menu-dolci-en.pdf', 'Desserts menu')">
+          <button class="btn-view" onclick="apriModale('menu-dolci.pdf', 'Desserts menu')">
             ↗ View full screen
           </button>
         </div>
@@ -725,46 +702,6 @@
       menu.classList.remove('open');
       btn.setAttribute('aria-expanded','false');
     }
-  });
-})();
-</script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>
-(function() {
-  if (typeof pdfjsLib === 'undefined') return;
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-  var thumbs = [
-    { id: 'thumb-menu',   url: 'menu-en.pdf' },
-    { id: 'thumb-vini',   url: 'carta-dei-vini.pdf' },
-    { id: 'thumb-dolci',  url: 'menu-dolci-en.pdf' },
-  ];
-
-  thumbs.forEach(function(t) {
-    var canvas = document.getElementById(t.id);
-    if (!canvas) return;
-    var ph = document.getElementById(t.id + '-ph');
-
-    pdfjsLib.getDocument(t.url).promise.then(function(pdf) {
-      return pdf.getPage(1);
-    }).then(function(page) {
-      var containerW = canvas.parentElement.offsetWidth || 400;
-      var viewport = page.getViewport({ scale: 1 });
-      var scale = containerW / viewport.width;
-      var scaled = page.getViewport({ scale: scale });
-
-      canvas.width  = scaled.width;
-      canvas.height = scaled.height;
-
-      return page.render({ canvasContext: canvas.getContext('2d'), viewport: scaled }).promise.then(function() {
-        canvas.classList.add('loaded');
-        if (ph) ph.classList.add('hidden');
-      });
-    }).catch(function() {
-      // fallback: rimane il placeholder
-    });
   });
 })();
 </script>

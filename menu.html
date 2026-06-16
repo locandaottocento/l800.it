@@ -100,16 +100,11 @@
     position:relative; background:var(--cream-dark);
     border-bottom:1px solid var(--border);
     overflow:hidden; height:360px;
-    display:flex; align-items:center; justify-content:center;
   }
   .card-preview iframe {
-    width:100%; height:100%; border:none;
-    pointer-events:none; /* impedisce scroll nel preview */
-  }
-  .card-preview-overlay {
-    position:absolute; inset:0;
-    background:transparent;
-    cursor:default;
+    position:absolute; top:0; left:0;
+    width:calc(100% + 17px); /* spinge la scrollbar fuori dal contenitore */
+    height:100%; border:none;
   }
   .card-preview-placeholder {
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -452,12 +447,7 @@
     <!-- MENU CIBO -->
     <div class="menu-card fade-in">
       <div class="card-preview">
-        <canvas id="thumb-menu" class="pdf-thumb-canvas" aria-label="Anteprima PDF"></canvas>
-        <div class="card-preview-overlay" aria-hidden="true"></div>
-        <div class="card-preview-placeholder pdf-loading" id="thumb-menu-ph">
-          <span class="placeholder-icon">🍽</span>
-          <span class="placeholder-label">Menu del cibo</span>
-        </div>
+        <iframe src="menu.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Anteprima menù del ristorante" loading="lazy"></iframe>
       </div>
       <div class="card-body">
         <span class="card-tag">Cucina di pesce</span>
@@ -477,12 +467,7 @@
     <!-- CARTA DEI VINI -->
     <div class="menu-card fade-in delay-1">
       <div class="card-preview">
-        <canvas id="thumb-vini" class="pdf-thumb-canvas" aria-label="Anteprima PDF"></canvas>
-        <div class="card-preview-overlay" aria-hidden="true"></div>
-        <div class="card-preview-placeholder pdf-loading" id="thumb-vini-ph">
-          <span class="placeholder-icon">🍷</span>
-          <span class="placeholder-label">Carta dei vini</span>
-        </div>
+        <iframe src="carta-dei-vini.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Anteprima carta dei vini" loading="lazy"></iframe>
       </div>
       <div class="card-body">
         <span class="card-tag">Vini e bevande</span>
@@ -502,12 +487,7 @@
     <!-- MENU DOLCI -->
     <div class="menu-card fade-in delay-2">
       <div class="card-preview">
-        <canvas id="thumb-dolci" class="pdf-thumb-canvas" aria-label="Anteprima PDF"></canvas>
-        <div class="card-preview-overlay" aria-hidden="true"></div>
-        <div class="card-preview-placeholder pdf-loading" id="thumb-dolci-ph">
-          <span class="placeholder-icon">🍰</span>
-          <span class="placeholder-label">Menu dolci</span>
-        </div>
+        <iframe src="menu-dolci.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Anteprima carta dei dolci" loading="lazy"></iframe>
       </div>
       <div class="card-body">
         <span class="card-tag">Dolci e fine pasto</span>
@@ -720,45 +700,6 @@
 })();
 </script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>
-(function() {
-  if (typeof pdfjsLib === 'undefined') return;
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-  var thumbs = [
-    { id: 'thumb-menu',   url: 'menu.pdf' },
-    { id: 'thumb-vini',   url: 'carta-dei-vini.pdf' },
-    { id: 'thumb-dolci',  url: 'menu-dolci.pdf' },
-  ];
-
-  thumbs.forEach(function(t) {
-    var canvas = document.getElementById(t.id);
-    if (!canvas) return;
-    var ph = document.getElementById(t.id + '-ph');
-
-    pdfjsLib.getDocument(t.url).promise.then(function(pdf) {
-      return pdf.getPage(1);
-    }).then(function(page) {
-      var containerW = canvas.parentElement.offsetWidth || 400;
-      var viewport = page.getViewport({ scale: 1 });
-      var scale = containerW / viewport.width;
-      var scaled = page.getViewport({ scale: scale });
-
-      canvas.width  = scaled.width;
-      canvas.height = scaled.height;
-
-      return page.render({ canvasContext: canvas.getContext('2d'), viewport: scaled }).promise.then(function() {
-        canvas.classList.add('loaded');
-        if (ph) ph.classList.add('hidden');
-      });
-    }).catch(function() {
-      // fallback: rimane il placeholder
-    });
-  });
-})();
-</script>
 
 </body>
 </html>
