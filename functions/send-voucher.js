@@ -152,6 +152,18 @@ function sanHeader(s, maxLen = 200) {
   return String(s || '').replace(/[\r\n]+/g, ' ').slice(0, maxLen);
 }
 
+// ── Generazione codice voucher lato server (Fix 4)
+// Formato: L800-{N}P-{rand4}{ts4} per tagli fissi, L800-LIB-{rand4}{ts4} per importo libero
+// Stesso charset dell'ex-client: esclude O/0/I/1 per leggibilità
+function generaCodice(tipo, numPortate) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const ts = Date.now().toString(36).toUpperCase().slice(-4);
+  let rand = '';
+  for (let i = 0; i < 4; i++) rand += chars[Math.floor(Math.random() * chars.length)];
+  const prefix = tipo === 'libero' ? 'LIB' : `${numPortate}P`;
+  return `L800-${prefix}-${rand}${ts}`;
+}
+
 // ── Versione text/plain delle email (anti-spam, accessibilità)
 function textAcquirente(d) {
   const isLibero = d.tipo === 'libero';
@@ -254,13 +266,13 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // 3. Valida i campi obbligatori
   //    Per il buono a importo libero numPortate/numPersone non si applicano.
   const isLibero = d.tipo === 'libero';
+  // codiceVoucher, scadenza e pdfBase64 non sono più richiesti dal client:
+  // il codice e la scadenza vengono generati lato server; il PDF non è allegato alle email.
   const required = isLibero
     ? ['nomeAcquirente', 'emailAcquirente', 'nomeDestinatario',
-       'prodotto', 'importoLibero', 'codiceVoucher', 'scadenza',
-       'paypalOrderId', 'pdfBase64']
+       'prodotto', 'importoLibero', 'paypalOrderId']
     : ['nomeAcquirente', 'emailAcquirente', 'nomeDestinatario',
-       'prodotto', 'numPortate', 'numPersone', 'codiceVoucher', 'scadenza',
-       'paypalOrderId', 'pdfBase64'];
+       'prodotto', 'numPortate', 'numPersone', 'paypalOrderId'];
   for (const field of required) {
     if (!d[field] && d[field] !== 0) {
       return jsonResponse({ error: `Campo obbligatorio mancante: ${field}` }, 400, cors);
@@ -273,13 +285,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
   }
   if (d.emailDestinatario && String(d.emailDestinatario).trim() && !EMAIL_RX.test(String(d.emailDestinatario).trim())) {
     return jsonResponse({ error: 'Email destinatario non valida' }, 400, cors);
-  }
-
-  // 3c. Limite dimensione PDF (decoded). Stima rapida: base64 ≈ originale × 1.33
-  const pdfBase64Raw = String(d.pdfBase64 || '');
-  const approxBytes = Math.floor(pdfBase64Raw.length * 0.75);
-  if (approxBytes > MAX_PDF_BYTES) {
-    return jsonResponse({ error: 'PDF troppo grande' }, 413, cors);
   }
 
   // 4. Sanificazioni + calcolo importo atteso (anti-frode: l'importo NON è preso dal client come "verità di pagamento")
@@ -306,11 +311,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
     }
   }
 
-  // Rimuovi eventuale prefisso data URI (safety net — il browser lo fa già)
-  const pdfContent = pdfBase64Raw.includes(',')
-    ? pdfBase64Raw.split(',')[1]
-    : pdfBase64Raw;
-
   // 4b. Verifica server-side dell'ordine PayPal (anti-frode):
   //     - ordine esiste, è COMPLETED, in EUR, e l'importo coincide con quello atteso
   const paypalResult = await verifyPaypalOrder(d.paypalOrderId, expectedAmount, env);
@@ -319,12 +319,31 @@ export async function onRequestPost({ request, env, waitUntil }) {
     return jsonResponse({ error: 'Ordine PayPal non valido', reason: paypalResult.reason }, 402, cors);
   }
 
-  // 5. Allegato Resend — nome file personalizzato con codice voucher
-  const codiceSafe = String(d.codiceVoucher).replace(/[^A-Z0-9-]/gi, '');
-  const attachment = [{
-    filename: `buono-regalo-l800-${codiceSafe}.pdf`,
-    content: pdfContent,
-  }];
+  // 4c. Deduplicazione per paypalOrderId (Fix 1): protegge contro doppio invio
+  // La chiave paypal: viene scritta nel KV solo dopo verifica PayPal riuscita,
+  // quindi è sicuro restituire il voucher esistente senza ri-verificare.
+  if (env.VOUCHERS) {
+    try {
+      const existingCode = await env.VOUCHERS.get(`paypal:${d.paypalOrderId}`);
+      if (existingCode) {
+        console.log('VOUCHER_DEDUP', JSON.stringify({ orderId: d.paypalOrderId, code: existingCode }));
+        const existingRecord = await env.VOUCHERS.get(`voucher:${existingCode}`, { type: 'json' });
+        return jsonResponse({
+          success: true,
+          codiceVoucher: existingCode,
+          scadenza: existingRecord?.scadenza || '',
+        }, 200, cors);
+      }
+    } catch (err) {
+      console.warn('Dedup check error:', err.message);
+    }
+  }
+
+  // 4d. Generazione codice e scadenza lato server (Fix 4)
+  d.codiceVoucher = generaCodice(isLibero ? 'libero' : 'fisso', d.numPortate);
+  const scadDate = new Date();
+  scadDate.setFullYear(scadDate.getFullYear() + 1);
+  d.scadenza = scadDate.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
   // 6. Subject sanitizzato per prevenire header injection
   const subjAcq = sanHeader(`Il tuo Buono Regalo L'800 \u2714`);
@@ -347,7 +366,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
         subject: subjAcq,
         html: htmlAcquirente(d),
         text: textAcquirente(d),
-        attachments: attachment,
       }),
     });
   } catch (err) {
@@ -386,7 +404,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
           subject: subjDest,
           html: htmlDestinatario(d),
           text: textDestinatario(d),
-          attachments: attachment,
         }),
       }).catch(err => console.error('Email destinatario error:', err.message))
     );
@@ -462,6 +479,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
     };
     waitUntil(
       env.VOUCHERS.put(`voucher:${d.codiceVoucher}`, JSON.stringify(record))
+        // Fix 1: salva chiave dedup paypalOrderId → codiceVoucher (TTL 90 giorni)
+        .then(() => env.VOUCHERS.put(`paypal:${d.paypalOrderId}`, d.codiceVoucher, { expirationTtl: 90 * 24 * 3600 }))
         .catch(err => {
           console.error('KV write error:', err.message);
           // Alert email a info@l800.it se il salvataggio nel KV fallisce
@@ -551,8 +570,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
     );
   }
 
-  // 9. Risposta di successo
-  return jsonResponse({ success: true }, 200, cors);
+  // 9. Risposta di successo — include codiceVoucher e scadenza (Fix 4)
+  return jsonResponse({ success: true, codiceVoucher: d.codiceVoucher, scadenza: d.scadenza }, 200, cors);
 }
 
 function htmlAcquirente(d) {

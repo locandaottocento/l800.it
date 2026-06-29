@@ -1191,17 +1191,6 @@ function validaForm() {
   return ok;
 }
 
-// ── GENERATORE CODICE VOUCHER ──
-function generaCodice() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  // Suffisso timestamp in Base36 (ultime 4 cifre) → garantisce unicità anche con stesso seed random
-  const ts = Date.now().toString(36).toUpperCase().slice(-4);
-  let randPart = '';
-  for (let i = 0; i < 4; i++) randPart += chars[Math.floor(Math.random() * chars.length)];
-  // Format: L800-XXXX-YYYY dove XXXX = random e YYYY = timestamp
-  return 'L800-' + randPart + '-' + ts;
-}
-
 // ── HELPERS ──
 function getNumPortateTesto() {
   const haTre = qty['tre'] > 0;
@@ -1211,20 +1200,26 @@ function getNumPortateTesto() {
   if (haQuattro) return 'Quattro';
   return '';
 }
+// Restituisce il numero intero di portate (3 o 4) o null per libero/carrello misto.
+// Usato per inviare al server un valore numerico (non una stringa).
+function getNumPortate() {
+  if (qty['tre'] > 0 && qty['quattro'] === 0) return 3;
+  if (qty['quattro'] > 0 && qty['tre'] === 0) return 4;
+  return null;
+}
 function getTotalPersone() {
   return Object.values(qty).reduce((s, q) => s + q, 0);
 }
 
 // ── SCHERMATA CONFERMA ──
 async function mostraConferma(details) {
-  const nome     = document.getElementById('nomeAcquirente').value;
-  const email    = document.getElementById('emailAcquirente').value;
-  const dest     = document.getElementById('nomeDestinatario').value;
-  const emailDest= document.getElementById('emailDestinatario').value;
-  const msg      = document.getElementById('messaggioPersonale').value;
-  const totale   = calcolaTotale();
-  const codice   = generaCodice();
-  const numPortate = getNumPortateTesto();
+  const nome      = document.getElementById('nomeAcquirente').value;
+  const email     = document.getElementById('emailAcquirente').value;
+  const dest      = document.getElementById('nomeDestinatario').value;
+  const emailDest = document.getElementById('emailDestinatario').value;
+  const msg       = document.getElementById('messaggioPersonale').value;
+  const totale    = calcolaTotale();
+  const numPortate = getNumPortate();   // numero intero (3 o 4) per tagli fissi, null per libero
   const numPersone = getTotalPersone();
 
   const prodDesc = liberoAttivo
@@ -1234,93 +1229,107 @@ async function mostraConferma(details) {
         .map(([id, q]) => `${PRODOTTI[id].nome}${q > 1 ? ' x ' + q : ''}`)
         .join(' + ');
 
-  const scadenza = new Date();
-  scadenza.setFullYear(scadenza.getFullYear() + 1);
-  const scadStr = scadenza.toLocaleDateString('it-IT', { day:'2-digit', month:'2-digit', year:'numeric' });
+  // Fix 2: salva in sessionStorage subito dopo la cattura PayPal.
+  // Se il browser si chiude prima della risposta server, questi dati permettono
+  // il recupero manuale (Mauro può contattare il cliente e creare il voucher dalla dashboard).
+  try {
+    sessionStorage.setItem('l800_pending_order', JSON.stringify({
+      paypalOrderId: details.id,
+      nomeAcquirente: nome,
+      emailAcquirente: email,
+      prodotto: prodDesc,
+      importo: totale,
+      ts: Date.now()
+    }));
+  } catch(e) { /* sessionStorage non disponibile */ }
 
-  const orderData = {
-    nomeAcquirente:   nome,
-    emailAcquirente:  email,
-    nomeDestinatario: dest,
-    emailDestinatario:emailDest,
-    messaggioPersonale: msg,
-    prodotto:    prodDesc,
-    importo:     totale,
-    numPortate:  numPortate,
-    numPersone:  numPersone,
-    tipo:          liberoAttivo ? 'libero' : 'fisso',
-    importoLibero: liberoAttivo ? importoLibero : 0,
-    codiceVoucher: codice,
-    scadenza:    scadStr,
-    paypalOrderId: details.id
-  };
-
-  // Popola voucher visivo nella conferma
+  // Mostra subito la schermata di conferma con stato "in elaborazione"
   document.getElementById('voucher-prodotto-nome').textContent = prodDesc;
   document.getElementById('voucher-importo').textContent = '€' + totale;
-  document.getElementById('voucher-codice').textContent = codice;
-  document.getElementById('voucher-scadenza').textContent = 'Valido fino al ' + scadStr;
-
+  document.getElementById('voucher-codice').textContent = '—';
+  document.getElementById('voucher-scadenza').textContent = 'In elaborazione...';
   document.getElementById('conferma-sub-text').textContent =
-    'Grazie ' + nome + '! Pagamento completato. Sto preparando il buono...';
-
-  // Costruzione sicura del DOM (evita XSS con dati utente)
-  const conf = document.getElementById('conferma-dettagli-text');
-  conf.innerHTML = '';
-  const aggiungiRiga = (label, valore) => {
-    const p = document.createElement('p');
-    p.style.margin = '4px 0';
-    const s = document.createElement('strong');
-    s.textContent = label + ' ';
-    p.appendChild(s);
-    p.appendChild(document.createTextNode(valore));
-    conf.appendChild(p);
-  };
-  aggiungiRiga('Acquistato da:', nome + ' (' + email + ')');
-  aggiungiRiga('Destinatario:', dest + (emailDest ? ' (' + emailDest + ')' : ''));
-  if (msg) aggiungiRiga('Messaggio:', msg);
-  aggiungiRiga('Ordine:', prodDesc);
-  aggiungiRiga('Persone:', String(numPersone));
-  aggiungiRiga('Importo pagato:', '€' + totale);
-  aggiungiRiga('Codice voucher:', codice);
-  aggiungiRiga('Scadenza:', scadStr);
-  aggiungiRiga('ID transazione PayPal:', details.id);
-
-  // Mostra subito la schermata
+    'Grazie ' + nome + '! Pagamento confermato. Sto registrando il buono...';
   document.getElementById('schermata-conferma').style.display = 'block';
   window.scrollTo(0, 0);
 
-  // Genera PDF e invia email in background
-  try {
-    const pdfDataUri = await generateVoucherPDF(orderData);
-    const pdfBase64  = pdfDataUri.split(',')[1];
+  const orderData = {
+    nomeAcquirente:    nome,
+    emailAcquirente:   email,
+    nomeDestinatario:  dest,
+    emailDestinatario: emailDest,
+    messaggioPersonale: msg,
+    prodotto:          prodDesc,
+    importo:           totale,
+    numPortate:        numPortate,   // Fix 3: valore numerico intero, non stringa
+    numPersone:        numPersone,
+    tipo:              liberoAttivo ? 'libero' : 'fisso',
+    importoLibero:     liberoAttivo ? importoLibero : 0,
+    paypalOrderId:     details.id
+    // codiceVoucher e scadenza NON inviati: generati lato server (Fix 4)
+  };
 
+  const statusEl = document.getElementById('email-status');
+  try {
+    // Fix 4: chiama il server prima di generare il PDF.
+    // Il server valida PayPal, genera il codice, salva nel KV e invia le email.
+    // La risposta include il codiceVoucher e la scadenza ufficiali.
     const res = await fetch('/send-voucher', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...orderData, pdfBase64 })
+      body: JSON.stringify(orderData)
     });
+    if (!res.ok) throw new Error(await res.text());
+    const result  = await res.json();
+    const codice  = result.codiceVoucher;
+    const scadStr = result.scadenza;
 
-    const statusEl = document.getElementById('email-status');
-    if (res.ok) {
-      // ── Tracking conversione acquisto voucher ──
-      if (typeof window.trackVoucherPurchase === 'function') {
-        window.trackVoucherPurchase(totale, numPortate, numPersone, codice);
-      }
-      document.getElementById('conferma-sub-text').textContent =
-        'Grazie ' + nome + "! Il buono è stato inviato a " + email + ".";
-      statusEl.textContent = 'Buono inviato via email con allegato PDF';
-      statusEl.style.color = 'var(--green)';
-    } else {
-      throw new Error(await res.text());
+    // Voucher registrato con successo: rimuovi da sessionStorage
+    try { sessionStorage.removeItem('l800_pending_order'); } catch(e) {}
+
+    // Aggiorna UI con codice e scadenza reali dal server
+    document.getElementById('voucher-codice').textContent = codice;
+    document.getElementById('voucher-scadenza').textContent = 'Valido fino al ' + scadStr;
+
+    // Costruzione sicura del DOM (evita XSS con dati utente)
+    const conf = document.getElementById('conferma-dettagli-text');
+    conf.innerHTML = '';
+    const aggiungiRiga = (label, valore) => {
+      const p = document.createElement('p');
+      p.style.margin = '4px 0';
+      const s = document.createElement('strong');
+      s.textContent = label + ' ';
+      p.appendChild(s);
+      p.appendChild(document.createTextNode(valore));
+      conf.appendChild(p);
+    };
+    aggiungiRiga('Acquistato da:', nome + ' (' + email + ')');
+    aggiungiRiga('Destinatario:', dest + (emailDest ? ' (' + emailDest + ')' : ''));
+    if (msg) aggiungiRiga('Messaggio:', msg);
+    aggiungiRiga('Ordine:', prodDesc);
+    aggiungiRiga('Persone:', String(numPersone));
+    aggiungiRiga('Importo pagato:', '€' + totale);
+    aggiungiRiga('Codice voucher:', codice);
+    aggiungiRiga('Scadenza:', scadStr);
+    aggiungiRiga('ID transazione PayPal:', details.id);
+
+    // Tracking conversione
+    if (typeof window.trackVoucherPurchase === 'function') {
+      window.trackVoucherPurchase(totale, numPortate, numPersone, codice);
     }
+    document.getElementById('conferma-sub-text').textContent =
+      'Grazie ' + nome + "! Il buono è stato inviato a " + email + ".";
+    statusEl.textContent = 'Buono registrato e conferma inviata via email';
+    statusEl.style.color = 'var(--green)';
+
   } catch(err) {
-    console.error('Email error:', err);
-    const statusEl = document.getElementById('email-status');
-    statusEl.textContent = 'Email non inviata — salva o stampa il voucher qui sotto';
+    console.error('Voucher error:', err);
+    // Il pagamento è andato a buon fine ma il server ha avuto un problema.
+    // Mauro riceve la notifica PayPal e può creare manualmente il buono dalla dashboard.
+    statusEl.textContent = 'Errore tecnico — contattaci su WhatsApp con ID: ' + details.id;
     statusEl.style.color = '#c0392b';
     document.getElementById('conferma-sub-text').textContent =
-      'Grazie ' + nome + '! Pagamento completato. Salva o stampa il voucher.';
+      'Grazie ' + nome + '! Pagamento confermato — ti contatteremo per il buono.';
   }
 }
 
