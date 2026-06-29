@@ -462,7 +462,36 @@ export async function onRequestPost({ request, env, waitUntil }) {
     };
     waitUntil(
       env.VOUCHERS.put(`voucher:${d.codiceVoucher}`, JSON.stringify(record))
-        .catch(err => console.error('KV write error:', err.message))
+        .catch(err => {
+          console.error('KV write error:', err.message);
+          // Alert email a info@l800.it se il salvataggio nel KV fallisce
+          return fetch(RESEND_URL, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: "L'800 Notifiche <info@l800.it>",
+              to: ['info@l800.it'],
+              subject: `⚠️ ERRORE KV — buono non salvato in dashboard: ${d.codiceVoucher}`,
+              text: [
+                `ATTENZIONE: il buono è stato venduto e l'email all'acquirente è stata inviata,`,
+                `ma il salvataggio nella dashboard ha fallito.`,
+                `Aggiungilo manualmente dalla dashboard.`,
+                ``,
+                `Codice: ${d.codiceVoucher}`,
+                `Prodotto: ${d.prodotto}`,
+                `Acquirente: ${d.nomeAcquirente} <${d.emailAcquirente}>`,
+                `Destinatario: ${d.nomeDestinatario}`,
+                `PayPal Order ID: ${d.paypalOrderId}`,
+                `Importo: €${expectedAmount}`,
+                ``,
+                `Errore tecnico: ${err.message}`,
+              ].join('\n'),
+            }),
+          }).catch(e => console.error('Alert KV error email failed:', e.message));
+        })
     );
   }
 
