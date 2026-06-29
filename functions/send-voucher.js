@@ -226,6 +226,95 @@ function textDestinatario(d) {
   ].filter(Boolean).join('\n');
 }
 
+// ── Fase 2: invio email con PDF allegato ────────────────────────────
+// Chiamata dal client dopo che la Fase 1 ha generato il codice e salvato nel KV.
+// Verifica che il voucher esista nel KV prima di inviare le email.
+async function inviaEmailConPdf(d, env, cors, apiKey, waitUntil) {
+  if (!env.VOUCHERS) {
+    return jsonResponse({ error: 'KV non disponibile' }, 500, cors);
+  }
+  let record;
+  try {
+    record = await env.VOUCHERS.get(`voucher:${d.codiceVoucher}`, { type: 'json' });
+  } catch (err) {
+    console.error('Phase2 KV lookup error:', err.message);
+    return jsonResponse({ error: 'Errore lettura KV' }, 500, cors);
+  }
+  if (!record || record.origine !== 'online') {
+    return jsonResponse({ error: 'Voucher non trovato — riprova o contattaci.' }, 400, cors);
+  }
+
+  // Valida dimensione PDF
+  const pdfBase64Raw = String(d.pdfBase64 || '');
+  const approxBytes = Math.floor(pdfBase64Raw.length * 0.75);
+  if (approxBytes > MAX_PDF_BYTES) {
+    return jsonResponse({ error: 'PDF troppo grande' }, 413, cors);
+  }
+  const pdfContent = pdfBase64Raw.includes(',') ? pdfBase64Raw.split(',')[1] : pdfBase64Raw;
+  const codiceSafe = String(record.codice).replace(/[^A-Z0-9-]/gi, '');
+  const attachment = [{ filename: `buono-regalo-l800-${codiceSafe}.pdf`, content: pdfContent }];
+
+  // I dati ufficiali vengono dal record KV (non dal client), per sicurezza
+  const emailData = { ...record, codiceVoucher: record.codice };
+
+  const subjAcq  = sanHeader(`Il tuo Buono Regalo L'800 ✔`);
+  const subjDest = sanHeader(`${emailData.nomeAcquirente} ti ha fatto un regalo speciale 🎁`);
+  const replyTo  = 'info@l800.it';
+
+  // Email acquirente con PDF (bloccante)
+  let r1;
+  try {
+    r1 = await fetchWithTimeout(RESEND_URL, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: "L'800 Locanda a Palazzo <info@l800.it>",
+        to: [emailData.emailAcquirente],
+        reply_to: replyTo,
+        subject: subjAcq,
+        html: htmlAcquirente(emailData),
+        text: textAcquirente(emailData),
+        attachments: attachment,
+      }),
+    });
+  } catch (err) {
+    console.error('Phase2 Resend (acquirente) error:', err.message);
+    return jsonResponse({ error: 'Errore di rete: ' + err.message }, 502, cors);
+  }
+  if (!r1.ok) {
+    const errText = await r1.text();
+    console.error('Phase2 Resend error (acquirente):', r1.status, errText);
+    if (r1.status === 429) return jsonResponse({ error: 'Servizio email sovraccarico, riprova.' }, 503, cors);
+    return jsonResponse({ error: 'Invio email fallito', detail: errText }, 500, cors);
+  }
+
+  // Email destinatario con PDF (background)
+  const emailDestValida =
+    emailData.emailDestinatario &&
+    EMAIL_RX.test(String(emailData.emailDestinatario).trim()) &&
+    emailData.emailDestinatario.trim().toLowerCase() !== emailData.emailAcquirente.trim().toLowerCase();
+
+  if (emailDestValida) {
+    waitUntil(
+      fetch(RESEND_URL, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: "L'800 Locanda a Palazzo <info@l800.it>",
+          to: [emailData.emailDestinatario],
+          reply_to: replyTo,
+          subject: subjDest,
+          html: htmlDestinatario(emailData),
+          text: textDestinatario(emailData),
+          attachments: attachment,
+        }),
+      }).catch(err => console.error('Phase2 email destinatario error:', err.message))
+    );
+  }
+
+  return jsonResponse({ success: true }, 200, cors);
+}
+
 // ── POST /send-voucher ──────────────────────────────────────────────
 export async function onRequestPost({ request, env, waitUntil }) {
 
@@ -261,6 +350,12 @@ export async function onRequestPost({ request, env, waitUntil }) {
     d = await request.json();
   } catch {
     return jsonResponse({ error: 'Body JSON non valido' }, 400, cors);
+  }
+
+  // 2b. Fase 2: se pdfBase64 e codiceVoucher sono presenti, invia le email con PDF allegato.
+  // Il voucher è già stato salvato nel KV dalla Fase 1; la funzione verifica la sua esistenza.
+  if (d.pdfBase64 && d.codiceVoucher) {
+    return await inviaEmailConPdf(d, env, cors, apiKey, waitUntil);
   }
 
   // 3. Valida i campi obbligatori

@@ -1271,20 +1271,19 @@ async function mostraConferma(details) {
 
   const statusEl = document.getElementById('email-status');
   try {
-    // Fix 4: chiama il server prima di generare il PDF.
-    // Il server valida PayPal, genera il codice, salva nel KV e invia le email.
-    // La risposta include il codiceVoucher e la scadenza ufficiali.
-    const res = await fetch('/send-voucher', {
+    // Fase 1: valida PayPal, genera codice, salva nel KV — niente email ancora.
+    // Il server risponde con { codiceVoucher, scadenza }.
+    const res1 = await fetch('/send-voucher', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(orderData)
     });
-    if (!res.ok) throw new Error(await res.text());
-    const result  = await res.json();
+    if (!res1.ok) throw new Error(await res1.text());
+    const result  = await res1.json();
     const codice  = result.codiceVoucher;
     const scadStr = result.scadenza;
 
-    // Voucher registrato con successo: rimuovi da sessionStorage
+    // Voucher registrato nel KV: rimuovi da sessionStorage
     try { sessionStorage.removeItem('l800_pending_order'); } catch(e) {}
 
     // Aggiorna UI con codice e scadenza reali dal server
@@ -1313,19 +1312,41 @@ async function mostraConferma(details) {
     aggiungiRiga('Scadenza:', scadStr);
     aggiungiRiga('ID transazione PayPal:', details.id);
 
-    // Tracking conversione
+    // Tracking conversione (il voucher è già al sicuro nel KV)
     if (typeof window.trackVoucherPurchase === 'function') {
       window.trackVoucherPurchase(totale, numPortate, numPersone, codice);
     }
-    document.getElementById('conferma-sub-text').textContent =
-      'Grazie ' + nome + "! Il buono è stato inviato a " + email + ".";
-    statusEl.textContent = 'Buono registrato e conferma inviata via email';
-    statusEl.style.color = 'var(--green)';
+
+    // Fase 2: genera il PDF con il codice reale e lo invia al server per le email.
+    // Se questa fase fallisce, il voucher è comunque già nel KV e Mauro riceve la notifica.
+    statusEl.textContent = '⏳ Preparazione PDF in corso...';
+    try {
+      const allData = { ...orderData, codiceVoucher: codice, scadenza: scadStr };
+      const pdfDataUri = await generateVoucherPDF(allData);
+      const pdfBase64  = pdfDataUri.split(',')[1];
+
+      const res2 = await fetch('/send-voucher', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codiceVoucher: codice, pdfBase64 })
+      });
+      if (!res2.ok) throw new Error(await res2.text());
+
+      document.getElementById('conferma-sub-text').textContent =
+        'Grazie ' + nome + "! Il buono con PDF è stato inviato a " + email + ".";
+      statusEl.textContent = 'Buono inviato via email con allegato PDF';
+      statusEl.style.color = 'var(--green)';
+    } catch(pdfErr) {
+      // PDF/email falliti ma il voucher è nel KV: mostra messaggio ridotto
+      console.error('Phase2 PDF/email error:', pdfErr);
+      document.getElementById('conferma-sub-text').textContent =
+        'Grazie ' + nome + "! Pagamento confermato. Ti invieremo il buono a breve.";
+      statusEl.textContent = 'Buono registrato — email in arrivo a breve';
+      statusEl.style.color = 'var(--brown)';
+    }
 
   } catch(err) {
-    console.error('Voucher error:', err);
-    // Il pagamento è andato a buon fine ma il server ha avuto un problema.
-    // Mauro riceve la notifica PayPal e può creare manualmente il buono dalla dashboard.
+    console.error('Voucher error (fase 1):', err);
     statusEl.textContent = 'Errore tecnico — contattaci su WhatsApp con ID: ' + details.id;
     statusEl.style.color = '#c0392b';
     document.getElementById('conferma-sub-text').textContent =
