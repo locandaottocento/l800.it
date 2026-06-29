@@ -173,7 +173,7 @@ function textAcquirente(d) {
   return [
     `Ciao ${d.nomeAcquirente},`,
     '',
-    `Hai regalato un'esperienza all'L'800 Locanda a Palazzo.`,
+    `Hai regalato un'esperienza a L'800 Locanda a Palazzo.`,
     `In allegato trovi il Buono Regalo in formato PDF.`,
     '',
     `Riepilogo:`,
@@ -205,7 +205,7 @@ function textDestinatario(d) {
   return [
     `Ciao ${d.nomeDestinatario},`,
     '',
-    `${d.nomeAcquirente} ti ha fatto un regalo speciale: una cena all'L'800 Locanda a Palazzo,`,
+    `${d.nomeAcquirente} ti ha fatto un regalo speciale: una cena a L'800 Locanda a Palazzo,`,
     `nel cuore di Amantea, sulla costa tirrenica calabrese.`,
     '',
     d.messaggioPersonale ? `Il messaggio: "${d.messaggioPersonale}"\n` : '',
@@ -440,69 +440,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   scadDate.setFullYear(scadDate.getFullYear() + 1);
   d.scadenza = scadDate.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-  // 6. Subject sanitizzato per prevenire header injection
-  const subjAcq = sanHeader(`Il tuo Buono Regalo L'800 \u2714`);
-  const subjDest = sanHeader(`${d.nomeAcquirente} ti ha fatto un regalo speciale \uD83C\uDF81`);
-  const replyTo = 'info@l800.it';
-
-  // 7. Email all'acquirente (await — bloccante)
-  let r1;
-  try {
-    r1 = await fetchWithTimeout(RESEND_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: "L'800 Locanda a Palazzo <info@l800.it>",
-        to: [d.emailAcquirente],
-        reply_to: replyTo,
-        subject: subjAcq,
-        html: htmlAcquirente(d),
-        text: textAcquirente(d),
-      }),
-    });
-  } catch (err) {
-    console.error('Fetch Resend (acquirente) error:', err.message);
-    return jsonResponse({ error: 'Errore di rete: ' + err.message }, 502, cors);
-  }
-
-  if (!r1.ok) {
-    const errText = await r1.text();
-    console.error('Resend API error (acquirente):', r1.status, errText);
-    // Gestione esplicita 429 da Resend (rate limit)
-    if (r1.status === 429) {
-      return jsonResponse({ error: 'Servizio email temporaneamente sovraccarico, riprova tra qualche minuto.' }, 503, cors);
-    }
-    return jsonResponse({ error: 'Invio email fallito', detail: errText }, 500, cors);
-  }
-
-  // 8. Email al destinatario in background
-  const emailDestValida =
-    d.emailDestinatario &&
-    EMAIL_RX.test(String(d.emailDestinatario).trim()) &&
-    d.emailDestinatario.trim().toLowerCase() !== d.emailAcquirente.trim().toLowerCase();
-
-  if (emailDestValida) {
-    waitUntil(
-      fetch(RESEND_URL, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: "L'800 Locanda a Palazzo <info@l800.it>",
-          to: [d.emailDestinatario],
-          reply_to: replyTo,
-          subject: subjDest,
-          html: htmlDestinatario(d),
-          text: textDestinatario(d),
-        }),
-      }).catch(err => console.error('Email destinatario error:', err.message))
-    );
-  }
+  // Le email con PDF sono inviate in Fase 2 (inviaEmailConPdf). Qui solo notifica interna.
 
   // 8b. Notifica interna a info@l800.it
   const isLiberoNotifica = d.tipo === 'libero';
@@ -744,7 +682,6 @@ function htmlAcquirente(d) {
         <td><a href="https://octotable.com/book/restaurant/561331/booking/home" style="display:inline-block;border:1px solid #6f3b1c;color:#6f3b1c;font-family:Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;text-decoration:none;">Octotable</a></td>
       </tr>
     </table>
-    <p style="font-size:13px;color:#8a5630;margin:0 0 36px;">oppure chiama il <a href="tel:+390982428262" style="color:#6f3b1c;">0982 428262</a></p>
   </div>
 
   <div style="background:#fbf7ef;padding:0 48px 36px;">
