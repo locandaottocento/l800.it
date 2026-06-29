@@ -392,7 +392,40 @@ export async function onRequestPost({ request, env, waitUntil }) {
     );
   }
 
-  // 8b. Log strutturato vendita (consultabile da Cloudflare > Logs / Logpush)
+  // 8b. Notifica interna a info@l800.it
+  const isLiberoNotifica = d.tipo === 'libero';
+  const riepilogoNotifica = isLiberoNotifica
+    ? `Buono importo libero: €${d.importoLibero}`
+    : `${d.prodotto} — ${d.numPersone === 1 ? '1 persona' : `${d.numPersone} persone`} × ${d.numPortate} portate — €${expectedAmount}`;
+  waitUntil(
+    fetch(RESEND_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: "L'800 Notifiche <info@l800.it>",
+        to: ['info@l800.it'],
+        subject: `🧾 Nuovo buono venduto — ${d.codiceVoucher}`,
+        text: [
+          `Nuovo buono regalo acquistato online.`,
+          ``,
+          `Codice: ${d.codiceVoucher}`,
+          `Prodotto: ${riepilogoNotifica}`,
+          `Scadenza: ${d.scadenza}`,
+          ``,
+          `Acquirente: ${d.nomeAcquirente} <${d.emailAcquirente}>`,
+          `Destinatario: ${d.nomeDestinatario}${d.emailDestinatario ? ` <${d.emailDestinatario}>` : ''}`,
+          d.messaggioPersonale ? `Messaggio: "${d.messaggioPersonale}"` : '',
+          ``,
+          `PayPal Order ID: ${d.paypalOrderId}`,
+        ].filter(s => s !== undefined).join('\n'),
+      }),
+    }).catch(err => console.error('Email notifica interna error:', err.message))
+  );
+
+  // 8c. Log strutturato vendita (consultabile da Cloudflare > Logs / Logpush)
   console.log('VOUCHER_SOLD', JSON.stringify({
     ts: new Date().toISOString(),
     codice: d.codiceVoucher,
