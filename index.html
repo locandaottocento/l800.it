@@ -20,7 +20,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.googletagmanager.com">
-<link rel="preload" as="image" href="hero-giardino.webp" fetchpriority="high">
+<link rel="preload" as="image" href="hero-giardino.webp" fetchpriority="high"
+      imagesrcset="hero-giardino-sm.webp 430w, hero-giardino.webp 800w"
+      imagesizes="(max-width: 768px) 430px, 800px">
 <link rel="dns-prefetch" href="https://connect.facebook.net">
 <link rel="dns-prefetch" href="https://www.facebook.com">
 <!-- Favicon & Mobile icons -->
@@ -461,6 +463,12 @@
   .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
   .footer-copy { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.18em; color: rgba(251,247,239,0.75); text-transform: uppercase; }
   .footer-updated { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.14em; color: rgba(251,247,239,0.45); text-transform: uppercase; text-align: center; margin-top: 12px; }
+  .sticky-cta-mobile { display:none; }
+  @media (max-width:768px) {
+    .sticky-cta-mobile { display:flex; position:fixed; bottom:0; left:0; right:0; z-index:200; padding:12px 16px; background:rgba(251,247,239,0.97); border-top:1px solid var(--border); box-shadow:0 -4px 16px rgba(61,40,16,0.10); }
+    .sticky-cta-mobile .btn-primary { flex:1; text-align:center; }
+    footer { padding-bottom:72px; }
+  }
   .footer-legal { display: flex; gap: 20px; }
   .footer-legal a { font-family: 'Cormorant SC', serif; font-size: 8px; letter-spacing: 0.15em; color: rgba(251,247,239,0.75); text-decoration: none; text-transform: uppercase; }
   .footer-legal a:hover { color: rgba(251,247,239,0.6); }
@@ -1610,5 +1618,10 @@ if(window.__l800_clarity)window.__l800_clarity();}
 setTimeout(s,3500);})();
 </script>
 <!-- End lazy tracking loader -->
+
+<!-- STICKY CTA MOBILE -->
+<div class="sticky-cta-mobile">
+  <a href="prenota.html" class="btn-primary" title="Prenota il tuo tavolo">Prenota il tuo tavolo</a>
+</div>
 </body>
 </html>
