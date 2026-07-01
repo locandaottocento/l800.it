@@ -6,4 +6,16 @@ Disallow: /send-voucher
 Disallow: /richiesta-evento
 Disallow: /newsletter
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://www.l800.it/sitemap.xml
