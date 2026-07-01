@@ -120,9 +120,6 @@
   .hero-incipit { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:rgba(251,247,239,0.75); line-height:1.75; max-width:600px; border-left:2px solid var(--brown-pale); padding-left:24px; }
 
   /* ── TIMELINE LINE ── */
-  .storia-hook-img { display:none; position:relative; overflow:hidden; max-height:280px; }
-  .storia-hook-img img { width:100%; height:100%; object-fit:cover; display:block; }
-  .storia-hook-label { position:absolute; bottom:16px; left:16px; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.22em; color:var(--cream-light); text-transform:uppercase; background:rgba(42,26,16,0.55); padding:6px 12px; }
   .timeline { padding:0 80px 100px; background:var(--cream-light); position:relative; }
   .timeline::before {
     content:'';
@@ -267,7 +264,6 @@
   @media @media @media (max-width:768px) {
     nav { padding:14px 20px; }
     .hero { padding:96px 24px 60px; }
-    .storia-hook-img { display:block; }
     .timeline { padding:0 24px 80px; }
     .timeline::before { left:calc(24px + 28px); }
     .capitolo { grid-template-columns:56px 1fr; gap:0 24px; padding:60px 0 0; }
@@ -511,12 +507,6 @@
     </p>
   </div>
 </section>
-
-<!-- HOOK VISIVO MOBILE -->
-<div class="storia-hook-img">
-  <img src="locanda-di-mare.webp" alt="Locanda di Mare ad Amantea — la storia de L'800 dal 1971 a oggi" width="1200" height="675" fetchpriority="high" loading="eager">
-  <span class="storia-hook-label">Dal 1971 a oggi</span>
-</div>
 
 <!-- TIMELINE -->
 <div class="timeline">
