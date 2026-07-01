@@ -817,15 +817,14 @@
       for (let i = 0; i < startDow; i++) h += '<div class="dp-day dp-empty"></div>';
       for (let g = 1; g <= ultimo.getDate(); g++) {
         const d = new Date(this.year, this.month, g); d.setHours(0,0,0,0);
-        const isMer = d.getDay() === 3;
         const isPast = d < oggi;
         const isSel = this.selected && d.toDateString() === this.selected.toDateString();
         const isToday = d.toDateString() === oggi.toDateString();
         let cls = 'dp-day';
-        if (isMer || isPast) cls += ' dp-disabled';
+        if (isPast) cls += ' dp-disabled';
         if (isSel) cls += ' dp-selected';
         if (isToday && !isPast) cls += ' dp-today';
-        const click = (!isMer && !isPast) ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
+        const click = !isPast ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
         h += '<div class="' + cls + '"' + click + '>' + g + '</div>';
       }
       h += '</div>';
