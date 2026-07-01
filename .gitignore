@@ -5,3 +5,4 @@ Thumbs.db
 node_modules/
 .env
 _HANDOFF_CLAUDE.md
+CLAUDE.md
