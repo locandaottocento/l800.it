@@ -90,6 +90,7 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
+        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -103,6 +104,7 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
+        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -111,12 +113,6 @@
       "opens": "19:30",
       "closes": "22:00"
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Wednesday",
-      "opens": "00:00",
-      "closes": "00:00"
-    }
   ],
   "hasMap": "https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A",
     "hasMenu": "https://www.l800.it/menu",
@@ -402,7 +398,6 @@
   .dp-day.dp-today { border-color:var(--brown-pale); }
   .dp-day.dp-disabled { color:rgba(111,59,28,0.18); cursor:not-allowed; background:none; text-decoration:line-through; }
   .dp-day.dp-empty { cursor:default; }
-  #nota-mercoledi { display:none; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.12em; color:#8b2500; text-transform:uppercase; margin-top:6px; }
   .form-label { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.18em; color: var(--text-light); text-transform: uppercase; display: block; margin-bottom: 8px; }
   .form-select { width: 100%; padding: 11px 14px; font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text); background: var(--cream-light); border: 1px solid var(--border); outline: none; cursor: pointer; appearance: none; -webkit-appearance: none; border-radius: 0; }
   .form-select:focus { border-color: var(--brown); }
@@ -872,10 +867,6 @@
         <span class="hero-info-value">19:30 – 22:00</span>
       </div>
       <div class="hero-info-item">
-        <span class="hero-info-label">Chiuso</span>
-        <span class="hero-info-value">Mercoledì</span>
-      </div>
-      <div class="hero-info-item">
         <span class="hero-info-label">Dove</span>
         <span class="hero-info-value">Via Calavecchia 53</span>
       </div>
@@ -1072,7 +1063,6 @@
             <div class="datepicker-calendar" id="dpCalendar"></div>
           </div>
           <input type="hidden" id="prenotaData">
-          <span id="nota-mercoledi">⚠ Il mercoledì siamo chiusi — scegli un altro giorno</span>
         </div>
         <div class="form-row">
           <label class="form-label" for="prenotaOspiti">Ospiti</label>
@@ -1234,7 +1224,7 @@
       </div>
       <div class="dove-block">
         <h3>Orari di apertura</h3>
-        <p>Tutti i giorni escluso mercoledì<br>Pranzo: 12:30 – 14:30<br>Cena: 19:30 – 22:00<br><em>Mercoledì: chiuso</em></p>
+        <p>Tutti i giorni<br>Pranzo: 12:30 – 14:30<br>Cena: 19:30 – 22:00</p>
       </div>
       <div class="dove-block">
         <h3>Contatti</h3>
@@ -1361,8 +1351,7 @@
   document.getElementById("prenotaOspiti")?.addEventListener("change", aggiornaLinkWA);
   document.getElementById("prenotaOrario")?.addEventListener("change", aggiornaLinkWA);
 
-  // ── BLOCCA MERCOLEDÌ nel date picker ──
-  // ── DATE PICKER CUSTOM (blocca mercoledì) ──
+  // ── DATE PICKER CUSTOM ──
   const DP = {
     year: 0, month: 0, selected: null,
     init() {
@@ -1401,17 +1390,15 @@
       for (let g = 1; g <= ultimoGiorno.getDate(); g++) {
         const data = new Date(this.year, this.month, g);
         data.setHours(0,0,0,0);
-        const dow = data.getDay(); // 0=dom, 3=mer
-        const isMer = dow === 3;
         const isPast = data < oggi;
         const isSelected = this.selected &&
           data.toDateString() === this.selected.toDateString();
         const isToday = data.toDateString() === oggi.toDateString();
         let cls = 'dp-day';
-        if (isMer || isPast) cls += ' dp-disabled';
+        if (isPast) cls += ' dp-disabled';
         if (isSelected) cls += ' dp-selected';
         if (isToday && !isPast) cls += ' dp-today';
-        const onclick = (!isMer && !isPast)
+        const onclick = !isPast
           ? 'DP.selezionaGiorno(' + this.year + ',' + this.month + ',' + g + ')'
           : '';
         html += '<div class="' + cls + '"' + (onclick ? ' onclick="'+onclick+'"' : '') + '>' + g + '</div>';

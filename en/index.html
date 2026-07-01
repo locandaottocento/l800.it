@@ -91,6 +91,7 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
+        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -104,6 +105,7 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
+        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -396,7 +398,6 @@
   .dp-day.dp-today { border-color:var(--brown-pale); }
   .dp-day.dp-disabled { color:rgba(111,59,28,0.18); cursor:not-allowed; background:none; text-decoration:line-through; }
   .dp-day.dp-empty { cursor:default; }
-  #nota-mercoledi { display:none; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.12em; color:#8b2500; text-transform:uppercase; margin-top:6px; }
   .form-label { font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: 0.18em; color: var(--text-light); text-transform: uppercase; display: block; margin-bottom: 8px; }
   .form-select { width: 100%; padding: 11px 14px; font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text); background: var(--cream-light); border: 1px solid var(--border); outline: none; cursor: pointer; appearance: none; -webkit-appearance: none; border-radius: 0; }
   .form-select:focus { border-color: var(--brown); }
@@ -865,10 +866,6 @@
         <span class="hero-info-value">19:30 – 22:00</span>
       </div>
       <div class="hero-info-item">
-        <span class="hero-info-label">Closed</span>
-        <span class="hero-info-value">Wednesday</span>
-      </div>
-      <div class="hero-info-item">
         <span class="hero-info-label">Address</span>
         <span class="hero-info-value">Via Calavecchia 53</span>
       </div>
@@ -1065,7 +1062,6 @@
             <div class="datepicker-calendar" id="dpCalendar"></div>
           </div>
           <input type="hidden" id="prenotaData">
-          <span id="nota-mercoledi">⚠ We're closed on Wednesdays — please pick another day</span>
         </div>
         <div class="form-row">
           <label class="form-label" for="prenotaOspiti">Guests</label>
@@ -1227,7 +1223,7 @@
       </div>
       <div class="dove-block">
         <h3>Opening hours</h3>
-        <p>Every day except Wednesday<br>Lunch: 12:30 – 14:30<br>Dinner: 19:30 – 22:00<br><em>Wednesday: closed</em></p>
+        <p>Every day<br>Lunch: 12:30 – 14:30<br>Dinner: 19:30 – 22:00</p>
       </div>
       <div class="dove-block">
         <h3>Contact</h3>
@@ -1354,8 +1350,7 @@
   document.getElementById("prenotaOspiti")?.addEventListener("change", aggiornaLinkWA);
   document.getElementById("prenotaOrario")?.addEventListener("change", aggiornaLinkWA);
 
-  // ── BLOCCA MERCOLEDÌ nel date picker ──
-  // ── DATE PICKER CUSTOM (blocca mercoledì) ──
+  // ── DATE PICKER CUSTOM ──
   const DP = {
     year: 0, month: 0, selected: null,
     init() {
@@ -1394,17 +1389,15 @@
       for (let g = 1; g <= ultimoGiorno.getDate(); g++) {
         const data = new Date(this.year, this.month, g);
         data.setHours(0,0,0,0);
-        const dow = data.getDay(); // 0=dom, 3=mer
-        const isMer = dow === 3;
         const isPast = data < oggi;
         const isSelected = this.selected &&
           data.toDateString() === this.selected.toDateString();
         const isToday = data.toDateString() === oggi.toDateString();
         let cls = 'dp-day';
-        if (isMer || isPast) cls += ' dp-disabled';
+        if (isPast) cls += ' dp-disabled';
         if (isSelected) cls += ' dp-selected';
         if (isToday && !isPast) cls += ' dp-today';
-        const onclick = (!isMer && !isPast)
+        const onclick = !isPast
           ? 'DP.selezionaGiorno(' + this.year + ',' + this.month + ',' + g + ')'
           : '';
         html += '<div class="' + cls + '"' + (onclick ? ' onclick="'+onclick+'"' : '') + '>' + g + '</div>';

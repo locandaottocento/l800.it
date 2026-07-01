@@ -126,7 +126,7 @@ python3 -m http.server 8000
 
 - Indirizzo: Via Calavecchia 53, 87032 Amantea (CS)
 - Tel: +39 0982 428262 · Email: info@l800.it · P.IVA 03906130780
-- Orari: Mar-Dom, pranzo 12:30-14:30, cena 19:30-22:00 (chiuso mercoledi)
+- Orari: tutti i giorni, pranzo 12:30-14:30, cena 19:30-22:00
 - Prenotazioni: WhatsApp (principale) + Octotable (ID 561331)
 - Buoni regalo: €50 (3 portate), €65 (4 portate)
 - Rating: TripAdvisor 4.8★ · Google 4.3★ · TheFork 9.3
