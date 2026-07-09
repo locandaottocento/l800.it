@@ -305,8 +305,7 @@
 </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16773067765"></script>
-    <script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {
@@ -709,6 +708,7 @@
 <script>
 (function(){var f=false;function s(){if(f)return;f=true;
 ['scroll','mousemove','touchstart','keydown','click'].forEach(function(e){window.removeEventListener(e,s,{passive:true});});
+if(window.__l800_gtag)window.__l800_gtag();
 if(window.__l800_gtm)window.__l800_gtm();
 if(window.__l800_pixel)window.__l800_pixel();
 if(window.__l800_clarity)window.__l800_clarity();}

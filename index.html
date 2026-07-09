@@ -764,8 +764,7 @@
   </style>
 
   <!-- Google Consent Mode v2 — default negato per utenti SEE -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16773067765"></script>
-    <script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {
@@ -1548,6 +1547,7 @@
   };
 </script>
 <script src="/analytics-events.js" defer></script>
+    <script>window.__l800_gtag=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=AW-16773067765';document.head.appendChild(s);};</script>
   <!-- Google Tag Manager (deferred) -->
   <script>window.__l800_gtm=function(){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -1614,6 +1614,7 @@ async function iscriviNewsletter(event) {
 <script>
 (function(){var f=false;function s(){if(f)return;f=true;
 ['scroll','mousemove','touchstart','keydown','click'].forEach(function(e){window.removeEventListener(e,s,{passive:true});});
+if(window.__l800_gtag)window.__l800_gtag();
 if(window.__l800_gtm)window.__l800_gtm();
 if(window.__l800_pixel)window.__l800_pixel();
 if(window.__l800_clarity)window.__l800_clarity();}
