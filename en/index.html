@@ -265,6 +265,7 @@
   .hero-title em { font-style: italic; color: var(--brown); }
   .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; line-height: 1.75; color: var(--text-light); max-width: 420px; margin-bottom: 40px; }
   .hero-actions { display: flex; gap: clamp(8px, 1vw, 14px); align-items: center; flex-wrap: wrap; margin-bottom: clamp(24px, 3.5vw, 48px); }
+  .hero-actions-col { display: flex; flex-direction: column; gap: clamp(8px, 1vw, 14px); align-items: stretch; }
   .hero-info { display: flex; gap: 36px; padding-top: 36px; border-top: 1px solid var(--border); }
   .hero-info-item { display: flex; flex-direction: column; gap: 4px; }
   .hero-info-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: 0.22em; color:var(--brown); text-transform: uppercase; }
@@ -608,6 +609,7 @@
     .hero-title { font-size: clamp(30px, 8vw, 42px); margin-bottom: 20px; }
     .hero-subtitle { font-size: 16px; margin-bottom: 28px; }
     .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 32px; }
+    .hero-actions-col { gap: 10px; }
     .hero-actions a { text-align: center; font-size: 11px; padding: 13px 16px; }
     .hero-actions a { text-align: center; }
     .hero-info { flex-direction: column; gap: 16px; padding-top: 24px; }
@@ -899,9 +901,11 @@
       In the heart of Amantea's old town, L'800 is a place where time slows down, the sea arrives at the table and every meal becomes a memory.
     </p>
     <div class="hero-actions">
-      <a href="prenota.html" class="btn-primary" style="white-space:nowrap;" title="Prenota il tuo tavolo al L'800">Book your table</a>
+      <div class="hero-actions-col">
+        <a href="prenota.html" class="btn-primary" style="white-space:nowrap;" title="Prenota il tuo tavolo al L'800">Book your table</a>
+        <a href="buoni.html" class="btn-secondary" style="white-space:nowrap;text-align:center;box-sizing:border-box;" title="Acquista un buono regalo">🎁 Gift vouchers</a>
+      </div>
       <a href="menu-cibo.html" class="btn-secondary" style="white-space:nowrap;" title="Scopri il menu cibo">Discover the menu</a>
-      <a href="buoni.html" class="btn-secondary" style="white-space:nowrap;min-width:180px;text-align:center;box-sizing:border-box;" title="Acquista un buono regalo">🎁 Gift vouchers</a>
     </div>
     <div class="hero-info">
       <div class="hero-info-item">
@@ -1372,6 +1376,22 @@
   document.addEventListener('click', (e) => {
     if (!e.target.closest('nav') && !e.target.closest('#navMobileMenu')) {
       navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // Dropdown "Menu" nella nav desktop: click/tap oltre a hover (piu affidabile su trackpad/touch)
+  document.querySelectorAll('.nav-dropdown').forEach((dropdown) => {
+    const trigger = dropdown.querySelector('a');
+    trigger.addEventListener('click', (e) => {
+      if (window.matchMedia('(min-width: 769px)').matches) {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+      }
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown.active').forEach(d => d.classList.remove('active'));
     }
   });
 
