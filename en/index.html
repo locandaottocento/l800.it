@@ -193,6 +193,11 @@
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { font-family: 'Cormorant SC', serif; font-size: 13px; letter-spacing: 0.12em; color: var(--text-light); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
   .nav-links a:hover { color: var(--brown); }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-content { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: var(--cream-light); border: 1px solid var(--border); box-shadow: 0 12px 32px rgba(61,40,16,0.14); padding: 10px 0; min-width: 180px; z-index: 200; }
+  .nav-dropdown-content a { display: block; padding: 10px 20px; white-space: nowrap; text-align: left; }
+  .nav-dropdown:hover .nav-dropdown-content,
+  .nav-dropdown.active .nav-dropdown-content { display: block; }
   .nav-cta { font-family: 'Cormorant SC', serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-light); background: var(--brown); border: none; padding: 11px 24px; cursor: pointer; text-decoration: none; transition: background 0.3s; display: inline-block; }
   .nav-cta:hover { background: var(--brown-dark); }
   .nav-mobile-toggle { display: none; }
@@ -250,6 +255,7 @@
   .nav-mobile-menu a:hover { color: var(--brown); }
   .nav-mobile-menu .nav-cta-inline a { color: var(--brown); font-weight: 600; }
   .nav-mobile-menu.open { display: block; }
+  .nav-mobile-submenu a { font-size: 11px; padding-left: 12px; opacity: 0.8; }
 
   /* ── HERO ── */
   .hero { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding-top: 72px; background: var(--cream-light); overflow: hidden; }
@@ -833,7 +839,14 @@
   </div>
   <ul class="nav-links">
     <li><a href="#storia" title="La nostra storia">Our story</a></li>
-    <li><a href="#cucina" title="Il menu del ristorante">Menu</a></li>
+    <li class="nav-dropdown">
+      <a href="#cucina" title="Il menu del ristorante">Menu ▾</a>
+      <div class="nav-dropdown-content">
+        <a href="menu-cibo.html" title="Restaurant menu">Restaurant menu</a>
+        <a href="menu-vini.html" title="Wine list">Wine list</a>
+        <a href="menu-dolci.html" title="Desserts menu">Desserts menu</a>
+      </div>
+    </li>
     <li><a href="#vini" title="La carta dei vini">Wines</a></li>
     <li><a href="#occasioni" title="Occasioni speciali">Special events</a></li>
     <li><a href="#buoni" title="Buoni regalo">Gift vouchers</a></li>
@@ -855,6 +868,15 @@
   <ul>
     <li><a href="#storia" title="Our story">Our story</a></li>
     <li><a href="#cucina" title="Menu">Menu</a></li>
+    <li class="nav-mobile-submenu">
+      <a href="menu-cibo.html" title="Restaurant menu">↳ Restaurant menu</a>
+    </li>
+    <li class="nav-mobile-submenu">
+      <a href="menu-vini.html" title="Wine list">↳ Wine list</a>
+    </li>
+    <li class="nav-mobile-submenu">
+      <a href="menu-dolci.html" title="Desserts menu">↳ Desserts menu</a>
+    </li>
     <li><a href="#vini" title="Wines">Wines</a></li>
     <li><a href="#occasioni" title="Special events">Special events</a></li>
     <li><a href="#buoni" title="Gift vouchers">Gift vouchers</a></li>
@@ -1581,7 +1603,7 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '1266689621145892');
   fbq('track', 'PageView');};</script>
-  <noscript><img height="1" width="1" style="display:none"
+  <noscript><img height="1" width="1" style="display:none" alt=""
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
