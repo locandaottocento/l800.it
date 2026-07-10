@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#6f3b1c">
+<title>Pagina non trovata | L'800 Locanda a Palazzo</title>
+<meta name="description" content="La pagina che cerchi non esiste più o è stata spostata. Torna alla home de L'800 Locanda a Palazzo ad Amantea.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400;500&display=swap">
+<style>
+  :root {
+    --cream:#fbf7ef; --cream-light:#fbf7ef; --brown:#6f3b1c; --brown-dark:#4a2612;
+    --brown-light:#8a5630; --brown-pale:#d9b988; --text:#2a1a10; --text-light:#5e5046;
+    --border:rgba(111,59,28,0.18);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream-light);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid var(--border);}
+  .nav-logo{text-decoration:none;display:flex;flex-direction:column;line-height:1;}
+  .nav-logo-main{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--brown);}
+  .nav-logo-sub{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.25em;color:var(--brown-light);text-transform:uppercase;}
+
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 24px;text-align:center;}
+  .error-code{font-family:'Cormorant SC',serif;font-size:12px;letter-spacing:0.3em;color:var(--brown-pale);text-transform:uppercase;margin-bottom:24px;display:block;}
+  h1{font-size:clamp(32px,5vw,52px);font-weight:300;line-height:1.15;margin-bottom:20px;max-width:640px;}
+  h1 em{font-style:italic;color:var(--brown);}
+  .error-sub{font-size:18px;color:var(--text-light);max-width:480px;margin:0 auto 40px;line-height:1.6;}
+  .error-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-light);background:var(--brown);padding:14px 28px;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
+  .btn-primary:hover{background:var(--brown-dark);}
+  .btn-secondary{font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--brown);background:transparent;border:1px solid var(--border);padding:14px 28px;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+  .btn-secondary:hover{border-color:var(--brown);}
+
+  footer{padding:28px 48px;border-top:1px solid var(--border);text-align:center;}
+  .footer-copy{font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.18em;color:var(--text-light);text-transform:uppercase;}
+
+  @media (max-width:768px){
+    nav{padding:16px 24px;}
+    main{padding:40px 20px;}
+    .error-actions{flex-direction:column;align-items:stretch;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" title="Torna alla homepage">
+    <span class="nav-logo-main">L'800</span>
+    <span class="nav-logo-sub">Locanda a Palazzo</span>
+  </a>
+</nav>
+
+<main>
+  <div>
+    <span class="error-code">Errore 404</span>
+    <h1>Questa pagina<br><em>non esiste più.</em></h1>
+    <p class="error-sub">Il link che hai seguito potrebbe essere obsoleto, oppure la pagina è stata spostata. Ecco dove vogliamo portarti.</p>
+    <div class="error-actions">
+      <a href="/" class="btn-primary" title="Torna alla homepage">Torna alla home</a>
+      <a href="/menu" class="btn-secondary" title="Scopri il menu">Scopri il menu</a>
+      <a href="/prenota" class="btn-secondary" title="Prenota il tuo tavolo">Prenota un tavolo</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span class="footer-copy">© 2026 L'800 – Locanda a Palazzo · Via Calavecchia 53, Amantea (CS)</span>
+</footer>
+
+</body>
+</html>

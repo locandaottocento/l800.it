@@ -3,47 +3,74 @@
 // Salva l'email in KV (prefisso newsletter:) e notifica info@l800.it
 
 const RESEND_URL = 'https://api.resend.com/emails';
+const ALLOWED_ORIGINS = ['https://www.l800.it', 'https://l800.it'];
 
-function json(data, status = 200) {
+// Rate limiting in-memory per istanza (Cloudflare Workers riavvia spesso,
+// ma protegge contro burst da stesso IP entro la stessa istanza)
+const ipHits = new Map();
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_HITS = 5;
+
+function corsHeaders(origin) {
+  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+}
+
+function json(data, status = 200, origin = ALLOWED_ORIGINS[0]) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
   });
 }
 
-export async function onRequestOptions() {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    },
-  });
+export async function onRequestOptions({ request }) {
+  const origin = request.headers.get('Origin');
+  return new Response(null, { status: 200, headers: corsHeaders(origin) });
 }
 
 export async function onRequestPost({ request, env }) {
+  const origin = request.headers.get('Origin');
+
+  // Controllo origin (CORS strict). Se l'origin non è autorizzato, rifiuto.
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return json({ error: 'Origin non autorizzato' }, 403, origin);
+  }
+
+  // Rate limiting basico per IP
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const now = Date.now();
+  const hist = (ipHits.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS);
+  if (hist.length >= RATE_MAX_HITS) {
+    return json({ error: 'Troppe richieste, riprova tra qualche minuto.' }, 429, origin);
+  }
+  hist.push(now);
+  ipHits.set(ip, hist);
+
   let body;
   try { body = await request.json(); }
-  catch { return json({ error: 'JSON non valido' }, 400); }
+  catch { return json({ error: 'JSON non valido' }, 400, origin); }
 
   const { email, lang } = body;
 
   // Honeypot anti-spam
-  if (body.website) return json({ ok: true });
+  if (body.website) return json({ ok: true }, 200, origin);
 
   const emailClean = String(email || '').trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailClean) || emailClean.length > 120) {
-    return json({ error: lang === 'en' ? 'Invalid email address' : 'Indirizzo email non valido' }, 400);
+    return json({ error: lang === 'en' ? 'Invalid email address' : 'Indirizzo email non valido' }, 400, origin);
   }
 
-  if (!env.VOUCHERS) return json({ error: 'Storage non configurato' }, 500);
+  if (!env.VOUCHERS) return json({ error: 'Storage non configurato' }, 500, origin);
 
   const key = `newsletter:${emailClean}`;
   const existing = await env.VOUCHERS.get(key);
   if (existing) {
     // Già iscritto: rispondiamo ok senza duplicare né rinotificare
-    return json({ ok: true, already: true });
+    return json({ ok: true, already: true }, 200, origin);
   }
 
   const record = {
@@ -82,5 +109,5 @@ export async function onRequestPost({ request, env }) {
     }).catch(() => {});
   }
 
-  return json({ ok: true });
+  return json({ ok: true }, 200, origin);
 }

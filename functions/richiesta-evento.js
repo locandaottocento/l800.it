@@ -4,11 +4,27 @@
 // + email di conferma al richiedente
 
 const RESEND_URL = 'https://api.resend.com/emails';
+const ALLOWED_ORIGINS = ['https://www.l800.it', 'https://l800.it'];
 
-function json(data, status = 200) {
+// Rate limiting in-memory per istanza (Cloudflare Workers riavvia spesso,
+// ma protegge contro burst da stesso IP entro la stessa istanza)
+const ipHits = new Map();
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_HITS = 5;
+
+function corsHeaders(origin) {
+  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+}
+
+function json(data, status = 200, origin = ALLOWED_ORIGINS[0]) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
   });
 }
 
@@ -16,40 +32,51 @@ function esc(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-export async function onRequestOptions() {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    },
-  });
+export async function onRequestOptions({ request }) {
+  const origin = request.headers.get('Origin');
+  return new Response(null, { status: 200, headers: corsHeaders(origin) });
 }
 
 export async function onRequestPost({ request, env }) {
+  const origin = request.headers.get('Origin');
+
+  // Controllo origin (CORS strict). Se l'origin non è autorizzato, rifiuto.
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return json({ error: 'Origin non autorizzato' }, 403, origin);
+  }
+
+  // Rate limiting basico per IP
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const now = Date.now();
+  const hist = (ipHits.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS);
+  if (hist.length >= RATE_MAX_HITS) {
+    return json({ error: 'Troppe richieste, riprova tra qualche minuto.' }, 429, origin);
+  }
+  hist.push(now);
+  ipHits.set(ip, hist);
+
   let body;
   try { body = await request.json(); }
-  catch { return json({ error: 'JSON non valido' }, 400); }
+  catch { return json({ error: 'JSON non valido' }, 400, origin); }
 
   const { tipoEvento, dataEvento, numOspiti, nome, contatto, messaggio, lang } = body;
 
   // Validazione minima
   if (!tipoEvento || !nome || !contatto) {
-    return json({ error: 'Campi obbligatori mancanti' }, 400);
+    return json({ error: 'Campi obbligatori mancanti' }, 400, origin);
   }
   if (String(nome).length > 100 || String(contatto).length > 100 || String(messaggio || '').length > 2000) {
-    return json({ error: 'Dati troppo lunghi' }, 400);
+    return json({ error: 'Dati troppo lunghi' }, 400, origin);
   }
 
   // Honeypot anti-spam (campo nascosto che i bot compilano)
   if (body.website) {
-    return json({ ok: true }); // finta accettazione, niente email
+    return json({ ok: true }, 200, origin); // finta accettazione, niente email
   }
 
   const isEn = lang === 'en';
   const apiKey = env.RESEND_API_KEY;
-  if (!apiKey) return json({ error: 'Configurazione email mancante' }, 500);
+  if (!apiKey) return json({ error: 'Configurazione email mancante' }, 500, origin);
 
   const dataStr = dataEvento ? esc(dataEvento) : (isEn ? 'To be defined' : 'Da definire');
   const ospitiStr = numOspiti ? esc(String(numOspiti)) : (isEn ? 'Not specified' : 'Non specificato');
@@ -127,8 +154,8 @@ ${messaggio ? `<div style="margin-top:16px;padding:14px 18px;background:#fbf7ef;
   const internalOk = results[0].status === 'fulfilled' && results[0].value.ok;
 
   if (!internalOk) {
-    return json({ error: 'Invio non riuscito, riprova o scrivici su WhatsApp' }, 502);
+    return json({ error: 'Invio non riuscito, riprova o scrivici su WhatsApp' }, 502, origin);
   }
 
-  return json({ ok: true });
+  return json({ ok: true }, 200, origin);
 }

@@ -4,28 +4,28 @@
 
 const RESEND_URL = 'https://api.resend.com/emails';
 const PREZZI = { 3: 50, 4: 65 };
+const ALLOWED_ORIGINS = ['https://www.l800.it', 'https://l800.it'];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function json(data, status = 200) {
+function corsHeaders(origin) {
+  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type, X-Dashboard-Password',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+}
+
+function jsonWithOrigin(data, status = 200, origin = ALLOWED_ORIGINS[0]) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
   });
 }
 
-function cors() {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type, X-Dashboard-Password',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    },
-  });
+function cors(origin) {
+  return new Response(null, { status: 200, headers: corsHeaders(origin) });
 }
 
 function esc(s) {
@@ -236,9 +236,14 @@ async function sendEmails(env, record, pdfBase64) {
 
 // ── Main handler ─────────────────────────────────────────────────────────────
 
-export async function onRequestOptions() { return cors(); }
+export async function onRequestOptions({ request }) {
+  return cors(request.headers.get('Origin'));
+}
 
 export async function onRequestPost({ request, env }) {
+  const origin = request.headers.get('Origin');
+  const json = (data, status = 200) => jsonWithOrigin(data, status, origin);
+
   if (!checkAuth(request, env)) return json({ error: 'Non autorizzato' }, 401);
   if (!env.VOUCHERS) return json({ error: 'KV non configurato' }, 500);
 
