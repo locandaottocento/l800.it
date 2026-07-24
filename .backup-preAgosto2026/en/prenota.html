@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <script>
   // Eseguito PRIMA del rendering — nasconde subito il banner se consenso già dato
@@ -32,28 +32,31 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="L'800">
-<title>Prenota un tavolo ad Amantea — L'800 Locanda a Palazzo</title>
-<meta name="description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto tutti i giorni a pranzo e cena.">
+<title>Book a table — L'800 Locanda a Palazzo · Amantea, Calabria</title>
+<meta name="description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open every day for lunch and dinner.">
 <meta name="author" content="L'800 Locanda a Palazzo">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.l800.it/prenota">
+<link rel="alternate" hreflang="it" href="https://www.l800.it/prenota">
+<link rel="alternate" hreflang="en" href="https://www.l800.it/en/prenota">
+<link rel="alternate" hreflang="x-default" href="https://www.l800.it/prenota">
+<link rel="canonical" href="https://www.l800.it/en/prenota">
 <link rel="alternate" hreflang="it" href="https://www.l800.it/prenota">
 <link rel="alternate" hreflang="en" href="https://www.l800.it/en/prenota">
 <link rel="alternate" hreflang="x-default" href="https://www.l800.it/prenota">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Prenota un tavolo — L'800 Locanda a Palazzo, Amantea">
-<meta property="og:description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto tutti i giorni a pranzo e cena.">
-<meta property="og:url" content="https://www.l800.it/prenota">
+<meta property="og:title" content="Book a table — L'800 Locanda a Palazzo">
+<meta property="og:description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open every day for lunch and dinner.">
+<meta property="og:url" content="https://www.l800.it/en/prenota">
 <meta property="og:image" content="https://www.l800.it/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-<meta property="og:locale" content="it_IT">
+<meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="L'800 Locanda a Palazzo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Prenota un tavolo — L'800 Locanda a Palazzo, Amantea">
-<meta name="twitter:description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto tutti i giorni a pranzo e cena.">
+<meta name="twitter:title" content="Book a table — L'800 Locanda a Palazzo">
+<meta name="twitter:description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open every day for lunch and dinner.">
 <meta name="twitter:image" content="https://www.l800.it/og-image.png">
 
 <script type="application/ld+json">
@@ -293,62 +296,21 @@
 
   .info-sotto-form { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; }
   @media(max-width:768px){ .info-sotto-form { grid-template-columns:1fr; } }
-
-  /* ── STRIP SOCIAL PROOF ── */
-  .social-strip {
-    background:var(--brown-dark); padding:14px 48px;
-    display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap;
-  }
-  .social-strip-item {
-    display:flex; align-items:center; gap:8px;
-    font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em;
-    color:rgba(251,247,239,0.75); text-transform:uppercase; white-space:nowrap;
-  }
-  .social-strip-score {
-    font-family:'Cormorant Garamond',serif; font-style:italic;
-    font-size:18px; color:var(--cream-light); line-height:1;
-  }
+  .social-strip { background:var(--brown-dark); padding:14px 48px; display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap; }
+  .social-strip-item { display:flex; align-items:center; gap:8px; font-family:'Cormorant SC',serif; font-size:9px; letter-spacing:0.2em; color:rgba(251,247,239,0.75); text-transform:uppercase; white-space:nowrap; }
+  .social-strip-score { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:var(--cream-light); line-height:1; }
   .social-strip-sep { color:rgba(251,247,239,0.25); font-size:18px; }
-  @media(max-width:768px){
-    .social-strip { padding:12px 20px; gap:16px; }
-    .social-strip-sep { display:none; }
-  }
-
-  /* ── METODI PRENOTAZIONE ── */
-  .metodi-wrap {
-    max-width:1200px; margin:0 auto; padding:56px 48px 0;
-    display:grid; grid-template-columns:1fr 1fr; gap:20px;
-  }
-  .metodo-card {
-    border:1px solid var(--border); padding:32px 28px;
-    display:flex; flex-direction:column; gap:12px;
-    transition:border-color 0.2s;
-  }
+  .metodi-wrap { max-width:1200px; margin:0 auto; padding:56px 48px 0; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .metodo-card { border:1px solid var(--border); padding:32px 28px; display:flex; flex-direction:column; gap:12px; transition:border-color 0.2s; }
   .metodo-card:hover { border-color:var(--brown); }
   .metodo-card.metodo-primary { background:var(--cream); }
   .metodo-card.metodo-secondary { background:var(--cream-light); }
-  .metodo-eyebrow {
-    font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.28em;
-    color:var(--brown-light); text-transform:uppercase;
-  }
-  .metodo-title {
-    font-family:'Cormorant Garamond',serif; font-size:22px;
-    font-weight:300; color:var(--text); line-height:1.2;
-  }
+  .metodo-eyebrow { font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.28em; color:var(--brown-light); text-transform:uppercase; }
+  .metodo-title { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:var(--text); line-height:1.2; }
   .metodo-title em { font-style:italic; color:var(--brown); }
-  .metodo-desc {
-    font-family:'Cormorant Garamond',serif; font-style:italic;
-    font-size:15px; color:var(--text-light); line-height:1.6; flex:1;
-  }
-  .metodo-badge {
-    display:inline-block; font-family:'Cormorant SC',serif;
-    font-size:8px; letter-spacing:0.16em; text-transform:uppercase;
-    padding:4px 10px; background:var(--cream-dark); color:var(--brown);
-    border:1px solid var(--border); width:fit-content;
-  }
-  @media(max-width:768px){
-    .metodi-wrap { grid-template-columns:1fr; padding:36px 20px 0; gap:14px; }
-  }
+  .metodo-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--text-light); line-height:1.6; flex:1; }
+  .metodo-badge { display:inline-block; font-family:'Cormorant SC',serif; font-size:8px; letter-spacing:0.16em; text-transform:uppercase; padding:4px 10px; background:var(--cream-dark); color:var(--brown); border:1px solid var(--border); width:fit-content; }
+  @media(max-width:768px){ .social-strip { padding:12px 20px; gap:16px; } .social-strip-sep { display:none; } .metodi-wrap { grid-template-columns:1fr; padding:36px 20px 0; gap:14px; } }
 
   /* ── SKIP LINK ACCESSIBILITÀ ── */
   .skip-link {
@@ -511,46 +473,46 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGDTNGVH"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-<a href="#main-content" class="skip-link" title="Vai al contenuto principale">Salta al contenuto</a>
+<a href="#main-content" class="skip-link" title="Skip to main content">Skip to content</a>
 
 
 
-<div id="cookie-banner" role="dialog" aria-label="Preferenze cookie">
-  <p>Utilizziamo cookie tecnici necessari e, con il tuo consenso, cookie di terze parti (Google Fonts). Leggi la nostra <a href="cookie-policy.html" title="Cookie Policy">Cookie Policy</a> e la <a href="privacy-policy.html" title="Privacy Policy">Privacy Policy</a>.</p>
+<div id="cookie-banner" role="dialog" aria-label="Cookie preferences">
+  <p>We use necessary technical cookies and, with your consent, third-party cookies (Google Fonts) to improve your browsing experience. Read our <a href="cookie-policy.html" title="Cookie Policy">Cookie Policy</a> and the <a href="privacy-policy.html" title="Privacy Policy">Privacy Policy</a>.</p>
   <div class="cookie-btns">
-    <button class="cookie-btn-reject" onclick="setCookieConsent(false)">Solo necessari</button>
-    <button class="cookie-btn-accept" onclick="setCookieConsent(true)">Accetta tutti</button>
+    <button class="cookie-btn-reject" onclick="setCookieConsent(false)">Only necessary</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent(true)">Accept all</button>
   </div>
 </div>
 
 <nav>
-  <a href="index.html" class="nav-logo" title="Torna alla homepage">
+  <a href="index.html" class="nav-logo" title="Back to homepage">
     <span class="nav-logo-main">L'800</span>
     <span class="nav-logo-sub">Locanda a Palazzo</span>
   </a>
-  <a href="index.html" class="nav-back" title="Torna alla homepage">← Torna al sito</a>
+  <a href="index.html" class="nav-back" title="Back to homepage">← Torna al sito</a>
 
-  <div class="lang-switcher" role="group" aria-label="Selettore lingua">
-    <a href="/prenota.html" hreflang="it" class="active" aria-label="Italiano" title="Prenota il tuo tavolo">IT</a>
+  <div class="lang-switcher" role="group" aria-label="Language selector">
+    <a href="/prenota.html" hreflang="it" aria-label="Italiano" title="Book your table">IT</a>
     <span class="sep">/</span>
-    <a href="/en/prenota.html" hreflang="en" aria-label="English" title="Prenota il tuo tavolo">EN</a>
+    <a href="/en/prenota.html" hreflang="en" class="active" aria-label="English" title="Book your table">EN</a>
   </div>
   <button class="nav-inner-toggle" id="navInnerToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-inner-menu" id="navInnerMenu">
   <a href="index.html" class="inner-back" title="Torna alla homepage">← Torna al sito</a>
-  <div class="inner-lang"><a href="/prenota.html" hreflang="it" class="active" aria-label="Italiano" title="Prenota il tuo tavolo">IT</a>
+  <div class="inner-lang"><a href="/prenota.html" hreflang="it" aria-label="Italiano" title="Book your table">IT</a>
     <span class="sep">/</span>
-    <a href="/en/prenota.html" hreflang="en" aria-label="English" title="Prenota il tuo tavolo">EN</a></div>
+    <a href="/en/prenota.html" hreflang="en" class="active" aria-label="English" title="Book your table">EN</a></div>
 </div>
 
 <!-- HERO -->
 <section id="main-content" class="hero">
   <div class="hero-inner">
     <span class="hero-eyebrow">Amantea · Via Calavecchia 53 · Calabria</span>
-    <h1 class="hero-title">Prenota il tuo<br><em>tavolo</em></h1>
+    <h1 class="hero-title">Book your<br><em>table</em></h1>
     <p class="hero-sub">
-      Scegli come preferisci: un messaggio su WhatsApp o la prenotazione online diretta. In entrambi i casi ci vogliono meno di un minuto.
+      Choose how you prefer: a WhatsApp message or an instant online booking. Either way, it takes less than a minute.
     </p>
   </div>
 </section>
@@ -559,11 +521,11 @@
 <div class="social-strip">
   <div class="social-strip-item">
     <span class="social-strip-score">4.8</span>
-    <span>TripAdvisor · 540+ recensioni</span>
+    <span>TripAdvisor · 540+ reviews</span>
   </div>
   <span class="social-strip-sep">·</span>
   <div class="social-strip-item">
-    <span class="social-strip-score">9,3</span>
+    <span class="social-strip-score">9.3</span>
     <span>TheFork</span>
   </div>
   <span class="social-strip-sep">·</span>
@@ -572,27 +534,25 @@
   </div>
 </div>
 
-<!-- SCEGLI COME PRENOTARE -->
+<!-- HOW TO BOOK -->
 <div class="metodi-wrap">
   <div class="metodo-card metodo-primary fade-in">
-    <span class="metodo-eyebrow">Opzione 1</span>
-    <div class="metodo-title">Scrivi su <em>WhatsApp</em></div>
-    <p class="metodo-desc">Compila il modulo qui sotto per preparare la richiesta, oppure scrivici liberamente. Ti confermiamo la disponibilità entro pochi minuti.</p>
+    <span class="metodo-eyebrow">Option 1</span>
+    <div class="metodo-title">Message us on <em>WhatsApp</em></div>
+    <p class="metodo-desc">Fill in the form below to prepare your request, or write to us freely. We usually reply within a few minutes.</p>
     <a href="https://wa.me/390982428262" target="_blank" rel="noopener"
        onclick="if(typeof gtag!=='undefined'){gtag('event','click_whatsapp_direct',{event_category:'prenota',event_label:'card_metodo'});}"
-       class="btn-wa" style="margin-top:4px;" title="Scrivici su WhatsApp">
-      Scrivici su WhatsApp →
+       class="btn-wa" style="margin-top:4px;" title="Message us on WhatsApp">
+      Write to us on WhatsApp →
     </a>
   </div>
   <div class="metodo-card metodo-secondary fade-in delay-1">
-    <span class="metodo-eyebrow">Opzione 2</span>
-    <div class="metodo-title">Prenota <em>direttamente online</em></div>
-    <p class="metodo-desc">Verifica la disponibilità in tempo reale e ottieni conferma immediata. Nessuna attesa, nessuno scambio di messaggi.</p>
-    <!-- WIDGET OCTOTABLE (attivo temporaneamente — versione a pagamento, agosto 2026) -->
-    <div id="octotable-widget-container" style="margin-top:12px;">
-      <script type="text/javascript" src="https://octotable.com/book/assets/js/widget.js" data-propertyId="561331" data-octotable-key="47e502f0fcad4180861640cad57d5c2d" data-auth-server-url="https://api.octotable.com" data-booking-engine-url="https://octotable.com/book/restaurant"></script>
-    </div>
-    <!-- FINE WIDGET OCTOTABLE -->
+    <span class="metodo-eyebrow">Option 2</span>
+    <div class="metodo-title">Book <em>directly online</em></div>
+    <p class="metodo-desc">Check real-time availability and get instant confirmation. No waiting, no back-and-forth messages.</p>
+    <a href="https://octotable.com/book/restaurant/561331/booking/home" target="_blank" rel="noopener" class="btn-octotable" style="margin-top:4px;" title="Book online">
+      Book online →
+    </a>
   </div>
 </div>
 
@@ -601,20 +561,20 @@
 
   <!-- FORM -->
   <div class="form-section fade-in">
-    <span class="section-label">Opzione 1 — WhatsApp</span>
-    <h2 class="section-title">Componi il tuo<br><em>messaggio</em></h2>
+    <span class="section-label">Option 1 — WhatsApp</span>
+    <h2 class="section-title">Compose your<br><em>message</em></h2>
     <p class="section-sub">
-      Seleziona data, orario e ospiti — ti prepariamo il messaggio pronto da inviare. Puoi anche cliccare direttamente e scrivere quello che vuoi.
+      Select date, time and guests — we'll prepare the message for you. Or just click the button and write whatever you like.
     </p>
     <div class="ornament"></div>
 
     <div class="form-box">
       <!-- Data -->
       <div class="form-row">
-        <label class="form-label">Data</label>
+        <label class="form-label">Date</label>
         <div class="datepicker-wrap">
-          <button type="button" class="datepicker-input" id="datepickerBtn2" onclick="dpToggle2()" aria-label="Seleziona data">
-            <span id="dpDisplay2">Seleziona una data</span>
+          <button type="button" class="datepicker-input" id="datepickerBtn2" onclick="dpToggle2()" aria-label="Select date">
+            <span id="dpDisplay2">Select a date</span>
             <span style="font-size:12px;color:var(--brown);">▾</span>
           </button>
           <div class="datepicker-calendar" id="dpCalendar2"></div>
@@ -624,31 +584,31 @@
 
       <!-- Ospiti -->
       <div class="form-row">
-        <label class="form-label" for="prenotaOspiti2">Numero di ospiti</label>
+        <label class="form-label" for="prenotaOspiti2">Number of guests</label>
         <select id="prenotaOspiti2" class="form-select" onchange="aggiornaLink2()">
-          <option value="1 persona">1 persona</option>
-          <option value="2 persone" selected>2 persone</option>
-          <option value="3 persone">3 persone</option>
-          <option value="4 persone">4 persone</option>
-          <option value="5 persone">5 persone</option>
-          <option value="6 persone">6 persone</option>
-          <option value="7 persone">7 persone</option>
-          <option value="8 persone">8 persone</option>
-          <option value="più di 8 persone">Più di 8 persone</option>
+          <option value="1 guest">1 guest</option>
+          <option value="2 guests" selected>2 guests</option>
+          <option value="3 guests">3 guests</option>
+          <option value="4 guests">4 guests</option>
+          <option value="5 guests">5 guests</option>
+          <option value="6 guests">6 guests</option>
+          <option value="7 guests">7 guests</option>
+          <option value="8 guests">8 guests</option>
+          <option value="more than 8 guests">More than 8 guests</option>
         </select>
       </div>
 
       <!-- Orario -->
       <div class="form-row">
-        <label class="form-label" for="prenotaOrario2">Orario</label>
+        <label class="form-label" for="prenotaOrario2">Time</label>
         <select id="prenotaOrario2" class="form-select" onchange="aggiornaLink2()">
-          <option value="">Seleziona un orario</option>
-          <optgroup label="Pranzo">
+          <option value="">Select a time</option>
+          <optgroup label="Lunch">
             <option value="12:30">12:30</option>
             <option value="13:30">13:30</option>
             <option value="14:00">14:00</option>
           </optgroup>
-          <optgroup label="Cena">
+          <optgroup label="Dinner">
             <option value="19:30">19:30</option>
             <option value="20:00">20:00</option>
             <option value="20:30">20:30</option>
@@ -661,42 +621,42 @@
 
       <!-- Note opzionali -->
       <div class="form-row">
-        <label class="form-label" for="prenotaNote2">Note o richieste speciali (facoltativo)</label>
-        <textarea id="prenotaNote2" class="form-input" placeholder="Es: occasione speciale, allergie, preferenze tavolo…" oninput="aggiornaLink2()"></textarea>
+        <label class="form-label" for="prenotaNote2">Notes or special requests (optional)</label>
+        <textarea id="prenotaNote2" class="form-input" placeholder="E.g.: special occasion, allergies, table preferences…" oninput="aggiornaLink2()"></textarea>
       </div>
 
-      <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa" title="Scrivici su WhatsApp">
-        Invia su WhatsApp →
+      <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa" title="Message us on WhatsApp">
+        Send on WhatsApp →
       </a>
-      <p class="nota">Di solito rispondiamo entro pochi minuti · Aperto tutti i giorni a pranzo e cena</p>
+      <p class="nota">We usually reply within a few minutes · Open every day for lunch and dinner</p>
     </div>
 
     <!-- ORARI + CONTATTI sotto il form -->
     <div class="info-sotto-form">
       <!-- Orari -->
       <div class="info-card fade-in delay-1">
-        <span class="info-card-title">Orari di apertura</span>
+        <span class="info-card-title">Opening hours</span>
         <div class="orari-grid">
           <div class="orari-cell" style="grid-column:span 2;">
-            <span class="orari-giorno">Tutti i giorni</span>
+            <span class="orari-giorno">Every day</span>
             <span class="orari-ore">12:30–14:30 &nbsp;·&nbsp; 19:30–22:00</span>
           </div>
         </div>
       </div>
       <!-- Contatti -->
       <div class="info-card fade-in delay-1">
-        <span class="info-card-title">Contatti</span>
+        <span class="info-card-title">Contact</span>
         <div class="info-row">
           <span class="info-icon">📍</span>
-          <span class="info-text"><strong>Indirizzo</strong>Via Calavecchia 53<br>87032 Amantea (CS)</span>
+          <span class="info-text"><strong>Address</strong>Via Calavecchia 53<br>87032 Amantea (CS), Italy</span>
         </div>
         <div class="info-row">
           <span class="info-icon">📞</span>
-          <span class="info-text"><strong>Telefono</strong><a href="tel:+390982428262" style="color:var(--brown);text-decoration:none;" title="Chiamaci">0982 428262</a></span>
+          <span class="info-text"><strong>Phone</strong><a href="tel:+390982428262" style="color:var(--brown);text-decoration:none;" title="Call us">+39 0982 428262</a></span>
         </div>
         <div class="info-row">
           <span class="info-icon">✉️</span>
-          <span class="info-text"><strong>Email</strong><a href="mailto:info@l800.it" style="color:var(--brown);text-decoration:none;" title="Scrivici via email">info@l800.it</a></span>
+          <span class="info-text"><strong>Email</strong><a href="mailto:info@l800.it" style="color:var(--brown);text-decoration:none;" title="Email us">info@l800.it</a></span>
         </div>
       </div>
     </div>
@@ -704,20 +664,19 @@
 
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <!-- Info prenotazione -->
     <div class="info-card fade-in delay-2">
-      <span class="info-card-title">Buono a sapersi</span>
+      <span class="info-card-title">Good to know</span>
       <div class="info-row">
         <span class="info-icon">✓</span>
-        <span class="info-text">La prenotazione non è obbligatoria, ma consigliata nei fine settimana e in alta stagione.</span>
+        <span class="info-text">A reservation isn't required, but recommended on weekends and during high season.</span>
       </div>
       <div class="info-row">
         <span class="info-icon">✓</span>
-        <span class="info-text">Per gruppi di oltre 8 persone o occasioni speciali, scrivici direttamente — troveremo la soluzione migliore.</span>
+        <span class="info-text">For groups of more than 8 or special occasions, write to us directly — we'll find the best solution.</span>
       </div>
       <div class="info-row">
         <span class="info-icon">✓</span>
-        <span class="info-text">Il ristorante è aperto a pranzo e a cena tutti i giorni.</span>
+        <span class="info-text">We're open for lunch and dinner every day.</span>
       </div>
     </div>
   </div>
@@ -733,33 +692,33 @@
       referrerpolicy="no-referrer-when-downgrade"
       title="L'800 Locanda a Palazzo — Via Calavecchia 53, Amantea">
     </iframe>
-    <a class="mappa-link" href="https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A" target="_blank" rel="noopener" title="Apri in Google Maps">Apri in Maps →</a>
+    <a class="mappa-link" href="https://maps.app.goo.gl/ba6KmbiKwBSDKLZ2A" target="_blank" rel="noopener" title="Open in Google Maps">Open in Maps →</a>
   </div>
 </div>
 
 <!-- FOOTER -->
-<!-- NAVIGAZIONE INTERNA -->
-<nav class="footer-sitemap" aria-label="Mappa del sito">
+<!-- INTERNAL NAVIGATION -->
+<nav class="footer-sitemap" aria-label="Sitemap">
   <div class="footer-sitemap-inner">
-    <a href="index.html" title="Torna alla homepage">Home</a>
-    <a href="storia.html" title="La nostra storia">La nostra storia</a>
-    <a href="menu-cibo.html" title="Scopri il menu">Menu</a>
-    <a href="menu-vini.html" title="Carta dei vini">Vini</a>
-    <a href="eventi.html" title="Occasioni speciali">Occasioni speciali</a>
-    <a href="buoni.html" title="Buoni regalo">Buoni regalo</a>
-    <a href="prenota.html" title="Prenota il tuo tavolo">Prenota</a>
+    <a href="index.html" title="Back to homepage">Home</a>
+    <a href="storia.html" title="Our story">Our story</a>
+    <a href="menu-cibo.html" title="View the menu">Menu</a>
+    <a href="menu-vini.html" title="Wine list">Wines</a>
+    <a href="eventi.html" title="Special occasions">Special events</a>
+    <a href="buoni.html" title="Gift vouchers">Gift vouchers</a>
+    <a href="prenota.html" title="Book your table">Book a table</a>
   </div>
 </nav>
 
 <footer>
   <div class="footer-top">
     <span class="footer-brand">L'800</span>
-    <span class="footer-copy">© 2026 L'800 – Locanda a Palazzo · P.IVA 03906130780 · Via Calavecchia 53, Amantea (CS)</span>
+    <span class="footer-copy">© 2026 L'800 – Locanda a Palazzo · VAT 03906130780 · Via Calavecchia 53, Amantea (CS), Italy</span>
   </div>
   <div class="footer-legal">
     <a href="privacy-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;" title="Privacy Policy">Privacy Policy</a>
     <a href="cookie-policy.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;" title="Cookie Policy">Cookie Policy</a>
-    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;" title="Termini e condizioni">Termini e Condizioni</a>
+    <a href="termini-condizioni.html" style="font-family:'Cormorant SC',serif;font-size:8px;letter-spacing:0.14em;color:rgba(251,247,239,0.75);text-transform:uppercase;text-decoration:none;" title="Visita pagina">Terms &amp; Conditions</a>
   </div>
 </footer>
 
@@ -773,15 +732,15 @@
     const btn    = document.getElementById('btnWA2');
 
     const dataFmt = data
-      ? new Date(data + 'T12:00:00').toLocaleDateString('it-IT', {day:'2-digit',month:'long',year:'numeric'})
+      ? new Date(data + 'T12:00:00').toLocaleDateString('en-GB', {day:'2-digit',month:'long',year:'numeric'})
       : '';
 
-    let msg = 'Ciao, vorrei prenotare un tavolo';
-    if (ospiti) msg += ' per ' + ospiti;
-    if (dataFmt) msg += ' il ' + dataFmt;
-    if (orario)  msg += ' alle ' + orario;
+    let msg = 'Hello, I\'d like to book a table';
+    if (ospiti) msg += ' for ' + ospiti;
+    if (dataFmt) msg += ' on ' + dataFmt;
+    if (orario)  msg += ' at ' + orario;
     if (note)    msg += '. Note: ' + note;
-    msg += '. È disponibile?';
+    msg += '. Is that available?';
 
     btn.href = 'https://wa.me/390982428262?text=' + encodeURIComponent(msg);
   }
@@ -797,7 +756,7 @@
     },
     render() {
       const cal = document.getElementById('dpCalendar2');
-      const mesi = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+      const mesi = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       const oggi = new Date(); oggi.setHours(0,0,0,0);
       const primo = new Date(this.year, this.month, 1);
       const ultimo = new Date(this.year, this.month + 1, 0);
@@ -809,7 +768,7 @@
       h += '<span class="dp-month-label">' + mesi[this.month] + ' ' + this.year + '</span>';
       h += '<button onclick="event.stopPropagation();DP2.nextMese(event)">&#8250;</button></div>';
       h += '<div class="dp-grid">';
-      ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'].forEach((d,i) => {
+      ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach((d,i) => {
         h += '<div class="dp-dow">' + d + '</div>';
       });
       for (let i = 0; i < startDow; i++) h += '<div class="dp-day dp-empty"></div>';
