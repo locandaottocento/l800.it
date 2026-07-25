@@ -223,11 +223,24 @@ function doLogin(e) {
 }
 function doLogout() {
   PWD = '';
+  try { sessionStorage.removeItem('l800_dashboard_pwd'); } catch(e) {}
   document.getElementById('view-main').style.display = 'none';
   document.getElementById('view-create').style.display = 'none';
   document.getElementById('view-login').style.display = 'flex';
   document.getElementById('pwd').value = '';
 }
+
+// Riprova il login automaticamente se la password è salvata dalla sessione precedente
+// (sessionStorage: resta valida finché la scheda/browser non viene chiusa)
+(function tryAutoLogin() {
+  try {
+    const saved = sessionStorage.getItem('l800_dashboard_pwd');
+    if (saved) {
+      PWD = saved;
+      loadAll();
+    }
+  } catch(e) {}
+})();
 
 // API
 async function api(body) {
@@ -250,6 +263,7 @@ async function loadAll() {
   try {
     const res = await api({ action: 'list' });
     if (!res.ok) throw new Error(res.error);
+    try { sessionStorage.setItem('l800_dashboard_pwd', PWD); } catch(e) {}
     ALL = res.vouchers || [];
     renderStats(); renderTable();
     document.getElementById('view-login').style.display = 'none';
