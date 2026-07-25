@@ -476,6 +476,10 @@ export async function onRequestPost({ request, env, waitUntil }) {
   );
 
   // 8c. Log strutturato vendita (consultabile da Cloudflare > Logs / Logpush)
+  const emailDestPresente =
+    d.emailDestinatario &&
+    EMAIL_RX.test(String(d.emailDestinatario).trim()) &&
+    d.emailDestinatario.trim().toLowerCase() !== d.emailAcquirente.trim().toLowerCase();
   console.log('VOUCHER_SOLD', JSON.stringify({
     ts: new Date().toISOString(),
     codice: d.codiceVoucher,
@@ -485,7 +489,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
     paypalOrderId: d.paypalOrderId,
     acquirente: { nome: d.nomeAcquirente, email: d.emailAcquirente },
     destinatario: { nome: d.nomeDestinatario, email: d.emailDestinatario || null },
-    inviato_destinatario: emailDestValida,
+    inviato_destinatario: emailDestPresente,
   }));
 
   // 8c. Salvataggio nel KV VOUCHERS per la dashboard
@@ -510,41 +514,45 @@ export async function onRequestPost({ request, env, waitUntil }) {
       dataUtilizzo:      null,
       paypalOrderId:     d.paypalOrderId,
     };
-    waitUntil(
-      env.VOUCHERS.put(`voucher:${d.codiceVoucher}`, JSON.stringify(record))
-        // Fix 1: salva chiave dedup paypalOrderId → codiceVoucher (TTL 90 giorni)
-        .then(() => env.VOUCHERS.put(`paypal:${d.paypalOrderId}`, d.codiceVoucher, { expirationTtl: 90 * 24 * 3600 }))
-        .catch(err => {
-          console.error('KV write error:', err.message);
-          // Alert email a info@l800.it se il salvataggio nel KV fallisce
-          return fetch(RESEND_URL, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${apiKey}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              from: "L'800 Notifiche <info@l800.it>",
-              to: ['info@l800.it'],
-              subject: `⚠️ ERRORE KV — buono non salvato in dashboard: ${d.codiceVoucher}`,
-              text: [
-                `ATTENZIONE: il buono è stato venduto e l'email all'acquirente è stata inviata,`,
-                `ma il salvataggio nella dashboard ha fallito.`,
-                `Aggiungilo manualmente dalla dashboard.`,
-                ``,
-                `Codice: ${d.codiceVoucher}`,
-                `Prodotto: ${d.prodotto}`,
-                `Acquirente: ${d.nomeAcquirente} <${d.emailAcquirente}>`,
-                `Destinatario: ${d.nomeDestinatario}`,
-                `PayPal Order ID: ${d.paypalOrderId}`,
-                `Importo: €${expectedAmount}`,
-                ``,
-                `Errore tecnico: ${err.message}`,
-              ].join('\n'),
-            }),
-          }).catch(e => console.error('Alert KV error email failed:', e.message));
-        })
-    );
+    // Fix 5: salvataggio KV atteso (await) invece di fire-and-forget con waitUntil.
+    // Un errore imprevisto PRIMA di questo punto (es. eccezione JS non gestita)
+    // non può più impedire silenziosamente il salvataggio — se il codice arriva
+    // qui, il salvataggio viene garantito o l'errore viene notificato prima
+    // che il server risponda al client.
+    try {
+      await env.VOUCHERS.put(`voucher:${d.codiceVoucher}`, JSON.stringify(record));
+      // Fix 1: salva chiave dedup paypalOrderId → codiceVoucher (TTL 90 giorni)
+      await env.VOUCHERS.put(`paypal:${d.paypalOrderId}`, d.codiceVoucher, { expirationTtl: 90 * 24 * 3600 });
+    } catch (err) {
+      console.error('KV write error:', err.message);
+      // Alert email a info@l800.it se il salvataggio nel KV fallisce (attesa, non fire-and-forget)
+      await fetch(RESEND_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: "L'800 Notifiche <info@l800.it>",
+          to: ['info@l800.it'],
+          subject: `⚠️ ERRORE KV — buono non salvato in dashboard: ${d.codiceVoucher}`,
+          text: [
+            `ATTENZIONE: il buono è stato venduto e l'email all'acquirente è stata inviata,`,
+            `ma il salvataggio nella dashboard ha fallito.`,
+            `Aggiungilo manualmente dalla dashboard.`,
+            ``,
+            `Codice: ${d.codiceVoucher}`,
+            `Prodotto: ${d.prodotto}`,
+            `Acquirente: ${d.nomeAcquirente} <${d.emailAcquirente}>`,
+            `Destinatario: ${d.nomeDestinatario}`,
+            `PayPal Order ID: ${d.paypalOrderId}`,
+            `Importo: €${expectedAmount}`,
+            ``,
+            `Errore tecnico: ${err.message}`,
+          ].join('\n'),
+        }),
+      }).catch(e => console.error('Alert KV error email failed:', e.message));
+    }
   }
 
   // 8c. Meta Conversions API — evento Purchase server-side
