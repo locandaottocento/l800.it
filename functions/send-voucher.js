@@ -312,6 +312,30 @@ async function inviaEmailConPdf(d, env, cors, apiKey, waitUntil) {
     );
   }
 
+  // Conferma interna con PDF allegato a info@l800.it: arriva dopo la notifica
+  // di Fase 1 (senza PDF) e certifica che l'intera operazione — non solo il
+  // pagamento — si e' conclusa correttamente, con il documento gia pronto.
+  waitUntil(
+    fetch(RESEND_URL, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: "L'800 Notifiche <info@l800.it>",
+        to: ['info@l800.it'],
+        subject: `✅ Buono completato con PDF — ${emailData.codice}`,
+        text: [
+          `Il buono e' stato confermato e le email con PDF sono state inviate al cliente.`,
+          ``,
+          `Codice: ${emailData.codice}`,
+          `Acquirente: ${emailData.nomeAcquirente} <${emailData.emailAcquirente}>`,
+          `Destinatario: ${emailData.nomeDestinatario}${emailData.emailDestinatario ? ` <${emailData.emailDestinatario}>` : ''}`,
+          `Scadenza: ${emailData.scadenza}`,
+        ].join('\n'),
+        attachments: attachment,
+      }),
+    }).catch(err => console.error('Phase2 email admin PDF error:', err.message))
+  );
+
   return jsonResponse({ success: true }, 200, cors);
 }
 
