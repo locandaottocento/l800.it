@@ -349,7 +349,7 @@ async function markUsed(codice) {
 
 async function dlPdf(codice) {
   const v=ALL.find(x=>x.codice===codice);
-  if(!v) return;
+  if(!v) { toast('Buono non trovato — ricarica la pagina e riprova', 'ko'); return; }
   try {
     const uri = await generaVoucherPDF({
       tipo:v.tipo, numPortate:v.numPortate, numPersone:v.numPersone,
@@ -357,14 +357,29 @@ async function dlPdf(codice) {
       codiceVoucher:v.codice, scadenza:v.scadenza,
       messaggioPersonale:v.messaggioPersonale||''
     });
-    // Scarica il PDF
-    const a = document.createElement('a');
-    a.href = uri;
-    a.download = 'Buono-Regalo-L800-' + v.codice + '.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    scaricaOApriPdf(uri, 'Buono-Regalo-L800-' + v.codice + '.pdf');
   } catch(e){ toast('Errore PDF: '+e.message,'ko'); }
+}
+
+// Safari (soprattutto iOS) spesso ignora il download silenzioso via <a download>
+// con data URI: su mobile apriamo il PDF in una nuova scheda (Safari mostra
+// l'anteprima con opzione "Condividi > Salva"); sugli altri browser si scarica.
+function scaricaOApriPdf(uri, filename) {
+  const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS si spaccia da desktop
+  if (isIOS) {
+    const w = window.open(uri, '_blank');
+    if (!w) toast('Abilita i popup per aprire il PDF, oppure riprova', 'ko');
+    else toast('PDF aperto in una nuova scheda — usa Condividi per salvarlo', 'ok');
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = uri;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  toast('PDF scaricato', 'ok');
 }
 
 // EXPORT XLSX
@@ -472,12 +487,7 @@ async function creaVoucher() {
       codiceVoucher:v.codice, scadenza:v.scadenza,
       messaggioPersonale:v.messaggioPersonale||''
     });
-    const a = document.createElement('a');
-    a.href = uri;
-    a.download = 'Buono-Regalo-L800-' + v.codice + '.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    scaricaOApriPdf(uri, 'Buono-Regalo-L800-' + v.codice + '.pdf');
     ALL.unshift(v);
     renderStats();
     toast(`Buono ${v.codice} creato!`,'ok');
