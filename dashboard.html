@@ -361,24 +361,40 @@ async function dlPdf(codice) {
   } catch(e){ toast('Errore PDF: '+e.message,'ko'); }
 }
 
+// Converte una data URI (base64) in un Blob — Safari blocca la navigazione
+// diretta a data: URI in una nuova scheda (resta bianca), ma accetta blob: URL.
+function dataURItoBlob(dataURI) {
+  const [meta, base64] = dataURI.split(',');
+  const mime = meta.match(/:(.*?);/)[1];
+  const binary = atob(base64);
+  const arr = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
 // Safari (soprattutto iOS) spesso ignora il download silenzioso via <a download>
-// con data URI: su mobile apriamo il PDF in una nuova scheda (Safari mostra
-// l'anteprima con opzione "Condividi > Salva"); sugli altri browser si scarica.
+// con data URI: su mobile apriamo il PDF (come blob: URL, non data: URI, altrimenti
+// Safari apre una scheda vuota) in una nuova scheda con l'anteprima nativa,
+// da cui si puo' usare "Condividi > Salva"; sugli altri browser si scarica.
 function scaricaOApriPdf(uri, filename) {
+  const blob = dataURItoBlob(uri);
+  const blobUrl = URL.createObjectURL(blob);
   const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS si spaccia da desktop
   if (isIOS) {
-    const w = window.open(uri, '_blank');
+    const w = window.open(blobUrl, '_blank');
     if (!w) toast('Abilita i popup per aprire il PDF, oppure riprova', 'ko');
     else toast('PDF aperto in una nuova scheda — usa Condividi per salvarlo', 'ok');
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
     return;
   }
   const a = document.createElement('a');
-  a.href = uri;
+  a.href = blobUrl;
   a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
   toast('PDF scaricato', 'ok');
 }
 
