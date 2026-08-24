@@ -47,7 +47,17 @@
     return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   }
 
+  function hasAdConsent() {
+    try {
+      return localStorage.getItem('l800_cookie_consent') === 'true';
+    } catch (e) {
+      return false;
+    }
+  }
+
   function meta(eventName, params) {
+    if (!hasAdConsent()) return;
+
     const eventId = generateEventId();
 
     if (typeof fbq === 'function') {
