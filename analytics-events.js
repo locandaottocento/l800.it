@@ -33,10 +33,42 @@
     gtag('event', 'conversion', params);
   }
 
-  // ── HELPER: Meta Pixel ────────────────────────────────────────────────────
+  // ── HELPER: Meta Pixel + Conversions API ──────────────────────────────────
+  // Ogni evento viene inviato due volte: dal pixel browser e dal server (CAPI).
+  // Meta deduplica le due copie tramite lo stesso `event_id`.
+  function getCookie(name) {
+    const value = '; ' + document.cookie;
+    const parts = value.split('; ' + name + '=');
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
+
+  function generateEventId() {
+    return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  }
+
   function meta(eventName, params) {
-    if (typeof fbq !== 'function') return;
-    fbq('track', eventName, params || {});
+    const eventId = generateEventId();
+
+    if (typeof fbq === 'function') {
+      fbq('track', eventName, params || {}, { eventID: eventId });
+    }
+
+    try {
+      fetch('/meta-capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_name: eventName,
+          event_id: eventId,
+          event_source_url: window.location.href,
+          custom_data: params || {},
+          fbp: getCookie('_fbp'),
+          fbc: getCookie('_fbc'),
+        }),
+        keepalive: true,
+      });
+    } catch (e) {}
   }
 
   // ── HELPER: GA4 ───────────────────────────────────────────────────────────
@@ -54,12 +86,14 @@
   // metodo: 'whatsapp' | 'telefono' | 'octotable'
   // Invia lo stesso parametro `metodo` in modo coerente a tutti i sistemi:
   //   GA4         → generate_lead { method, metodo }
-  //   Meta Pixel  → Contact { content_name: 'lead_' + metodo, metodo }
+  //   Meta        → Schedule (whatsapp/octotable) o Contact (telefono)
+  //                 { content_name: 'lead_' + metodo, metodo }
   //   Google Ads  → conversion (label specifica del metodo)
   //   GTM         → l800_lead { metodo }
   function trackLead(metodo) {
+    var eventName = (metodo === 'whatsapp' || metodo === 'octotable') ? 'Schedule' : 'Contact';
     ga4('generate_lead', { method: metodo, metodo: metodo });
-    meta('Contact', { content_name: 'lead_' + metodo, metodo: metodo });
+    meta(eventName, { content_name: 'lead_' + metodo, metodo: metodo });
     gads(metodo);
     dlPush({ event: 'l800_lead', metodo: metodo });
   }
