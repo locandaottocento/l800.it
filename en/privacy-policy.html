@@ -241,7 +241,41 @@
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(t, s);
     fbq('init', '1266689621145892');
-    fbq('track', 'PageView');
+
+    function __l800_getCookie(name) {
+      var value = '; ' + document.cookie;
+      var parts = value.split('; ' + name + '=');
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+    function __l800_hasAdConsent() {
+      try {
+        return localStorage.getItem('l800_cookie_consent') === 'true';
+      } catch (e) {
+        return false;
+      }
+    }
+
+    var pvEventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    fbq('track', 'PageView', {}, { eventID: pvEventId });
+
+    if (__l800_hasAdConsent()) {
+      try {
+        fetch('/meta-capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name: 'PageView',
+            event_id: pvEventId,
+            event_source_url: window.location.href,
+            custom_data: {},
+            fbp: __l800_getCookie('_fbp'),
+            fbc: __l800_getCookie('_fbc'),
+          }),
+          keepalive: true,
+        });
+      } catch (e) {}
+    }
   };</script>
   <noscript><img height="1" width="1" style="display:none" alt=""
   src="https://www.facebook.com/tr?id=1266689621145892&ev=PageView&noscript=1"
