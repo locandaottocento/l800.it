@@ -182,7 +182,6 @@ function textAcquirente(d) {
     `  Codice: ${d.codiceVoucher}`,
     `  Scadenza: ${d.scadenza}`,
     `  Destinatario: ${d.nomeDestinatario}`,
-    `  ID transazione: ${d.paypalOrderId || d.stripePaymentIntentId || '—'}`,
     '',
     d.messaggioPersonale ? `Messaggio: "${d.messaggioPersonale}"\n` : '',
     `Per prenotare:`,
@@ -686,10 +685,8 @@ function htmlAcquirente(d) {
     </div>
 
     <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
-      <tr><td style="padding:9px 0;border-bottom:1px solid rgba(111,59,28,0.1);font-size:13px;color:#8a5630;width:38%;">Destinatario</td>
-          <td style="padding:9px 0;border-bottom:1px solid rgba(111,59,28,0.1);font-size:14px;font-weight:bold;color:#2a1a10;">${esc(d.nomeDestinatario)}</td></tr>
-      <tr><td style="padding:9px 0;font-size:13px;color:#8a5630;">ID transazione</td>
-          <td style="padding:9px 0;font-size:11px;color:#8a5630;font-family:monospace;">${esc(d.paypalOrderId || d.stripePaymentIntentId || '—')}</td></tr>
+      <tr><td style="padding:9px 0;font-size:13px;color:#8a5630;width:38%;">Destinatario</td>
+          <td style="padding:9px 0;font-size:14px;font-weight:bold;color:#2a1a10;">${esc(d.nomeDestinatario)}</td></tr>
     </table>
 
     <div style="background:#ecd9b6;padding:20px 24px;margin-bottom:28px;">
