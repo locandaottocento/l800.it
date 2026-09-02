@@ -1279,7 +1279,7 @@ function aggiornaStripe(haItems, totale) {
     }
   });
 
-  stripePaymentEl = stripeElements.create('payment');
+  stripePaymentEl = stripeElements.create('payment', { wallets: { link: 'never' } });
   stripePaymentEl.mount('#stripe-payment-element-container');
 }
 
