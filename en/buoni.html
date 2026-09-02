@@ -1231,6 +1231,8 @@ function aggiornaStripe(haItems, totale) {
   }
   expressC.style.display = 'block';
   peC.style.display = 'block';
+  payBtn.style.display = 'block';
+  payBtn.textContent = 'Pay € ' + totale;
 
   const amountCents = Math.round(totale * 100);
 
@@ -1240,7 +1242,13 @@ function aggiornaStripe(haItems, totale) {
   }
   stripeRendered = true;
 
-  stripeElements = stripe.elements({ mode: 'payment', amount: amountCents, currency: 'eur' });
+  // Same allowed methods as the server (stripe-create-intent.js): no Link,
+  // Amazon Pay, Bancontact, MB WAY, EPS. Apple Pay/Google Pay remain
+  // available through the 'card' type.
+  stripeElements = stripe.elements({
+    mode: 'payment', amount: amountCents, currency: 'eur',
+    paymentMethodTypes: ['card', 'klarna', 'satispay'],
+  });
 
   stripeExpressEl = stripeElements.create('expressCheckout');
   stripeExpressEl.mount('#stripe-express-container');
@@ -1262,7 +1270,6 @@ function aggiornaStripe(haItems, totale) {
 
   stripePaymentEl = stripeElements.create('payment');
   stripePaymentEl.mount('#stripe-payment-element-container');
-  payBtn.style.display = 'block';
 }
 
 async function eseguiPagamentoStripe() {

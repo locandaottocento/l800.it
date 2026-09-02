@@ -69,7 +69,9 @@ function toFormParams(obj, params = new URLSearchParams(), prefix = '') {
   for (const [key, value] of Object.entries(obj)) {
     if (value === undefined || value === null) continue;
     const paramKey = prefix ? `${prefix}[${key}]` : key;
-    if (typeof value === 'object' && !Array.isArray(value)) {
+    if (Array.isArray(value)) {
+      for (const item of value) params.append(`${paramKey}[]`, String(item));
+    } else if (typeof value === 'object') {
       toFormParams(value, params, paramKey);
     } else {
       params.append(paramKey, String(value));

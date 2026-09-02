@@ -83,10 +83,13 @@ export async function onRequestPost({ request, env }) {
   };
 
   try {
+    // Metodi ristretti su richiesta: niente Link, Amazon Pay, Bancontact,
+    // MB WAY, EPS. Apple Pay/Google Pay restano disponibili: nell'API Stripe
+    // sono veicolati dal tipo 'card', non da un tipo a parte.
     const intent = await stripeRequest(env, 'POST', '/payment_intents', {
       amount: Math.round(expectedAmount * 100),
       currency: 'eur',
-      automatic_payment_methods: { enabled: 'true' },
+      payment_method_types: ['card', 'klarna', 'satispay'],
       description: `Buono regalo L'800 — ${d.prodotto}`.slice(0, 490),
       receipt_email: String(d.emailAcquirente).trim(),
       metadata,
