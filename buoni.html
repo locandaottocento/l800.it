@@ -1103,8 +1103,8 @@ function aggiornaCarrello() {
   totaleBox.style.display = haItems ? 'flex' : 'none';
   totaleVal.textContent = '€' + totale;
 
-  aggiornaPayPal(haItems, totale);
-  aggiornaStripe(haItems, totale);
+  try { aggiornaPayPal(haItems, totale); } catch (e) { console.error('aggiornaPayPal error:', e); }
+  try { aggiornaStripe(haItems, totale); } catch (e) { console.error('aggiornaStripe error:', e); }
 }
 
 // ── PAYPAL ──
@@ -1118,6 +1118,12 @@ function aggiornaPayPal(haItems, totale) {
   }
 
   if (paypalRendered) return;
+
+  if (typeof paypal === 'undefined') {
+    console.error('PayPal SDK non caricato');
+    ppContainer.innerHTML = '<div class="pagamento-disabilitato">PayPal non disponibile al momento. Usa Stripe qui sopra o contattaci su WhatsApp.</div>';
+    return;
+  }
   paypalRendered = true;
 
   // Crea div interno come target reale del render
