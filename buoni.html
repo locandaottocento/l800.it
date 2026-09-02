@@ -859,7 +859,15 @@
 <div class="pagamento-wrapper">
   <div class="pagamento-box fade-in">
     <div class="pagamento-title">Pagamento sicuro</div>
-    <div class="pagamento-sicurezza">🔒 Transazione protetta · Powered by PayPal</div>
+    <div class="pagamento-sicurezza">🔒 Transazione protetta</div>
+
+    <div id="stripe-express-container" style="margin-bottom:14px;"></div>
+    <div id="stripe-payment-element-container" style="margin-bottom:10px;"></div>
+    <button type="button" id="stripe-pay-btn" class="btn-primary" style="width:100%;display:none;margin-bottom:14px;">Paga con carta</button>
+    <div id="stripe-errore" style="display:none;color:#c0392b;font-size:13px;margin-bottom:14px;"></div>
+
+    <div class="pagamento-divider" style="text-align:center;font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.15em;color:var(--brown-pale);text-transform:uppercase;margin:16px 0;">oppure</div>
+
     <div id="paypal-button-container">
       <div class="pagamento-disabilitato" id="msg-seleziona">Seleziona almeno un buono regalo per procedere al pagamento.</div>
     </div>
@@ -929,9 +937,10 @@
   </div>
 </footer>
 
-<!-- PAYPAL SDK -->
+<!-- PAYPAL SDK + STRIPE SDK -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=Afw_NTlvBV8q6y1HigSn4lXPzqbXdBFFW9EziyM0nR0dKPd6ost9BJN3QLSKhaSnevwKylPqFXyvAwlw&currency=EUR&locale=it_IT&intent=capture&components=buttons"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
 <script>
 
@@ -1095,6 +1104,7 @@ function aggiornaCarrello() {
   totaleVal.textContent = '€' + totale;
 
   aggiornaPayPal(haItems, totale);
+  aggiornaStripe(haItems, totale);
 }
 
 // ── PAYPAL ──
@@ -1166,6 +1176,255 @@ function calcolaTotale() {
   let t = Object.entries(qty).reduce((sum, [id, q]) => sum + (q > 0 ? PRODOTTI[id].prezzo * q : 0), 0);
   if (liberoAttivo && importoLibero >= IMPORTO_LIBERO_MIN) t += importoLibero;
   return t;
+}
+
+// ── STRIPE (carta, Apple Pay, Google Pay) ──
+// Chiave pubblicabile: non è un segreto, può stare nel codice client (come il
+// client-id di PayPal poco sopra).
+var stripe = (typeof Stripe === 'function')
+  ? Stripe('pk_live_51UBAqs79mFr2ThPN974NNEg3YnHQmDSCAX8vMlOmMBAT9ilSkCobWN5KcO14wJTQ8d9bxNCYssQtbuj6k0poC1AY00KvI4qe6s')
+  : null;
+var stripeElements = null;
+var stripeExpressEl = null;
+var stripePaymentEl = null;
+var stripeRendered = false;
+var stripeCheckoutInCorso = false;
+
+function stripeOrderData() {
+  const nome      = document.getElementById('nomeAcquirente').value;
+  const email     = document.getElementById('emailAcquirente').value;
+  const dest      = document.getElementById('nomeDestinatario').value;
+  const emailDest = document.getElementById('emailDestinatario').value;
+  const msg       = document.getElementById('messaggioPersonale').value;
+  const numPortate = getNumPortate();
+  const numPersone = getTotalPersone();
+  const prodDesc = liberoAttivo
+    ? `Buono regalo – Importo libero (€${importoLibero})`
+    : Object.entries(qty)
+        .filter(([,q]) => q > 0)
+        .map(([id, q]) => `${PRODOTTI[id].nome}${q > 1 ? ' x ' + q : ''}`)
+        .join(' + ');
+  return {
+    nomeAcquirente: nome, emailAcquirente: email,
+    nomeDestinatario: dest, emailDestinatario: emailDest,
+    messaggioPersonale: msg, prodotto: prodDesc,
+    numPortate: numPortate, numPersone: numPersone,
+    tipo: liberoAttivo ? 'libero' : 'fisso',
+    importoLibero: liberoAttivo ? importoLibero : 0,
+  };
+}
+
+function mostraErroreStripe(msg) {
+  const el = document.getElementById('stripe-errore');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function nascondiErroreStripe() {
+  document.getElementById('stripe-errore').style.display = 'none';
+}
+
+function aggiornaStripe(haItems, totale) {
+  const expressC = document.getElementById('stripe-express-container');
+  const peC      = document.getElementById('stripe-payment-element-container');
+  const payBtn   = document.getElementById('stripe-pay-btn');
+
+  if (!stripe || !haItems) {
+    expressC.style.display = 'none';
+    peC.style.display = 'none';
+    payBtn.style.display = 'none';
+    return;
+  }
+  expressC.style.display = 'block';
+  peC.style.display = 'block';
+
+  const amountCents = Math.round(totale * 100);
+
+  if (stripeRendered) {
+    stripeElements.update({ amount: amountCents });
+    return;
+  }
+  stripeRendered = true;
+
+  stripeElements = stripe.elements({ mode: 'payment', amount: amountCents, currency: 'eur' });
+
+  stripeExpressEl = stripeElements.create('expressCheckout');
+  stripeExpressEl.mount('#stripe-express-container');
+
+  stripeExpressEl.on('click', function(event) {
+    if (!validaForm()) { event.reject(); return; }
+    event.resolve();
+  });
+
+  stripeExpressEl.on('confirm', async function() {
+    await eseguiPagamentoStripe();
+  });
+
+  stripeExpressEl.on('ready', function(ev) {
+    if (!ev || !ev.availablePaymentMethods) {
+      expressC.style.display = 'none';
+    }
+  });
+
+  stripePaymentEl = stripeElements.create('payment');
+  stripePaymentEl.mount('#stripe-payment-element-container');
+  payBtn.style.display = 'block';
+}
+
+async function eseguiPagamentoStripe() {
+  if (stripeCheckoutInCorso) return;
+  nascondiErroreStripe();
+  stripeCheckoutInCorso = true;
+  checkoutInCorso = true;
+  try {
+    const { error: submitError } = await stripeElements.submit();
+    if (submitError) {
+      mostraErroreStripe(submitError.message || 'Errore nei dati di pagamento.');
+      return;
+    }
+
+    const orderData = stripeOrderData();
+    const res = await fetch('/stripe-create-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+    const intentData = await res.json();
+    if (!res.ok) throw new Error(intentData.error || 'Impossibile avviare il pagamento.');
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements: stripeElements,
+      clientSecret: intentData.clientSecret,
+      confirmParams: { return_url: window.location.href },
+      redirect: 'if_required',
+    });
+
+    if (error) {
+      mostraErroreStripe(error.message || 'Pagamento non riuscito. Riprova.');
+      return;
+    }
+
+    if (paymentIntent && paymentIntent.status === 'succeeded') {
+      await mostraConfermaStripe(paymentIntent.id, orderData);
+    } else {
+      mostraErroreStripe('Pagamento in elaborazione. Se non ricevi conferma a breve, contattaci su WhatsApp.');
+    }
+  } catch (err) {
+    console.error('Stripe checkout error:', err);
+    mostraErroreStripe(err.message || 'Errore tecnico. Riprova o contattaci su WhatsApp.');
+  } finally {
+    stripeCheckoutInCorso = false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('stripe-pay-btn');
+  if (btn) btn.addEventListener('click', eseguiPagamentoStripe);
+});
+
+// ── SCHERMATA CONFERMA (Stripe) ──
+// Mirror di mostraConferma(details) per PayPal: Fase 1 (verifica + genera codice)
+// tramite /stripe-finalize, poi Fase 2 (PDF + email) tramite /send-voucher, invariata.
+async function mostraConfermaStripe(paymentIntentId, orderData) {
+  const nome  = orderData.nomeAcquirente;
+  const email = orderData.emailAcquirente;
+  const dest  = orderData.nomeDestinatario;
+  const emailDest = orderData.emailDestinatario;
+  const msg   = orderData.messaggioPersonale;
+  const totale = calcolaTotale();
+  const numPortate = orderData.numPortate;
+  const numPersone = orderData.numPersone;
+  const prodDesc = orderData.prodotto;
+
+  try {
+    sessionStorage.setItem('l800_pending_order', JSON.stringify({
+      stripePaymentIntentId: paymentIntentId,
+      nomeAcquirente: nome, emailAcquirente: email,
+      prodotto: prodDesc, importo: totale, ts: Date.now()
+    }));
+  } catch(e) {}
+
+  document.getElementById('voucher-prodotto-nome').textContent = prodDesc;
+  document.getElementById('voucher-importo').textContent = '€' + totale;
+  document.getElementById('voucher-codice').textContent = '—';
+  document.getElementById('voucher-scadenza').textContent = 'In elaborazione...';
+  document.getElementById('conferma-sub-text').textContent =
+    'Grazie ' + nome + '! Pagamento confermato. Sto registrando il buono...';
+  document.getElementById('schermata-conferma').style.display = 'block';
+  window.scrollTo(0, 0);
+
+  const statusEl = document.getElementById('email-status');
+  try {
+    const res1 = await fetch('/stripe-finalize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paymentIntentId: paymentIntentId })
+    });
+    if (!res1.ok) throw new Error(await res1.text());
+    const result  = await res1.json();
+    const codice  = result.codiceVoucher;
+    const scadStr = result.scadenza;
+
+    try { sessionStorage.removeItem('l800_pending_order'); } catch(e) {}
+
+    document.getElementById('voucher-codice').textContent = codice;
+    document.getElementById('voucher-scadenza').textContent = 'Valido fino al ' + scadStr;
+
+    const conf = document.getElementById('conferma-dettagli-text');
+    conf.innerHTML = '';
+    const aggiungiRiga = (label, valore) => {
+      const p = document.createElement('p');
+      p.style.margin = '4px 0';
+      const s = document.createElement('strong');
+      s.textContent = label + ' ';
+      p.appendChild(s);
+      p.appendChild(document.createTextNode(valore));
+      conf.appendChild(p);
+    };
+    aggiungiRiga('Acquistato da:', nome + ' (' + email + ')');
+    aggiungiRiga('Destinatario:', dest + (emailDest ? ' (' + emailDest + ')' : ''));
+    if (msg) aggiungiRiga('Messaggio:', msg);
+    aggiungiRiga('Ordine:', prodDesc);
+    aggiungiRiga('Persone:', String(numPersone));
+    aggiungiRiga('Importo pagato:', '€' + totale);
+    aggiungiRiga('Codice voucher:', codice);
+    aggiungiRiga('Scadenza:', scadStr);
+    aggiungiRiga('ID transazione Stripe:', paymentIntentId);
+
+    if (typeof window.trackVoucherPurchase === 'function') {
+      window.trackVoucherPurchase(totale, numPortate, numPersone, codice);
+    }
+
+    statusEl.textContent = '⏳ Preparazione PDF in corso...';
+    try {
+      const allData = { ...orderData, codiceVoucher: codice, scadenza: scadStr };
+      const pdfDataUri = await generateVoucherPDF(allData);
+      const pdfBase64  = pdfDataUri.split(',')[1];
+
+      const res2 = await fetch('/send-voucher', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codiceVoucher: codice, pdfBase64 })
+      });
+      if (!res2.ok) throw new Error(await res2.text());
+
+      document.getElementById('conferma-sub-text').textContent =
+        'Grazie ' + nome + "! Il buono con PDF è stato inviato a " + email + ".";
+      statusEl.textContent = 'Buono inviato via email con allegato PDF';
+      statusEl.style.color = 'var(--green)';
+    } catch(pdfErr) {
+      console.error('Phase2 PDF/email error (stripe):', pdfErr);
+      document.getElementById('conferma-sub-text').textContent =
+        'Grazie ' + nome + "! Pagamento confermato. Ti invieremo il buono a breve.";
+      statusEl.textContent = 'Buono registrato — email in arrivo a breve';
+      statusEl.style.color = 'var(--brown)';
+    }
+  } catch(err) {
+    console.error('Voucher error (stripe fase 1):', err);
+    statusEl.textContent = 'Errore tecnico — contattaci su WhatsApp con ID: ' + paymentIntentId;
+    statusEl.style.color = '#c0392b';
+    document.getElementById('conferma-sub-text').textContent =
+      'Grazie ' + nome + '! Pagamento confermato — ti contatteremo per il buono.';
+  }
 }
 
 function descrizioneOrdine() {
