@@ -182,7 +182,7 @@ function textAcquirente(d) {
     `  Codice: ${d.codiceVoucher}`,
     `  Scadenza: ${d.scadenza}`,
     `  Destinatario: ${d.nomeDestinatario}`,
-    `  ID PayPal: ${d.paypalOrderId}`,
+    `  ID transazione: ${d.paypalOrderId || d.stripePaymentIntentId || '—'}`,
     '',
     d.messaggioPersonale ? `Messaggio: "${d.messaggioPersonale}"\n` : '',
     `Per prenotare:`,
@@ -689,13 +689,13 @@ function htmlAcquirente(d) {
       <tr><td style="padding:9px 0;border-bottom:1px solid rgba(111,59,28,0.1);font-size:13px;color:#8a5630;width:38%;">Destinatario</td>
           <td style="padding:9px 0;border-bottom:1px solid rgba(111,59,28,0.1);font-size:14px;font-weight:bold;color:#2a1a10;">${esc(d.nomeDestinatario)}</td></tr>
       <tr><td style="padding:9px 0;font-size:13px;color:#8a5630;">ID transazione</td>
-          <td style="padding:9px 0;font-size:11px;color:#8a5630;font-family:monospace;">${d.paypalOrderId}</td></tr>
+          <td style="padding:9px 0;font-size:11px;color:#8a5630;font-family:monospace;">${esc(d.paypalOrderId || d.stripePaymentIntentId || '—')}</td></tr>
     </table>
 
     <div style="background:#ecd9b6;padding:20px 24px;margin-bottom:28px;">
       <div style="font-family:Helvetica,Arial,sans-serif;font-size:8px;letter-spacing:2px;color:#8a5630;text-transform:uppercase;margin-bottom:10px;">Come utilizzare il buono</div>
       <p style="font-size:14px;color:#807068;line-height:1.7;margin:0 0 10px;">
-        Per prenotare, il destinatario pu&ograve; scriverci su WhatsApp, chiamarci al 0982 428262 o prenotare direttamente online tramite Octotable. Al momento di presentarsi al ristorante, sar&agrave; sufficiente comunicare il codice voucher.
+        Per prenotare, il destinatario pu&ograve; scriverci su WhatsApp, chiamarci al 0982 428262 o prenotare direttamente online tramite www.l800.it. Al momento di presentarsi al ristorante, sar&agrave; sufficiente comunicare il codice voucher.
       </p>
       <p style="font-size:14px;color:#807068;line-height:1.7;margin:0;">
         Il buono &egrave; ${validitaFrase} per 12 mesi dall&rsquo;acquisto.
