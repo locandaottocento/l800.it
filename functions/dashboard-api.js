@@ -294,7 +294,9 @@ export async function onRequestPost({ request, env }) {
     const { tipo, numPortate, numPersone, importoLibero,
             importoPagato, nomeAcquirente, emailAcquirente,
             nomeDestinatario, emailDestinatario, messaggioPersonale,
-            scadenza, pdfBase64 } = body;
+            scadenza, pdfBase64, codice: codiceManuale,
+            stato: statoManuale, dataUtilizzo: dataUtilizzoManuale,
+            dataAcquisto: dataAcquistoManuale } = body;
 
     if (!nomeAcquirente || !nomeDestinatario) {
       return json({ error: 'Nome acquirente e destinatario obbligatori' }, 400);
@@ -316,7 +318,19 @@ export async function onRequestPost({ request, env }) {
     const porto  = parseInt(numPortate, 10) || 3;
     const impLib = parseInt(importoLibero, 10) || 0;
     const impPag = parseFloat(importoPagato) || 0;
-    const codice = generaCodice(tipo, porto);
+
+    // Codice personalizzato (per registrare buoni storici pre-sito, es. quelli
+    // generati a mano prima del 2026): se fornito e non già in uso, si usa
+    // quello invece di generarne uno nuovo nel formato L800-XXX.
+    let codice = generaCodice(tipo, porto);
+    if (codiceManuale && String(codiceManuale).trim()) {
+      const codiceRichiesto = String(codiceManuale).trim();
+      const esistente = await getVoucher(env, codiceRichiesto);
+      if (esistente) {
+        return json({ error: `Il codice "${codiceRichiesto}" esiste già` }, 409);
+      }
+      codice = codiceRichiesto;
+    }
 
     // Calcola scadenza default (12 mesi da oggi)
     let scadenzaStr = scadenza;
@@ -344,10 +358,12 @@ export async function onRequestPost({ request, env }) {
       emailDestinatario:  emailDestinatario ? String(emailDestinatario).trim() : '',
       messaggioPersonale: messaggioPersonale ? String(messaggioPersonale).trim() : '',
       prodotto,
-      dataAcquisto:       new Date().toISOString().split('T')[0],
+      dataAcquisto:       dataAcquistoManuale ? String(dataAcquistoManuale).trim() : new Date().toISOString().split('T')[0],
       scadenza:           scadenzaStr,
-      stato:              'attivo',
-      dataUtilizzo:       null,
+      stato:              statoManuale === 'utilizzato' ? 'utilizzato' : 'attivo',
+      dataUtilizzo:       statoManuale === 'utilizzato'
+        ? (dataUtilizzoManuale ? String(dataUtilizzoManuale).trim() : new Date().toISOString().split('T')[0])
+        : null,
       paypalOrderId:      null,
     };
 

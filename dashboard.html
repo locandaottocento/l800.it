@@ -172,10 +172,21 @@ tr.used td{opacity:.55}
           <div class="ff"><label>Scadenza</label><input id="isca" type="date"></div>
         </div>
       </div>
+      <div class="fsec">
+        <div class="fst">Buono storico (opzionale)</div>
+        <div class="frow">
+          <div class="ff"><label>Codice personalizzato</label><input id="icod" type="text" placeholder="es. 694FFF6B1898A-P"></div>
+          <div class="ff"><label>Data acquisto</label><input id="idacq" type="date"></div>
+        </div>
+        <div class="frow">
+          <label><input id="igiausato" type="checkbox" onchange="document.getElementById('idusato').style.display=this.checked?'block':'none'"> Già utilizzato</label>
+          <div class="ff" id="idusato" style="display:none"><label>Data utilizzo</label><input id="idu" type="date"></div>
+        </div>
+      </div>
       <div class="factions">
         <button id="bcrea" onclick="creaVoucher()">Genera buono e invia email</button>
       </div>
-      <div class="fhint">Il PDF viene scaricato automaticamente. Le email vengono inviate solo se i campi email sono compilati.</div>
+      <div class="fhint">Il PDF viene scaricato automaticamente. Le email vengono inviate solo se i campi email sono compilati. Usa "Codice personalizzato" per registrare un buono già esistente (es. creato a mano prima del sito) senza generarne uno nuovo.</div>
     </div>
   </div>
 </div>
@@ -484,6 +495,12 @@ async function creaVoucher() {
   }
   const scaI=document.getElementById('isca').value;
   const scaFmt=scaI?scaI.split('-').reverse().join('/'):'';
+  const codiceManuale=document.getElementById('icod').value.trim();
+  const giaUsato=document.getElementById('igiausato').checked;
+  // dataAcquisto e dataUtilizzo si salvano in formato ISO (yyyy-mm-dd, come
+  // già fa mark-used) — l'input date è già in quel formato, nessuna conversione.
+  const dacqIso=document.getElementById('idacq').value;
+  const duIso=document.getElementById('idu').value;
   const btn=document.getElementById('bcrea');
   btn.disabled=true; btn.textContent='Creazione in corso\u2026';
   try {
@@ -493,7 +510,11 @@ async function creaVoucher() {
       nomeAcquirente:an,emailAcquirente:document.getElementById('iae').value.trim(),
       nomeDestinatario:dn,emailDestinatario:document.getElementById('ide').value.trim(),
       messaggioPersonale:document.getElementById('imsg').value.trim(),
-      scadenza:scaFmt});
+      scadenza:scaFmt,
+      codice:codiceManuale||undefined,
+      dataAcquisto:dacqIso||undefined,
+      stato:giaUsato?'utilizzato':undefined,
+      dataUtilizzo:giaUsato?(duIso||undefined):undefined});
     if(!res.ok) throw new Error(res.error||'Errore');
     const v=res.voucher;
     // Genera e scarica il PDF con il codice reale
