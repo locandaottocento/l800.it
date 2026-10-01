@@ -91,7 +91,6 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -105,7 +104,6 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -149,7 +147,7 @@
       "name": "What are the opening hours?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Open every day for lunch (12:30 – 14:30) and dinner (19:30 – 22:00)."
+        "text": "Open for lunch (12:30 – 14:30) and dinner (19:30 – 22:00) every day except Wednesday, when we are closed."
       }
     }
   ]
@@ -896,10 +894,6 @@
   </ul>
 </div>
 
-<div style="margin-top:72px;background:var(--brown);color:var(--cream-light);text-align:center;padding:12px 20px;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.02em;">
-  The restaurant will be closed for the summer break from September 21 to 28. We look forward to welcoming you back from September 29!
-</div>
-
 <!-- HERO -->
 <section id="main-content" class="hero">
   <div class="hero-left">
@@ -1290,7 +1284,7 @@
       </div>
       <div class="dove-block">
         <h3>What are the opening hours?</h3>
-        <p>Open every day for lunch (12:30 – 14:30) and dinner (19:30 – 22:00).</p>
+        <p>Open for lunch (12:30 – 14:30) and dinner (19:30 – 22:00) every day except Wednesday, when we are closed.</p>
       </div>
       <div class="dove-block">
         <h3>Contact</h3>
@@ -1473,14 +1467,15 @@
         const data = new Date(this.year, this.month, g);
         data.setHours(0,0,0,0);
         const isPast = data < oggi;
+        const isChiuso = data.getDay() === 3; // chiuso il mercoledì
         const isSelected = this.selected &&
           data.toDateString() === this.selected.toDateString();
         const isToday = data.toDateString() === oggi.toDateString();
         let cls = 'dp-day';
-        if (isPast) cls += ' dp-disabled';
+        if (isPast || isChiuso) cls += ' dp-disabled';
         if (isSelected) cls += ' dp-selected';
         if (isToday && !isPast) cls += ' dp-today';
-        const onclick = !isPast
+        const onclick = !isPast && !isChiuso
           ? 'DP.selezionaGiorno(' + this.year + ',' + this.month + ',' + g + ')'
           : '';
         html += '<div class="' + cls + '"' + (onclick ? ' onclick="'+onclick+'"' : '') + '>' + g + '</div>';

@@ -33,7 +33,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="L'800">
 <title>Book a table — L'800 Locanda a Palazzo · Amantea, Calabria</title>
-<meta name="description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open every day for lunch and dinner.">
+<meta name="description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open for lunch and dinner, closed on Wednesdays.">
 <meta name="author" content="L'800 Locanda a Palazzo">
 <meta name="robots" content="index, follow">
 <link rel="alternate" hreflang="it" href="https://www.l800.it/prenota">
@@ -46,7 +46,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Book a table — L'800 Locanda a Palazzo">
-<meta property="og:description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open every day for lunch and dinner.">
+<meta property="og:description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open for lunch and dinner, closed on Wednesdays.">
 <meta property="og:url" content="https://www.l800.it/en/prenota">
 <meta property="og:image" content="https://www.l800.it/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -56,7 +56,7 @@
 <meta property="og:site_name" content="L'800 Locanda a Palazzo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Book a table — L'800 Locanda a Palazzo">
-<meta name="twitter:description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open every day for lunch and dinner.">
+<meta name="twitter:description" content="Book a table at L'800 Locanda a Palazzo in Amantea, Calabria. Fish restaurant in a nineteenth-century palazzo. Open for lunch and dinner, closed on Wednesdays.">
 <meta name="twitter:image" content="https://www.l800.it/og-image.png">
 
 <script type="application/ld+json">
@@ -95,7 +95,6 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -109,7 +108,6 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -548,10 +546,6 @@
     <a href="/en/prenota.html" hreflang="en" class="active" aria-label="English" title="Book your table">EN</a></div>
 </div>
 
-<div style="margin-top:72px;background:var(--brown);color:var(--cream-light);text-align:center;padding:12px 20px;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.02em;">
-  The restaurant will be closed for the summer break from September 21 to 28. We look forward to welcoming you back from September 29!
-</div>
-
 <!-- HERO -->
 <section id="main-content" class="hero">
   <div class="hero-inner">
@@ -674,7 +668,7 @@
       <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa" title="Message us on WhatsApp">
         Send on WhatsApp →
       </a>
-      <p class="nota">We usually reply within a few minutes · Open every day for lunch and dinner</p>
+      <p class="nota">We usually reply within a few minutes · Open for lunch and dinner · Closed on Wednesdays</p>
     </div>
 
     <!-- ORARI + CONTATTI sotto il form -->
@@ -684,8 +678,9 @@
         <span class="info-card-title">Opening hours</span>
         <div class="orari-grid">
           <div class="orari-cell" style="grid-column:span 2;">
-            <span class="orari-giorno">Every day</span>
+            <span class="orari-giorno">Thursday – Tuesday</span>
             <span class="orari-ore">12:30–14:30 &nbsp;·&nbsp; 19:30–22:00</span>
+            <span class="orari-chiuso" style="display:block;margin-top:4px;">Closed on Wednesdays</span>
           </div>
         </div>
       </div>
@@ -722,7 +717,7 @@
       </div>
       <div class="info-row">
         <span class="info-icon">✓</span>
-        <span class="info-text">We're open for lunch and dinner every day.</span>
+        <span class="info-text">We're open for lunch and dinner every day except Wednesday.</span>
       </div>
     </div>
   </div>
@@ -821,13 +816,14 @@
       for (let g = 1; g <= ultimo.getDate(); g++) {
         const d = new Date(this.year, this.month, g); d.setHours(0,0,0,0);
         const isPast = d < oggi;
+        const isChiuso = d.getDay() === 3; // chiuso il mercoledì
         const isSel = this.selected && d.toDateString() === this.selected.toDateString();
         const isToday = d.toDateString() === oggi.toDateString();
         let cls = 'dp-day';
-        if (isPast) cls += ' dp-disabled';
+        if (isPast || isChiuso) cls += ' dp-disabled';
         if (isSel) cls += ' dp-selected';
         if (isToday && !isPast) cls += ' dp-today';
-        const click = !isPast ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
+        const click = (!isPast && !isChiuso) ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
         h += '<div class="' + cls + '"' + click + '>' + g + '</div>';
       }
       h += '</div>';

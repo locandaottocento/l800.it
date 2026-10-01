@@ -33,7 +33,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="L'800">
 <title>Prenota un tavolo ad Amantea — L'800 Locanda a Palazzo</title>
-<meta name="description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto tutti i giorni a pranzo e cena.">
+<meta name="description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto a pranzo e cena, chiuso il mercoledì.">
 <meta name="author" content="L'800 Locanda a Palazzo">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.l800.it/prenota">
@@ -43,7 +43,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Prenota un tavolo — L'800 Locanda a Palazzo, Amantea">
-<meta property="og:description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto tutti i giorni a pranzo e cena.">
+<meta property="og:description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto a pranzo e cena, chiuso il mercoledì.">
 <meta property="og:url" content="https://www.l800.it/prenota">
 <meta property="og:image" content="https://www.l800.it/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -53,7 +53,7 @@
 <meta property="og:site_name" content="L'800 Locanda a Palazzo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Prenota un tavolo — L'800 Locanda a Palazzo, Amantea">
-<meta name="twitter:description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto tutti i giorni a pranzo e cena.">
+<meta name="twitter:description" content="Prenota il tuo tavolo a L'800 Locanda a Palazzo ad Amantea (CS). Ristorante di pesce in palazzo storico. Aperto a pranzo e cena, chiuso il mercoledì.">
 <meta name="twitter:image" content="https://www.l800.it/og-image.png">
 
 <script type="application/ld+json">
@@ -92,7 +92,6 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -106,7 +105,6 @@
       "dayOfWeek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
@@ -586,10 +584,6 @@
     <a href="/en/prenota.html" hreflang="en" aria-label="English" title="Prenota il tuo tavolo">EN</a></div>
 </div>
 
-<div style="margin-top:72px;background:var(--brown);color:var(--cream-light);text-align:center;padding:12px 20px;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.02em;">
-  Il ristorante rimarrà chiuso per ferie dal 21 al 28 settembre. Vi aspettiamo dal 29 settembre!
-</div>
-
 <!-- HERO -->
 <section id="main-content" class="hero">
   <div class="hero-inner">
@@ -712,7 +706,7 @@
       <a id="btnWA2" href="https://wa.me/390982428262" target="_blank" rel="noopener" class="btn-wa" title="Scrivici su WhatsApp">
         Invia su WhatsApp →
       </a>
-      <p class="nota">Di solito rispondiamo entro pochi minuti · Aperto tutti i giorni a pranzo e cena</p>
+      <p class="nota">Di solito rispondiamo entro pochi minuti · Aperto a pranzo e cena · Chiuso il mercoledì</p>
     </div>
 
     <!-- ORARI + CONTATTI sotto il form -->
@@ -722,8 +716,9 @@
         <span class="info-card-title">Orari di apertura</span>
         <div class="orari-grid">
           <div class="orari-cell" style="grid-column:span 2;">
-            <span class="orari-giorno">Tutti i giorni</span>
+            <span class="orari-giorno">Giovedì – Martedì</span>
             <span class="orari-ore">12:30–14:30 &nbsp;·&nbsp; 19:30–22:00</span>
+            <span class="orari-chiuso" style="display:block;margin-top:4px;">Chiuso il mercoledì</span>
           </div>
         </div>
       </div>
@@ -761,7 +756,7 @@
       </div>
       <div class="info-row">
         <span class="info-icon">✓</span>
-        <span class="info-text">Il ristorante è aperto a pranzo e a cena tutti i giorni.</span>
+        <span class="info-text">Il ristorante è aperto a pranzo e a cena tutti i giorni tranne il mercoledì.</span>
       </div>
     </div>
   </div>
@@ -860,13 +855,14 @@
       for (let g = 1; g <= ultimo.getDate(); g++) {
         const d = new Date(this.year, this.month, g); d.setHours(0,0,0,0);
         const isPast = d < oggi;
+        const isChiuso = d.getDay() === 3; // chiuso il mercoledì
         const isSel = this.selected && d.toDateString() === this.selected.toDateString();
         const isToday = d.toDateString() === oggi.toDateString();
         let cls = 'dp-day';
-        if (isPast) cls += ' dp-disabled';
+        if (isPast || isChiuso) cls += ' dp-disabled';
         if (isSel) cls += ' dp-selected';
         if (isToday && !isPast) cls += ' dp-today';
-        const click = !isPast ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
+        const click = (!isPast && !isChiuso) ? ' onclick="DP2.selGiorno(' + this.year + ',' + this.month + ',' + g + ')"' : '';
         h += '<div class="' + cls + '"' + click + '>' + g + '</div>';
       }
       h += '</div>';
